@@ -2,7 +2,7 @@
 
 ## Features
 
-This module...
+This module sets up an autoscaling group on AWS with a launch configuration that is populated with an AMI produced from a packer build all wrapped in a single terraform module. 
 
 ## Terraform Versions
 
@@ -10,15 +10,46 @@ For Terraform v0.12.0+
 
 ## Usage
 
-```
-module "this" {
-    source = "github.com/robc-io/terraform-polkadot-aws-asg"
+See the `examples` directory for usage. 
 
+```hcl-terraform
+module "network" {
+  source = "github.com/insight-w3f/terraform-polkadot-aws-network.git?ref=master"
+}
+
+module "lb" {
+  source     = "github.com/insight-w3f/terraform-polkadot-aws-api-lb.git?ref=master"
+  subnet_ids = module.network.public_subnets
+  vpc_id     = module.network.vpc_id
+}
+
+variable "public_key" {}
+
+module "defaults" {
+  source = "../.."
+
+  environment = "uat"
+  namespace   = "kusama"
+  stage       = "test"
+
+  public_key             = var.public_key
+  relay_node_ip          = "1.2.3.4"
+  relay_node_p2p_address = "stuff.things"
+  security_groups        = [module.network.sentry_security_group_id]
+  subnet_ids             = module.network.public_subnets
+  lb_target_group_arn    = module.lb.lb_target_group_arn
 }
 ```
+
 ## Examples
 
 - [defaults](https://github.com/robc-io/terraform-polkadot-aws-asg/tree/master/examples/defaults)
+
+## Dependencies 
+
+- [terraform-packer-build](https://github.com/insight-infrastructure/terraform-packer-build.git) ![](https://img.shields.io/github/v/release/insight-infrastructure/terraform-packer-build?style=svg)
+- [terraform-polkadot-user-data](https://github.com/insight-w3f/terraform-polkadot-user-data.git) ![](https://img.shields.io/github/v/release/insight-w3f/terraform-polkadot-user-data?style=svg)
+- [terraform-null-label](github.com/robc-io/terraform-null-label) ![](https://img.shields.io/github/v/release/robc-io/terraform-null-label?style=svg)
 
 ## Known  Issues
 No issue is creating limit on this module.
