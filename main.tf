@@ -14,6 +14,16 @@ module "label" {
   stage       = var.stage
 }
 
+resource "null_resource" "requirements" {
+  triggers = {
+    time = timestamp()
+  }
+
+  provisioner "local-exec" {
+    command = "ansible-galaxy install -r ${path.module}/ansible/requirements.yml"
+  }
+}
+
 module "packer" {
   create = var.create
 
@@ -50,6 +60,7 @@ module "packer" {
   }
 }
 
+// Was having issues in some regions so put in a sleep to fix
 resource "null_resource" "wait" {
   triggers = {
     time = timestamp()
