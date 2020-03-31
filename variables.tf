@@ -37,12 +37,6 @@ variable "owner" {
   default     = "insight-w3f"
 }
 
-variable "zone" {
-  description = "The Azure zone to deploy in"
-  type        = string
-  default     = "eastus"
-}
-
 ##########
 # Instance
 ##########

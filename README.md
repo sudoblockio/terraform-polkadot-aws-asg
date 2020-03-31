@@ -57,7 +57,6 @@ No issue is creating limit on this module.
 | stage | The stage of the deployment | `string` | `"test"` | no |
 | subnet\_ids | The ids of the subnets to deploy into | `list(string)` | n/a | yes |
 | telemetry\_url | WSS URL for telemetry | `string` | `"wss://mi.private.telemetry.backend/"` | no |
-| zone | The Azure zone to deploy in | `string` | `"eastus"` | no |
 
 ## Outputs
 

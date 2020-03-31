@@ -42,7 +42,7 @@ module "packer" {
     chain : var.chain,
     ssh_user : var.ssh_user,
     project : var.project,
-    zone : var.zone,
+
     polkadot_binary_url : "https://github.com/w3f/polkadot/releases/download/v0.7.21/polkadot",
     polkadot_binary_checksum : "sha256:af561dc3447e8e6723413cbeed0e5b1f0f38cffaa408696a57541897bf97a34d",
     node_exporter_binary_url : "https://github.com/prometheus/node_exporter/releases/download/v0.18.1/node_exporter-0.18.1.linux-amd64.tar.gz",
