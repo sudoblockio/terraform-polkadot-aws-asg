@@ -1,0 +1,22 @@
+---
+
+- name: Create list of mounted devices
+  set_fact:
+    mounted_devices: "{{ ansible_mounts|json_query('[].device') }}"
+
+- name: Create a ext4 filesystem on all ephemeral volumes
+  filesystem:
+      fstype: ext4
+      dev: "{{ item['device_name'] }}"
+  loop: "{{ volumes }}"
+  when: item['device_name'] not in mounted_devices
+
+- name: Mount
+  mount:
+    path: /home/icon/data
+    src: "{{ volumes[0]['device_name'] }}"
+    fstype: ext4
+    state: mounted
+  when: volumes|length == 1
+
+# TODO: create raid setups for multi-volume instance stores

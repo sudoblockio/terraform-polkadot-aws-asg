@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+QUERY_RESULT=$(curl -sS -H "Content-Type: application/json" -d '{"id": 1, "jsonrpc": "2.0", "method": "system_health", "params": []}' http://localhost:9933)
+
+IS_SYNCING=$(echo $QUERY_RESULT | jq '.result.isSyncing')
+PEERS=$(echo $QUERY_RESULT | jq '.result.peers')
+NEEDS_PEERS=$(echo $QUERY_RESULT | jq '.result.shouldHavePeers')
+
+if [ $IS_SYNCING = "false" ]
+then
+	if [ $PEERS -gt 0 ] && [ $NEEDS_PEERS = "true" ]
+	then
+    	exit 0
+    elif [ $PEERS -eq 0 ] && [ $NEEDS_PEERS = "false" ]
+    then
+    	exit 0
+    else
+    	exit 1
+    fi
+else
+    exit 1
+fi

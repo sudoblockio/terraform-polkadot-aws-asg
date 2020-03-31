@@ -1,0 +1,45 @@
+volumes: "{{ ephemeral_volumes[instance_type] }}"
+
+one_ephemeral_std:
+  - { device_name: /dev/sdb }
+two_ephemeral_std:
+  - { device_name: /dev/sdb }
+  - { device_name: /dev/sdc }
+
+one_ephemeral_nvme:
+  - { device_name: /dev/nvme0n1 }
+two_ephemeral_nvme:
+  - { device_name: /dev/nvme0n1 }
+  - { device_name: /dev/nvme0n1 }
+
+four_ephemeral_nvme:
+  - { device_name: /dev/nvme0n1 }
+  - { device_name: /dev/nvme0n1 }
+
+ephemeral_volumes:
+  c5d.large: "{{ one_ephemeral_nvme }}"
+  c5d.xlarge: "{{ one_ephemeral_nvme }}"
+  c5d.2xlarge: "{{ one_ephemeral_nvme }}"
+  c5d.4xlarge: "{{ one_ephemeral_nvme }}"
+  c5d.8xlarge: "{{ one_ephemeral_nvme }}"
+  c5d.12xlarge: "{{ one_ephemeral_nvme }}"
+  c5d.18xlarge: "{{ two_ephemeral_nvme }}"
+  m5d.large: "{{ one_ephemeral_nvme }}"
+  m5d.xlarge: "{{ one_ephemeral_nvme }}"
+  m5d.2xlarge: "{{ one_ephemeral_nvme }}"
+  m5d.4xlarge: "{{ two_ephemeral_nvme }}"
+  m5d.8xlarge: "{{ two_ephemeral_nvme }}"
+  m5d.12xlarge: "{{ two_ephemeral_nvme }}"
+  m5d.16xlarge: "{{ four_ephemeral_nvme }}"
+  m5ad.large: "{{ one_ephemeral_nvme }}"
+  m5ad.xlarge: "{{ one_ephemeral_nvme }}"
+  m5ad.2xlarge: "{{ one_ephemeral_nvme }}"
+  m5ad.4xlarge: "{{ two_ephemeral_nvme }}"
+  m5ad.8xlarge: "{{ two_ephemeral_nvme }}"
+  m5ad.12xlarge: "{{ two_ephemeral_nvme }}"
+  m5ad.16xlarge: "{{ four_ephemeral_nvme }}"
+  z1d.2xlarge: "{{ one_ephemeral_nvme }}"
+  z1d.3xlarge: "{{ one_ephemeral_nvme }}"
+  z1d.6xlarge: "{{ one_ephemeral_nvme }}"
+  z1d.12xlarge: "{{ two_ephemeral_nvme }}"
+

@@ -1,0 +1,70 @@
+---
+# tasks file for health-check
+- name: Install JQ
+  apt:
+    name: jq
+    state: present
+    update_cache: yes
+
+- name: create gruntwork group
+  group:
+    name: gruntwork
+    state: present
+
+- name: add gruntwork user
+  user:
+    name: gruntwork
+    group: gruntwork
+    append: yes
+
+- name: create health check agent directory
+  file:
+    path: /root/health_check
+    state: directory
+    mode: '0755'
+
+- name: download health check agent
+  get_url:
+      url: 'https://github.com/gruntwork-io/health-checker/releases/download/v0.0.5/health-checker_linux_amd64'
+      dest: /root/health_check/health_check_agent
+      mode: '0700'
+
+- name: copy health check agent binary
+  shell: |
+    set -o pipefail
+    cp /root/health_check/health_check_agent /usr/local/bin/
+    chmod 755 /usr/local/bin/health_check_agent
+    chown root:root /usr/local/bin/health_check_agent
+  args:
+    executable: /bin/bash
+  changed_when: False
+
+- name: check if health check script exists
+  stat:
+    path: /usr/local/bin/health_check_script.sh
+  register: health_script_exists
+
+- name: create health check script
+  template:
+    src: health_check_script.sh.j2
+    dest: /usr/local/bin/health_check_script.sh
+    owner: gruntwork
+    group: gruntwork
+    mode: '0700'
+  when: health_script_exists.stat.exists == False
+
+- name: create health check agent config
+  template:
+    src: healthagent.service.j2
+    dest: /etc/systemd/system/healthagent.service
+    owner: root
+    group: root
+    mode: 0600
+
+- name: start health check agent service
+  systemd:
+    name: healthagent
+    state: restarted
+    daemon_reload: yes
+    enabled: yes
+  changed_when: false

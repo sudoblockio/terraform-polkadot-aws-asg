@@ -1,0 +1,53 @@
+{
+  "builders": [
+    {
+      "ami_description": "Ubuntu 18.04 AMI configured for polkadot",
+      "ami_name": "polkadot-ubuntu-{{isotime | clean_resource_name}}-{{uuid}}",
+      "associate_public_ip_address": true,
+      "instance_type": "t2.micro",
+      "region": "{{user `aws_region`}}",
+      "tags": {
+        "Id": "{{user `id`}}",
+        "Created": "{{isotime | clean_resource_name}}",
+        "Base_AMI_Name": "{{ .SourceAMIName }}",
+        "Distro": "Ubuntu-18.04",
+        "Release": "latest"
+      },
+      "source_ami_filter": {
+        "filters": {
+          "architecture": "x86_64",
+          "block-device-mapping.volume-type": "gp2",
+          "name": "ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*",
+          "root-device-type": "ebs",
+          "virtualization-type": "hvm"
+        },
+        "most_recent": true,
+        "owners": [
+          "099720109477"
+        ]
+      },
+      "ssh_username": "ubuntu",
+      "type": "amazon-ebs"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "ansible",
+      "playbook_file": "{{user `module_path`}}/ansible/main.yml",
+      "roles_path": "{{user `module_path`}}/ansible/roles",
+      "extra_arguments": [
+        "--extra-vars",
+        "node_exporter_user={{user `node_exporter_user`}} node_exporter_password={{user `node_exporter_password`}} node_exporter_binary_url={{user `node_exporter_binary_url`}} node_exporter_binary_checksum={{user `node_exporter_binary_checksum`}} polkadot_binary_url={{user `polkadot_binary_url`}} polkadot_binary_checksum={{user `polkadot_binary_checksum`}} chain={{user `chain`}} polkadot_restart_enabled={{user `polkadot_restart_enabled`}} polkadot_restart_minute={{user `polkadot_restart_minute`}} polkadot_restart_hour={{user `polkadot_restart_hour`}} polkadot_restart_day={{user `polkadot_restart_day`}} polkadot_restart_month={{user `polkadot_restart_month`}} polkadot_restart_weekday={{user `polkadot_restart_weekday`}} telemetryUrl={{user `telemetry_url`}} loggingFilter={{user `logging_filter`}} relay_ip_address={{user `relay_ip_address`}} relay_p2p_address={{user `relay_p2p_address`}}"
+      ]
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "output": "manifest.json",
+        "strip_path": true,
+        "type": "manifest"
+      }
+    ]
+  ]
+}

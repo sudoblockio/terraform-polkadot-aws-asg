@@ -1,0 +1,19 @@
+
+---
+- hosts: all
+  become: yes
+  strategy: free
+  roles:
+    - cloud
+    - { role: volumes, when: instance_store_enabled | default(false) | bool }
+    - { role: "dev-sec.os-hardening", when: ansible_hardening | default(false) | bool }
+    - { role: "dev-sec.ssh-hardening", when: ansible_hardening | default(false) | bool }
+    - node-exporter
+    - polkadot-common
+
+- hosts: all
+  become: yes
+  roles:
+    - common
+    - polkadot-public
+    - health-check

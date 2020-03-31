@@ -1,0 +1,25 @@
+[Unit]
+Description=Polkadot Node
+
+[Service]
+User=polkadot
+Group=polkadot
+ExecStart=/usr/local/bin/polkadot \
+         --name {{ project|default('project') }}-sv-public \
+         --chain={{ chain }} \
+         --rpc-external \
+         --rpc-cors=all \
+         {% if loggingFilter is defined and loggingFilter|length %}
+         -l{{ loggingFilter }} \
+         {% endif %}
+         --reserved-nodes /ip4/{{ relay_ip_address }}/tcp/30333/p2p/{{ relay_p2p_address }} \
+         {% if telemetryUrl is defined and telemetryUrl|length %}
+         --telemetry-url {{ telemetryUrl }}
+         {% else %}
+         --no-telemetry
+         {% endif %}
+
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
