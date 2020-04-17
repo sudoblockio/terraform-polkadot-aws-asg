@@ -54,7 +54,7 @@ variable "key_name" {
 variable "instance_type" {
   description = "Instance type"
   type        = string
-  default     = "Standard_A2_v2"
+  default     = "m4.large"
 }
 
 variable "num_instances" {

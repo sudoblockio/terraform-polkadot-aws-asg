@@ -88,6 +88,7 @@ data "aws_ami" "packer" {
 
 module "user_data" {
   source = "github.com/insight-w3f/terraform-polkadot-user-data.git?ref=master"
+  cloud_provider = "aws"
 }
 
 resource "aws_key_pair" "this" {
