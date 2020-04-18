@@ -1,6 +1,8 @@
 
 module "network" {
   source = "github.com/insight-w3f/terraform-polkadot-aws-network.git?ref=master"
+  sentry_enabled = true
+  num_azs = 2
 }
 
 module "lb" {
