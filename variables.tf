@@ -129,9 +129,11 @@ variable "logging_filter" {
 variable "relay_node_ip" {
   description = "Internal IP of Polkadot relay node"
   type        = string
+  default = ""
 }
 
 variable "relay_node_p2p_address" {
   description = "P2P address of Polkadot relay node"
   type        = string
+  default = ""
 }

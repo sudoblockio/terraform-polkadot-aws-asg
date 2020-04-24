@@ -1,8 +1,0 @@
-- name: check if running on cloud
-  stat:
-    path: /var/lib/cloud
-  register: cloud
-
-- name: Wait for updates / upgrades from user data script to release lock
-  script: wait-for-apt-on-startup.sh
-  when: cloud.stat.exists
