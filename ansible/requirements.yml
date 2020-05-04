@@ -4,6 +4,7 @@
   version: 5.2.1
 - src: dev-sec.ssh-hardening
   version: 7.0.0
-- src: insight_infra.polkadot_library
-- src: insight_infra.polkadot_health_check
+- src: insight_w3f.polkadot_library
+- src: insight_w3f.polkadot_health_check
 - src: insight_infra.cloud_helper
+- src: brianshumate.consul
