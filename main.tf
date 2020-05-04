@@ -113,6 +113,7 @@ module "asg" {
 
   instance_type   = "c4.large"
   security_groups = var.security_groups
+  iam_instance_profile = aws_iam_instance_profile.this.name
 
   root_block_device = [
     {
