@@ -1,18 +1,18 @@
 data "aws_region" "this" {}
 
-module "label" {
-  source = "github.com/robc-io/terraform-null-label.git?ref=0.16.1"
-  tags = {
-    NetworkName = var.network_name
-    Owner       = var.owner
-    Terraform   = true
-    VpcType     = "main"
-  }
-
-  environment = var.environment
-  namespace   = var.namespace
-  stage       = var.stage
-}
+//module "label" {
+//  source = "github.com/robc-io/terraform-null-label.git?ref=0.16.1"
+//  tags = {
+//    NetworkName = var.network_name
+//    Owner       = var.owner
+//    Terraform   = true
+//    VpcType     = "main"
+//  }
+//
+//  environment = var.environment
+//  namespace   = var.namespace
+//  stage       = var.stage
+//}
 
 resource "null_resource" "requirements" {
   triggers = {
@@ -24,6 +24,15 @@ resource "null_resource" "requirements" {
   }
 }
 
+resource "random_pet" "this" {
+  length = 2
+}
+
+locals {
+  id   = var.id == "" ? random_pet.this.id : var.id
+  name = var.name == "" ? random_pet.this.id : var.name
+}
+
 module "packer" {
   create = var.create
 
@@ -32,7 +41,8 @@ module "packer" {
   packer_config_path = "${path.module}/packer.json"
   timestamp_ui       = true
   vars = {
-    id = module.label.id,
+    id = local.id
+
     aws_region  = data.aws_region.this.name,
     module_path = path.module,
     node_exporter_user : var.node_exporter_user,
@@ -79,7 +89,7 @@ data "aws_ami" "packer" {
 
   filter {
     name   = "tag:Id"
-    values = [module.label.id]
+    values = [local.id]
   }
 
   owners = ["self"]
@@ -88,9 +98,9 @@ data "aws_ami" "packer" {
 }
 
 module "user_data" {
-  source = "github.com/insight-w3f/terraform-polkadot-user-data.git?ref=master"
-  cloud_provider = "aws"
-  type = "library"
+  source              = "github.com/insight-w3f/terraform-polkadot-user-data.git?ref=master"
+  cloud_provider      = "aws"
+  type                = "library"
   consul_enabled      = var.consul_enabled
   prometheus_enabled  = var.prometheus_enabled
   prometheus_user     = var.node_exporter_user
@@ -100,6 +110,8 @@ module "user_data" {
 resource "aws_key_pair" "this" {
   count      = var.key_name == "" ? 1 : 0
   public_key = var.public_key
+
+  tags = var.tags
 }
 
 module "asg" {
@@ -108,8 +120,8 @@ module "asg" {
 
   spot_price = "1"
 
-  name    = module.label.id
-  lc_name = module.label.id
+  name    = var.name
+  lc_name = var.lc_name == "" ? var.name : var.lc_name
 
   user_data = module.user_data.user_data
 
@@ -117,8 +129,8 @@ module "asg" {
 
   image_id = data.aws_ami.packer.id
 
-  instance_type   = "c4.large"
-  security_groups = var.security_groups
+  instance_type        = var.instance_type
+  security_groups      = var.security_groups
   iam_instance_profile = aws_iam_instance_profile.this.name
 
   root_block_device = [
@@ -132,12 +144,12 @@ module "asg" {
 
   health_check_type = "EC2"
   //  TODO Verify ^^
-  min_size                  = 1
-  max_size                  = 3
-  desired_capacity          = 1
-  wait_for_capacity_timeout = 0
+  min_size                  = var.min_size
+  max_size                  = var.max_size
+  desired_capacity          = var.desired_capacity
+  wait_for_capacity_timeout = var.wait_for_capacity_timeout
 
-  tags_as_map = module.label.tags
+  tags_as_map = var.tags
 }
 
 resource "aws_autoscaling_attachment" "this" {

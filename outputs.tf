@@ -1,9 +1,13 @@
 output "name" {
-  value = module.label.name
+  value = local.name
+}
+
+output "id" {
+  value = local.id
 }
 
 output "tags" {
-  value = module.label.tags
+  value = var.tags
 }
 
 output "user_data" {
