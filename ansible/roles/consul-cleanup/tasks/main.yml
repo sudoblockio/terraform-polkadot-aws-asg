@@ -1,0 +1,10 @@
+- name: Stop Consul service
+  systemd:
+    name: consul
+    state: stopped
+    daemon_reload: no
+    enabled: no
+  changed_when: false
+
+- name: Delete Consul data files
+  shell: rm -rf /var/consul/*

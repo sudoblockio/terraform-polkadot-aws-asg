@@ -32,21 +32,18 @@ module "packer" {
   packer_config_path = "${path.module}/packer.json"
   timestamp_ui       = true
   vars = {
-    id = module.label.id
-
-    aws_region  = data.aws_region.this.name
+    id = module.label.id,
+    aws_region  = data.aws_region.this.name,
     module_path = path.module,
-
     node_exporter_user : var.node_exporter_user,
     node_exporter_password : var.node_exporter_password,
     chain : var.chain,
     ssh_user : var.ssh_user,
     project : var.project,
-
-    polkadot_binary_url : "https://github.com/w3f/polkadot/releases/download/v0.7.21/polkadot",
-    polkadot_binary_checksum : "sha256:af561dc3447e8e6723413cbeed0e5b1f0f38cffaa408696a57541897bf97a34d",
-    node_exporter_binary_url : "https://github.com/prometheus/node_exporter/releases/download/v0.18.1/node_exporter-0.18.1.linux-amd64.tar.gz",
-    node_exporter_binary_checksum : "sha256:b2503fd932f85f4e5baf161268854bf5d22001869b84f00fd2d1f57b51b72424",
+    polkadot_binary_url : var.polkadot_client_url,
+    polkadot_binary_checksum : "sha256:${var.polkadot_client_hash}",
+    node_exporter_binary_url : var.node_exporter_url,
+    node_exporter_binary_checksum : "sha256:${var.node_exporter_hash}",
     polkadot_restart_enabled : true,
     polkadot_restart_minute : "50",
     polkadot_restart_hour : "10",
@@ -57,6 +54,10 @@ module "packer" {
     logging_filter : var.logging_filter,
     relay_ip_address : var.relay_node_ip,
     relay_p2p_address : var.relay_node_p2p_address,
+    consul_datacenter : data.aws_region.this.name,
+    consul_enabled : var.consul_enabled,
+    prometheus_enabled : var.prometheus_enabled,
+    retry_join : "\"provider=aws tag_key='k8s.io/cluster/${var.cluster_name}' tag_value=owned\""
   }
 }
 
@@ -88,6 +89,12 @@ data "aws_ami" "packer" {
 
 module "user_data" {
   source = "github.com/insight-w3f/terraform-polkadot-user-data.git?ref=master"
+  cloud_provider = "aws"
+  type = "library"
+  consul_enabled      = var.consul_enabled
+  prometheus_enabled  = var.prometheus_enabled
+  prometheus_user     = var.node_exporter_user
+  prometheus_password = var.node_exporter_password
 }
 
 resource "aws_key_pair" "this" {
@@ -112,6 +119,7 @@ module "asg" {
 
   instance_type   = "c4.large"
   security_groups = var.security_groups
+  iam_instance_profile = aws_iam_instance_profile.this.name
 
   root_block_device = [
     {
