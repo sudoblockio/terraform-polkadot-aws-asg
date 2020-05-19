@@ -149,10 +149,12 @@ module "asg" {
   desired_capacity          = var.desired_capacity
   wait_for_capacity_timeout = var.wait_for_capacity_timeout
 
+  target_group_arns = [aws_lb_target_group.this[0].arn]
+
   tags_as_map = var.tags
 }
 
-resource "aws_autoscaling_attachment" "this" {
-  autoscaling_group_name = module.asg.this_autoscaling_group_id
-  alb_target_group_arn   = var.lb_target_group_arn
-}
+//resource "aws_autoscaling_attachment" "this" {
+//  autoscaling_group_name = module.asg.this_autoscaling_group_id
+//  alb_target_group_arn   = var.lb_target_group_arn
+//}

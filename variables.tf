@@ -134,9 +134,25 @@ variable "security_groups" {
   type        = list(string)
 }
 
-variable "lb_target_group_arn" {
-  description = "ID of the lb target group"
+variable "vpc_id" {
+  description = "vpc id"
   type        = string
+}
+
+##########
+# Load Balancer
+##########
+
+variable "use_lb" {
+  description = "Bool to enable use of load balancer"
+  type        = bool
+  default     = true
+}
+
+variable "use_external_lb" {
+  description = "Bool to switch between public (true) or private (false)"
+  type        = bool
+  default     = true
 }
 
 #####
