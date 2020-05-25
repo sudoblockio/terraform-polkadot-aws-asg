@@ -5,7 +5,7 @@ resource "aws_eip" "this" {
 # Network Load Balancer for apiservers and ingress
 resource "aws_lb" "this" {
   count = var.use_lb ? 1 : 0
-  name = local.id
+  name  = local.id
 
   load_balancer_type = "network"
 
@@ -23,26 +23,60 @@ resource "aws_lb" "this" {
   enable_cross_zone_load_balancing = true
 }
 
-resource "aws_lb_listener" "this" {
-  count = var.use_lb ? 1 : 0
+resource "aws_lb_listener" "rpc" {
+  count             = var.use_lb ? 1 : 0
   load_balancer_arn = aws_lb.this[0].arn
   protocol          = "TCP"
   port              = 9933
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.this[0].arn
+    target_group_arn = aws_lb_target_group.rpc[0].arn
   }
 }
 
-resource "aws_lb_target_group" "this" {
-  count = var.use_lb ? 1 : 0
-  name        = local.id
+resource "aws_lb_listener" "wss" {
+  count             = var.use_lb ? 1 : 0
+  load_balancer_arn = aws_lb.this[0].arn
+  protocol          = "TCP"
+  port              = 9944
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.wss[0].arn
+  }
+}
+
+resource "aws_lb_target_group" "rpc" {
+  count       = var.use_lb ? 1 : 0
+  name        = "${local.id}-rpc"
   vpc_id      = var.vpc_id
   target_type = "instance"
 
   protocol = "TCP"
   port     = 9933
+
+  health_check {
+    protocol = "TCP"
+    port     = 5500
+
+    # NLBs required to use same healthy and unhealthy thresholds
+    healthy_threshold   = 3
+    unhealthy_threshold = 3
+
+    # Interval between health checks required to be 10 or 30
+    interval = 10
+  }
+}
+
+resource "aws_lb_target_group" "wss" {
+  count       = var.use_lb ? 1 : 0
+  name        = "${local.id}-wss"
+  vpc_id      = var.vpc_id
+  target_type = "instance"
+
+  protocol = "TCP"
+  port     = 9944
 
   health_check {
     protocol = "TCP"

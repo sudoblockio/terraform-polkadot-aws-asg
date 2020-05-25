@@ -120,8 +120,8 @@ module "asg" {
 
   spot_price = "1"
 
-  name    = var.name
-  lc_name = var.lc_name == "" ? var.name : var.lc_name
+  name    = local.name
+  lc_name = var.lc_name == "" ? local.name : var.lc_name
 
   user_data = module.user_data.user_data
 
@@ -149,7 +149,7 @@ module "asg" {
   desired_capacity          = var.desired_capacity
   wait_for_capacity_timeout = var.wait_for_capacity_timeout
 
-  target_group_arns = [aws_lb_target_group.this[0].arn]
+  target_group_arns = [aws_lb_target_group.rpc[0].arn, aws_lb_target_group.wss[0].arn]
 
   tags_as_map = var.tags
 }

@@ -42,10 +42,18 @@ output "lb_arn" {
   value = aws_lb.this[0].arn
 }
 
-output "lb_target_group_arn" {
-  value = aws_lb_target_group.this[0].arn
+output "lb_rpc_target_group_arn" {
+  value = aws_lb_target_group.rpc[0].arn
 }
 
-output "lb_target_group_id" {
-  value = aws_lb_target_group.this[0].id
+output "lb_rpc_target_group_id" {
+  value = aws_lb_target_group.rpc[0].id
+}
+
+output "lb_wss_target_group_arn" {
+  value = aws_lb_target_group.wss[0].arn
+}
+
+output "lb_wss_target_group_id" {
+  value = aws_lb_target_group.wss[0].id
 }

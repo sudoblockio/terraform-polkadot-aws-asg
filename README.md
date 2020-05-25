@@ -55,6 +55,10 @@ module "defaults" {
 No issue is creating limit on this module.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
+
+No requirements.
+
 ## Providers
 
 | Name | Version |
@@ -66,7 +70,7 @@ No issue is creating limit on this module.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:-----:|
+|------|-------------|------|---------|:--------:|
 | chain | Which Polkadot chain to join | `string` | `"kusama"` | no |
 | cluster\_name | The name of the k8s cluster | `string` | `""` | no |
 | consul\_enabled | Bool to use when Consul is enabled | `bool` | `false` | no |
@@ -75,7 +79,6 @@ No issue is creating limit on this module.
 | id | The id to give the ami | `string` | `""` | no |
 | instance\_type | Instance type | `string` | `"i3.large"` | no |
 | key\_name | The name of the preexisting key to be used instead of the local public\_key\_path | `string` | `""` | no |
-| lb\_target\_group\_arn | ID of the lb target group | `string` | n/a | yes |
 | lc\_name | The name to give the launch configuration - defaults to 'name' | `string` | `""` | no |
 | logging\_filter | String for polkadot logging filter | `string` | `"sync=trace,afg=trace,babe=debug"` | no |
 | max\_size | The max size of asg | `string` | `10` | no |
@@ -98,6 +101,9 @@ No issue is creating limit on this module.
 | subnet\_ids | The ids of the subnets to deploy into | `list(string)` | n/a | yes |
 | tags | Tags to give resource | `map(string)` | `{}` | no |
 | telemetry\_url | WSS URL for telemetry | `string` | `""` | no |
+| use\_external\_lb | Bool to switch between public (true) or private (false) | `bool` | `true` | no |
+| use\_lb | Bool to enable use of load balancer | `bool` | `true` | no |
+| vpc\_id | vpc id | `string` | n/a | yes |
 | wait\_for\_capacity\_timeout | A maximum duration that Terraform should wait for ASG instances to be healthy before timing out. (See also Waiting for Capacity below.) Setting this to '0' causes Terraform to skip all Capacity Waiting behavior. | `string` | `"10m"` | no |
 
 ## Outputs
@@ -107,8 +113,16 @@ No issue is creating limit on this module.
 | autoscaling\_group\_arn | n/a |
 | autoscaling\_group\_id | n/a |
 | autoscaling\_group\_name | n/a |
+| dns\_name | n/a |
 | id | n/a |
+| lb\_arn | n/a |
+| lb\_id | n/a |
+| lb\_rpc\_target\_group\_arn | n/a |
+| lb\_rpc\_target\_group\_id | n/a |
+| lb\_wss\_target\_group\_arn | n/a |
+| lb\_wss\_target\_group\_id | n/a |
 | name | n/a |
+| public\_ips | n/a |
 | tags | n/a |
 | user\_data | n/a |
 
