@@ -5,12 +5,6 @@ module "network" {
   num_azs        = 2
 }
 
-module "lb" {
-  source     = "github.com/insight-w3f/terraform-polkadot-aws-api-lb.git?ref=master"
-  subnet_ids = module.network.public_subnets
-  vpc_id     = module.network.vpc_id
-}
-
 variable "public_key" {}
 
 resource "random_pet" "this" {}
@@ -27,5 +21,5 @@ module "defaults" {
   public_key          = var.public_key
   security_groups     = [module.network.sentry_security_group_id]
   subnet_ids          = module.network.public_subnets
-  lb_target_group_arn = module.lb.lb_target_group_arn
+  vpc_id = module.network.vpc_id
 }
