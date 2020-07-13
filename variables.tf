@@ -60,10 +60,6 @@ variable "wait_for_capacity_timeout" {
   default     = "10m"
 }
 
-
-
-
-
 //
 //variable "environment" {
 //  description = "The environment"
@@ -194,7 +190,7 @@ variable "node_exporter_password" {
   default     = "node_exporter_password"
 }
 
-variable "chain" {
+variable "network_name" {
   description = "Which Polkadot chain to join"
   type        = string
   default     = "kusama"

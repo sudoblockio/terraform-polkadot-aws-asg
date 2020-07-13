@@ -33,7 +33,7 @@ module "packer" {
     module_path = path.module,
     node_exporter_user : var.node_exporter_user,
     node_exporter_password : var.node_exporter_password,
-    chain : var.chain,
+    chain : var.network_name,
     ssh_user : var.ssh_user,
     project : var.project,
     polkadot_binary_url : var.polkadot_client_url,
