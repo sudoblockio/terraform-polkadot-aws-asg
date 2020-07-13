@@ -89,7 +89,8 @@ No issue is creating limit on this module.
 | polkadot\_client\_url | URL to Polkadot client binary | `string` | `"https://github.com/w3f/polkadot/releases/download/v0.7.32/polkadot"` | no |
 | project | Name of the project for node name | `string` | `"project"` | no |
 | prometheus\_enabled | Bool to use when Prometheus is enabled | `bool` | `false` | no |
-| public\_key | The public ssh key | `string` | n/a | yes |
+| public\_key | The public ssh key | `string` | `""` | no |
+| public\_key\_path | A path to the public key | `string` | `""` | no |
 | relay\_node\_ip | Internal IP of Polkadot relay node | `string` | `""` | no |
 | relay\_node\_p2p\_address | P2P address of Polkadot relay node | `string` | `""` | no |
 | security\_groups | The ids of the security groups | `list(string)` | n/a | yes |

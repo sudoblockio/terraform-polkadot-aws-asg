@@ -93,9 +93,13 @@ module "user_data" {
   prometheus_password = var.node_exporter_password
 }
 
+locals {
+  public_key = var.public_key_path != "" ? file(var.public_key_path) : var.public_key
+}
+
 resource "aws_key_pair" "this" {
   count      = var.key_name == "" ? 1 : 0
-  public_key = var.public_key
+  public_key = local.public_key
 
   tags = var.tags
 }

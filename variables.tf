@@ -97,6 +97,13 @@ variable "wait_for_capacity_timeout" {
 variable "public_key" {
   description = "The public ssh key"
   type        = string
+  default     = ""
+}
+
+variable "public_key_path" {
+  description = "A path to the public key"
+  type        = string
+  default     = ""
 }
 
 variable "key_name" {
