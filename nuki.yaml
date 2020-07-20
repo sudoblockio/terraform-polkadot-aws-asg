@@ -1,29 +1,24 @@
-aws_regions_options_:
-  type: aws_regions
-  when: "{{ nuki.aws_region is not defined }}"
-
-aws_region:
+aws_instance_family_:
   type: list
-  message: Which AWS region?
-  choices: "{{ nuki.aws_regions_options_ }}"
-  when: "{{ nuki.aws_region is not defined }}"
-
-aws_available_instances_:
-  type: aws_ec2_types
-  region: "{{ nuki.aws_region }}"
-  instance_families:
+  message: What instance family do you want to run?
+  choices:
     - i3
     - i3en
     - c5d
 
+aws_available_instances_:
+  type: aws_ec2_types
+  region: "{{ nuki.region }}"
+  instance_families: ["{{ nuki.aws_instance_family_ }}"]
+
 instane_type:
   type: list
-  message: What type of instance do you want to create?
+  message: What type of data instances do you want to create?
   choices: "{{ nuki.aws_available_instances_ }}"
 
-num_workers:
+num_instances:
   type: input
-  when: "{{ nuki.cluster_autoscale }}"
+  message: Number of instances to create >>
   default: 3
 
 key_type_:
@@ -36,9 +31,13 @@ key_type_:
     - Existing key
 
 public_key_path:
-  type: expand
+  type: input
   when: "{{ nuki.key_type_ == 'public_key_path' }}"
   message: Please give the path to the ssh public key?
+
+check_public_key_path_:
+  type: path_exists
+  path: "{{ nuki.public_key_path }}"
 
 public_key:
   type: input
@@ -49,7 +48,6 @@ key_name:
   type: input
   when: "{{ nuki.key_type_ == 'public_key' }}"
   message: Please enter the exact key name >>
-
 
 #tf_variables_:
 #  type: terraform_variables
