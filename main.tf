@@ -33,7 +33,7 @@ module "packer" {
     module_path = path.module,
     node_exporter_user : var.node_exporter_user,
     node_exporter_password : var.node_exporter_password,
-    chain : var.chain,
+    chain : var.network_name,
     ssh_user : var.ssh_user,
     project : var.project,
     polkadot_binary_url : var.polkadot_client_url,
@@ -93,9 +93,13 @@ module "user_data" {
   prometheus_password = var.node_exporter_password
 }
 
+locals {
+  public_key = var.public_key_path != "" ? file(var.public_key_path) : var.public_key
+}
+
 resource "aws_key_pair" "this" {
   count      = var.key_name == "" ? 1 : 0
-  public_key = var.public_key
+  public_key = local.public_key
 
   tags = var.tags
 }

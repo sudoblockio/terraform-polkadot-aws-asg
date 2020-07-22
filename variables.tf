@@ -60,10 +60,6 @@ variable "wait_for_capacity_timeout" {
   default     = "10m"
 }
 
-
-
-
-
 //
 //variable "environment" {
 //  description = "The environment"
@@ -101,6 +97,13 @@ variable "wait_for_capacity_timeout" {
 variable "public_key" {
   description = "The public ssh key"
   type        = string
+  default     = ""
+}
+
+variable "public_key_path" {
+  description = "A path to the public key"
+  type        = string
+  default     = ""
 }
 
 variable "key_name" {
@@ -194,7 +197,7 @@ variable "node_exporter_password" {
   default     = "node_exporter_password"
 }
 
-variable "chain" {
+variable "network_name" {
   description = "Which Polkadot chain to join"
   type        = string
   default     = "kusama"

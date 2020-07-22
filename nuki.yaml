@@ -1,0 +1,57 @@
+aws_instance_family_:
+  type: list
+  message: What instance family do you want to run?
+  choices:
+    - i3
+    - i3en
+    - c5d
+
+aws_available_instances_:
+  type: aws_ec2_types
+  region: "{{ nuki.region }}"
+  instance_families: ["{{ nuki.aws_instance_family_ }}"]
+
+instane_type:
+  type: list
+  message: What type of data instances do you want to create?
+  choices: "{{ nuki.aws_available_instances_ }}"
+
+num_instances:
+  type: input
+  message: Number of instances to create >>
+  default: 3
+
+key_type_:
+  type: list
+  when: "{{ nuki.public_key is not defined or nuki.public_key_path is not defined }}"
+  message: Do you want to supply the path or the actual public key?
+  choices:
+    - public_key_path
+    - public_key
+    - Existing key
+
+public_key_path:
+  type: input
+  when: "{{ nuki.key_type_ == 'public_key_path' }}"
+  message: Please give the path to the ssh public key?
+
+check_public_key_path_:
+  type: path_exists
+  path: "{{ nuki.public_key_path }}"
+
+public_key:
+  type: input
+  when: "{{ nuki.key_type_ == 'public_key' }}"
+  message: Please paste the whole public ssh key >>
+
+key_name:
+  type: input
+  when: "{{ nuki.key_type_ == 'public_key' }}"
+  message: Please enter the exact key name >>
+
+#tf_variables_:
+#  type: terraform_variables
+#  variables_file: variables.tf
+#  merge: true
+#  var_list:
+#    -

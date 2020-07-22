@@ -55,10 +55,6 @@ module "defaults" {
 No issue is creating limit on this module.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-## Requirements
-
-No requirements.
-
 ## Providers
 
 | Name | Version |
@@ -70,8 +66,7 @@ No requirements.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| chain | Which Polkadot chain to join | `string` | `"kusama"` | no |
+|------|-------------|------|---------|:-----:|
 | cluster\_name | The name of the k8s cluster | `string` | `""` | no |
 | consul\_enabled | Bool to use when Consul is enabled | `bool` | `false` | no |
 | create | Bool to create the resources | `bool` | `true` | no |
@@ -84,6 +79,7 @@ No requirements.
 | max\_size | The max size of asg | `string` | `10` | no |
 | min\_size | The min size of asg | `string` | `0` | no |
 | name | The name to give the ASG and associated resources | `string` | `""` | no |
+| network\_name | Which Polkadot chain to join | `string` | `"kusama"` | no |
 | node\_exporter\_hash | SHA256 hash of Node Exporter binary | `string` | `"b2503fd932f85f4e5baf161268854bf5d22001869b84f00fd2d1f57b51b72424"` | no |
 | node\_exporter\_password | Password for node exporter | `string` | `"node_exporter_password"` | no |
 | node\_exporter\_url | URL to Node Exporter binary | `string` | `"https://github.com/prometheus/node_exporter/releases/download/v0.18.1/node_exporter-0.18.1.linux-amd64.tar.gz"` | no |
@@ -93,7 +89,8 @@ No requirements.
 | polkadot\_client\_url | URL to Polkadot client binary | `string` | `"https://github.com/w3f/polkadot/releases/download/v0.7.32/polkadot"` | no |
 | project | Name of the project for node name | `string` | `"project"` | no |
 | prometheus\_enabled | Bool to use when Prometheus is enabled | `bool` | `false` | no |
-| public\_key | The public ssh key | `string` | n/a | yes |
+| public\_key | The public ssh key | `string` | `""` | no |
+| public\_key\_path | A path to the public key | `string` | `""` | no |
 | relay\_node\_ip | Internal IP of Polkadot relay node | `string` | `""` | no |
 | relay\_node\_p2p\_address | P2P address of Polkadot relay node | `string` | `""` | no |
 | security\_groups | The ids of the security groups | `list(string)` | n/a | yes |
