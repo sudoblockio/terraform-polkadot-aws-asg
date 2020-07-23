@@ -31,29 +31,29 @@ output "public_ips" {
 }
 
 output "dns_name" {
-  value = aws_lb.this[0].dns_name
+  value = join("", aws_lb.this.*.dns_name)
 }
 
 output "lb_id" {
-  value = aws_lb.this[0].id
+  value = join("", aws_lb.this.*.id)
 }
 
 output "lb_arn" {
-  value = aws_lb.this[0].arn
+  value = join("", aws_lb.this.*.arn)
 }
 
 output "lb_rpc_target_group_arn" {
-  value = aws_lb_target_group.rpc[0].arn
+  value = join("", aws_lb_target_group.rpc.*.arn)
 }
 
 output "lb_rpc_target_group_id" {
-  value = aws_lb_target_group.rpc[0].id
+  value = join("", aws_lb_target_group.rpc.*.id)
 }
 
 output "lb_wss_target_group_arn" {
-  value = aws_lb_target_group.wss[0].arn
+  value = join("", aws_lb_target_group.wss.*.arn)
 }
 
 output "lb_wss_target_group_id" {
-  value = aws_lb_target_group.wss[0].id
+  value = join("", aws_lb_target_group.wss.*.id)
 }
