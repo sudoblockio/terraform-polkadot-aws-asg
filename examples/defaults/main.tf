@@ -14,12 +14,8 @@ module "defaults" {
 
   name = random_pet.this.id
 
-  //  environment = "uat"
-  //  namespace   = "kusama"
-  //  stage       = "test"
-
-  public_key          = var.public_key
-  security_groups     = [module.network.sentry_security_group_id]
-  subnet_ids          = module.network.public_subnets
-  vpc_id = module.network.vpc_id
+  public_key      = var.public_key
+  security_groups = [module.network.sentry_security_group_id]
+  subnet_ids      = module.network.public_subnets
+  vpc_id          = module.network.vpc_id
 }

@@ -11,3 +11,6 @@ terraform.tfvars
 
 test/fixtures/keys/*
 !test/fixtures/keys/.gitkeep
+
+.bak/
+*__pycache__

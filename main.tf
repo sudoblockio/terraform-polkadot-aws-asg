@@ -121,7 +121,7 @@ module "asg" {
 
   instance_type        = var.instance_type
   security_groups      = var.security_groups
-  iam_instance_profile = aws_iam_instance_profile.this.name
+  iam_instance_profile = var.iam_instance_profile
 
   root_block_device = [
     {
