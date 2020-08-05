@@ -71,6 +71,7 @@ No issue is creating limit on this module.
 | consul\_enabled | Bool to use when Consul is enabled | `bool` | `false` | no |
 | create | Bool to create the resources | `bool` | `true` | no |
 | desired\_capacity | The desired capacity of asg | `string` | `2` | no |
+| iam\_instance\_profile | The instance profile to associate with the asg - leasve blank to create one regionally scoped. | `string` | `""` | no |
 | id | The id to give the ami | `string` | `""` | no |
 | instance\_type | Instance type | `string` | `"i3.large"` | no |
 | key\_name | The name of the preexisting key to be used instead of the local public\_key\_path | `string` | `""` | no |

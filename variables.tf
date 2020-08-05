@@ -35,7 +35,6 @@ variable "tags" {
 #####
 # asg
 #####
-
 variable "min_size" {
   description = "The min size of asg"
   type        = string
@@ -60,36 +59,11 @@ variable "wait_for_capacity_timeout" {
   default     = "10m"
 }
 
-//
-//variable "environment" {
-//  description = "The environment"
-//  type        = string
-//  default     = "dev"
-//}
-//
-//variable "namespace" {
-//  description = "The namespace to deploy into"
-//  type        = string
-//  default     = "polkadot"
-//}
-//
-//variable "stage" {
-//  description = "The stage of the deployment"
-//  type        = string
-//  default     = "test"
-//}
-//
-//variable "network_name" {
-//  description = "The network name, ie kusama / mainnet"
-//  type        = string
-//  default     = "kusama"
-//}
-//
-//variable "owner" {
-//  description = "Owner of the infrastructure"
-//  type        = string
-//  default     = "insight-w3f"
-//}
+variable "iam_instance_profile" {
+  description = "The instance profile to associate with the asg - leasve blank to create one regionally scoped."
+  type        = string
+  default     = ""
+}
 
 ##########
 # Instance
