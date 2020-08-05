@@ -1,3 +1,9 @@
+---
+
+print_:
+  type: print
+  statement: Configuring Polkadot AWS Auto-Scaling Group
+
 aws_instance_family_:
   type: select
   message: What instance family do you want to run?
@@ -20,34 +26,6 @@ num_instances:
   type: input
   message: Number of instances to create >>
   default: 3
-
-key_type_:
-  type: select
-  when: "{{ nuki.public_key is not defined or nuki.public_key_path is not defined }}"
-  message: Do you want to supply the path or the actual public key?
-  choices:
-    - public_key_path
-    - public_key
-    - Existing key
-
-public_key_path:
-  type: input
-  when: "{{ nuki.key_type_ == 'public_key_path' }}"
-  message: Please give the path to the ssh public key?
-
-check_public_key_path_:
-  type: path_exists
-  path: "{{ nuki.public_key_path }}"
-
-public_key:
-  type: input
-  when: "{{ nuki.key_type_ == 'public_key' }}"
-  message: Please paste the whole public ssh key >>
-
-key_name:
-  type: input
-  when: "{{ nuki.key_type_ == 'public_key' }}"
-  message: Please enter the exact key name >>
 
 #tf_variables_:
 #  type: terraform_variables
