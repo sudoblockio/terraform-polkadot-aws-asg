@@ -95,6 +95,7 @@ No issue is creating limit on this module.
 | relay\_node\_ip | Internal IP of Polkadot relay node | `string` | `""` | no |
 | relay\_node\_p2p\_address | P2P address of Polkadot relay node | `string` | `""` | no |
 | security\_groups | The ids of the security groups | `list(string)` | n/a | yes |
+| skip\_health\_check | Bool to skip the health check and give requests while syncing | `bool` | `false` | no |
 | ssh\_user | Username for SSH | `string` | `"ubuntu"` | no |
 | subnet\_ids | The ids of the subnets to deploy into | `list(string)` | n/a | yes |
 | tags | Tags to give resource | `map(string)` | `{}` | no |

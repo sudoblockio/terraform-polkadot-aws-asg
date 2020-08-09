@@ -29,6 +29,8 @@ module "packer" {
   vars = {
     id = local.id
 
+    skip_health_check = var.skip_health_check
+
     aws_region  = data.aws_region.this.name,
     module_path = path.module,
     node_exporter_user : var.node_exporter_user,
@@ -98,7 +100,9 @@ locals {
 }
 
 resource "aws_key_pair" "this" {
-  count      = var.key_name == "" ? 1 : 0
+  count = var.key_name == "" ? 1 : 0
+
+  key_name   = var.id
   public_key = local.public_key
 
   tags = var.tags

@@ -68,6 +68,12 @@ variable "iam_instance_profile" {
 ##########
 # Instance
 ##########
+variable "skip_health_check" {
+  description = "Bool to skip the health check and give requests while syncing"
+  type        = bool
+  default     = false
+}
+
 variable "public_key" {
   description = "The public ssh key"
   type        = string
