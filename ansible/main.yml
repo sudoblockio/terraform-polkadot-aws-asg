@@ -3,24 +3,26 @@
 - hosts: all
   become: yes
   tasks:
-    - include_role:
+    - name: Include CloudHelper
+      include_role:
         name: insight_infra.cloud_helper
       vars:
         enable_cloud_wait: true
         enable_jq: true
-    - include_role:
+    - name: Run volumes playbook
+      include_role:
         name: volumes
       when: instance_store_enabled | default(false) | bool
-    - include_role:
+    - name: Run OS hardening playbook
+      include_role:
         name: dev-sec.os-hardening
       when: ansible_hardening | default(false) | bool
-    - include_role:
+    - name: Run SSH hardening playbook
+      include_role:
         name: dev-sec.ssh-hardening
       when: ansible_hardening | default(false) | bool
-    - include_role:
-        name: node-exporter
-      when: prometheus_enabled|bool
-    - include_role:
+    - name: Install Consul
+      include_role:
         name: brianshumate.consul
       vars:
         consul_group_name: "all"
@@ -30,10 +32,28 @@
           retry_join:
             - "{{ retry_join_string }}"
       when: consul_enabled|bool
-    - include_role:
+    - name: Run Consul Cleanup playbook
+      include_role:
         name: consul-cleanup
       when: consul_enabled|bool
-    - include_role:
+    - name: Install Polkadot Base
+      include_role:
+        name: insight_w3f.polkadot_base
+      vars:
+        prometheus_port: "{{ item.value['polkadot_prometheus'] }}"
+        api_rpc_port: "{{ item.value['json_rpc'] }}"
+        api_wss_port: "{{ item.value['ws_rpc'] }}"
+        health_check_port: "{{ item.value['api_health'] }}"
+        chain: "{{ item.value['name'] }}"
+      loop: "{{ network_settings | from_json | dict2items }}"
+    - name: Install Polkadot Library
+      include_role:
         name: insight_w3f.polkadot_library
-    - include_role:
-        name: insight_w3f.polkadot_health_check
+      vars:
+        prometheus_port: "{{ item.value['polkadot_prometheus'] }}"
+        api_rpc_port: "{{ item.value['json_rpc'] }}"
+        api_wss_port: "{{ item.value['ws_rpc'] }}"
+        chain_stub: "{{ item.value['shortname'] }}"
+        chain: "{{ item.value['name'] }}"
+        project: "{{ item.value['name'] }}"
+      loop: "{{ network_settings | from_json | dict2items }}"

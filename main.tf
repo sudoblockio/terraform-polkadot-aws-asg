@@ -17,6 +17,15 @@ resource "random_pet" "this" {
 locals {
   id   = var.id == "" ? random_pet.this.id : var.id
   name = var.name == "" ? random_pet.this.id : var.name
+
+  network_settings = var.network_settings == null ? { network = {
+    name                = var.network_name
+    shortname           = var.network_stub
+    api_health          = var.health_check_port
+    polkadot_prometheus = var.polkadot_prometheus_port
+    json_rpc            = var.rpc_api_port
+    ws_rpc              = var.wss_api_port
+  } } : var.network_settings
 }
 
 module "packer" {
@@ -27,35 +36,31 @@ module "packer" {
   packer_config_path = "${path.module}/packer.json"
   timestamp_ui       = true
   vars = {
-    id = local.id
-
-    skip_health_check = var.skip_health_check
-
-    aws_region  = data.aws_region.this.name,
-    module_path = path.module,
-    node_exporter_user : var.node_exporter_user,
-    node_exporter_password : var.node_exporter_password,
-    chain : var.network_name,
-    ssh_user : var.ssh_user,
-    project : var.project,
-    polkadot_binary_url : var.polkadot_client_url,
-    polkadot_binary_checksum : "sha256:${var.polkadot_client_hash}",
-    node_exporter_binary_url : var.node_exporter_url,
-    node_exporter_binary_checksum : "sha256:${var.node_exporter_hash}",
-    polkadot_restart_enabled : true,
-    polkadot_restart_minute : "50",
-    polkadot_restart_hour : "10",
-    polkadot_restart_day : "1",
-    polkadot_restart_month : "*",
-    polkadot_restart_weekday : "*",
-    telemetry_url : var.telemetry_url,
-    logging_filter : var.logging_filter,
-    relay_ip_address : var.relay_node_ip,
-    relay_p2p_address : var.relay_node_p2p_address,
-    consul_datacenter : data.aws_region.this.name,
-    consul_enabled : var.consul_enabled,
-    prometheus_enabled : var.prometheus_enabled,
-    retry_join : "\"provider=aws tag_key='k8s.io/cluster/${var.cluster_name}' tag_value=owned\""
+    id                            = local.id
+    skip_health_check             = var.skip_health_check
+    network_settings              = jsonencode(local.network_settings)
+    aws_region                    = data.aws_region.this.name
+    module_path                   = path.module
+    node_exporter_user            = var.node_exporter_user
+    node_exporter_password        = var.node_exporter_password
+    ssh_user                      = var.ssh_user
+    project                       = var.project
+    instance_count                = "library"
+    polkadot_binary_url           = var.polkadot_client_url
+    polkadot_binary_checksum      = "sha256:${var.polkadot_client_hash}"
+    node_exporter_binary_url      = var.node_exporter_url
+    node_exporter_binary_checksum = "sha256:${var.node_exporter_hash}"
+    polkadot_restart_enabled      = false
+    default_telemetry_enabled     = var.default_telemetry_enabled
+    telemetry_url                 = var.telemetry_url
+    logging_filter                = var.logging_filter
+    consul_datacenter             = data.aws_region.this.name
+    consul_enabled                = var.consul_enabled
+    prometheus_enabled            = var.prometheus_enabled
+    retry_join                    = "provider=aws tag_key=\"k8s.io/cluster/${var.cluster_name}\" tag_value=owned"
+    aws_access_key_id             = var.sync_aws_access_key_id
+    aws_secret_access_key         = var.sync_aws_secret_access_key
+    sync_bucket_uri               = var.sync_bucket_uri
   }
 }
 
@@ -110,7 +115,7 @@ resource "aws_key_pair" "this" {
 
 module "asg" {
   source  = "terraform-aws-modules/autoscaling/aws"
-  version = "~> 3.0"
+  version = "~> 3.7.0"
 
   spot_price = "1"
 

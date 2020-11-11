@@ -141,6 +141,13 @@ variable "use_external_lb" {
 #####
 # packer
 #####
+
+variable "network_settings" {
+  description = "Map of network settings to apply. Use either this or set individual variables."
+  type        = map(map(string))
+  default     = null
+}
+
 variable "polkadot_client_url" {
   description = "URL to Polkadot client binary"
   type        = string
@@ -183,6 +190,36 @@ variable "network_name" {
   default     = "kusama"
 }
 
+variable "network_stub" {
+  description = "The stub name of the Polkadot chain (polkadot = polkadot, kusama = ksmcc3)"
+  type        = string
+  default     = "ksmcc3"
+}
+
+variable "rpc_api_port" {
+  description = "Port number for the JSON RPC API"
+  type        = string
+  default     = "9933"
+}
+
+variable "wss_api_port" {
+  description = "Port number for the Websockets API"
+  type        = string
+  default     = "9944"
+}
+
+variable "health_check_port" {
+  description = "Port number for the health check"
+  type        = string
+  default     = "5500"
+}
+
+variable "polkadot_prometheus_port" {
+  description = "Port number for the Prometheus Metrics exporter built into the Polkadot client"
+  type        = string
+  default     = "9610"
+}
+
 variable "project" {
   description = "Name of the project for node name"
   type        = string
@@ -193,6 +230,12 @@ variable "ssh_user" {
   description = "Username for SSH"
   type        = string
   default     = "ubuntu"
+}
+
+variable "default_telemetry_enabled" {
+  description = ""
+  type        = bool
+  default     = true
 }
 
 variable "telemetry_url" {
@@ -233,6 +276,24 @@ variable "prometheus_enabled" {
 
 variable "cluster_name" {
   description = "The name of the k8s cluster"
+  type        = string
+  default     = ""
+}
+
+variable "sync_aws_access_key_id" {
+  description = "AWS access key ID for SoT sync"
+  type        = string
+  default     = ""
+}
+
+variable "sync_aws_secret_access_key" {
+  description = "AWS access key for SoT sync"
+  type        = string
+  default     = ""
+}
+
+variable "sync_bucket_uri" {
+  description = "S3 bucket URI for SoT sync"
   type        = string
   default     = ""
 }
