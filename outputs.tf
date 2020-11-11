@@ -43,17 +43,17 @@ output "lb_arn" {
 }
 
 output "lb_rpc_target_group_arn" {
-  value = join("", aws_lb_target_group.rpc.*.arn)
+  value = join("", values(aws_lb_target_group.rpc)[*].arn)
 }
 
 output "lb_rpc_target_group_id" {
-  value = join("", aws_lb_target_group.rpc.*.id)
+  value = join("", values(aws_lb_target_group.rpc)[*].id)
 }
 
 output "lb_wss_target_group_arn" {
-  value = join("", aws_lb_target_group.wss.*.arn)
+  value = join("", values(aws_lb_target_group.wss)[*].arn)
 }
 
 output "lb_wss_target_group_id" {
-  value = join("", aws_lb_target_group.wss.*.id)
+  value = join("", values(aws_lb_target_group.wss)[*].id)
 }

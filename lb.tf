@@ -24,37 +24,37 @@ resource "aws_lb" "this" {
 }
 
 resource "aws_lb_listener" "rpc" {
-  count             = var.use_lb ? 1 : 0
+  for_each = var.use_lb ? local.network_settings : {}
   load_balancer_arn = aws_lb.this[0].arn
   protocol          = "TCP"
-  port              = 9933
+  port              = each.value["json_rpc"]
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.rpc[0].arn
+    target_group_arn = aws_lb_target_group.rpc[each.key].arn
   }
 }
 
 resource "aws_lb_listener" "wss" {
-  count             = var.use_lb ? 1 : 0
+  for_each = var.use_lb ? local.network_settings : {}
   load_balancer_arn = aws_lb.this[0].arn
   protocol          = "TCP"
-  port              = 9944
+  port              = each.value["ws_rpc"]
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.wss[0].arn
+    target_group_arn = aws_lb_target_group.wss[each.key].arn
   }
 }
 
 resource "aws_lb_target_group" "rpc" {
-  count       = var.use_lb ? 1 : 0
-  name        = "${local.id}-rpc"
+  for_each = var.use_lb ? local.network_settings : {}
+  name        = "${local.id}-${each.value["name"]}-rpc"
   vpc_id      = var.vpc_id
   target_type = "instance"
 
   protocol = "TCP"
-  port     = 9933
+  port     = each.value["json_rpc"]
 
   health_check {
     protocol = "TCP"
@@ -70,13 +70,13 @@ resource "aws_lb_target_group" "rpc" {
 }
 
 resource "aws_lb_target_group" "wss" {
-  count       = var.use_lb ? 1 : 0
-  name        = "${local.id}-wss"
+  for_each = var.use_lb ? local.network_settings : {}
+  name        = "${local.id}-${each.value["name"]}-wss"
   vpc_id      = var.vpc_id
   target_type = "instance"
 
   protocol = "TCP"
-  port     = 9944
+  port     = each.value["ws_rpc"]
 
   health_check {
     protocol = "TCP"

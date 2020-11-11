@@ -148,7 +148,7 @@ module "asg" {
   desired_capacity          = var.desired_capacity
   wait_for_capacity_timeout = var.wait_for_capacity_timeout
 
-  target_group_arns = [aws_lb_target_group.rpc[0].arn, aws_lb_target_group.wss[0].arn]
+  target_group_arns = concat(values(aws_lb_target_group.rpc)[*].arn, values(aws_lb_target_group.wss)[*].arn)
 
   tags_as_map = var.tags
 }
