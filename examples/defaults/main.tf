@@ -1,7 +1,7 @@
 module "network" {
-  source         = "github.com/insight-w3f/terraform-polkadot-aws-network.git?ref=master"
-  sentry_enabled = true
-  num_azs        = 2
+  source      = "github.com/insight-w3f/terraform-polkadot-aws-network.git?ref=master"
+  api_enabled = true
+  num_azs     = 2
 }
 
 variable "public_key" {}
@@ -14,7 +14,7 @@ module "defaults" {
   name = random_pet.this.id
 
   public_key      = var.public_key
-  security_groups = [module.network.sentry_security_group_id]
+  security_groups = [module.network.api_security_group_id]
   subnet_ids      = module.network.public_subnets
   vpc_id          = module.network.vpc_id
 
