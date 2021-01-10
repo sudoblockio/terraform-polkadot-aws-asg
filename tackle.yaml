@@ -14,13 +14,13 @@ aws_instance_family_:
 
 aws_available_instances_:
   type: aws_ec2_types
-  region: "{{ nuki.region }}"
-  instance_families: ["{{ nuki.aws_instance_family_ }}"]
+  region: "{{ region }}"
+  instance_families: ["{{ aws_instance_family_ }}"]
 
 instance_type:
   type: select
   message: What type of data instances do you want to create?
-  choices: "{{ nuki.aws_available_instances_ }}"
+  choices: "{{ aws_available_instances_ }}"
 
 num_instances:
   type: input
