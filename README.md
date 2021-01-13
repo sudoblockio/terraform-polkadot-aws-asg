@@ -55,12 +55,6 @@ module "defaults" {
 No issue is creating limit on this module.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-## Requirements
-
-| Name | Version |
-|------|---------|
-| terraform | >= 0.13 |
-
 ## Providers
 
 | Name | Version |
@@ -72,7 +66,7 @@ No issue is creating limit on this module.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+|------|-------------|------|---------|:-----:|
 | cluster\_name | The name of the k8s cluster | `string` | `""` | no |
 | consul\_enabled | Bool to use when Consul is enabled | `bool` | `false` | no |
 | create | Bool to create the resources | `bool` | `true` | no |
@@ -89,7 +83,7 @@ No issue is creating limit on this module.
 | min\_size | The min size of asg | `string` | `0` | no |
 | name | The name to give the ASG and associated resources | `string` | `""` | no |
 | network\_name | Which Polkadot chain to join | `string` | `"kusama"` | no |
-| network\_settings | Map of network settings to apply. Use either this or set individual variables. | `map(map(string))` | `null` | no |
+| network\_settings | Map of network settings to apply. Use either this or set individual variables. | `map(map(string))` | n/a | yes |
 | network\_stub | The stub name of the Polkadot chain (polkadot = polkadot, kusama = ksmcc3) | `string` | `"ksmcc3"` | no |
 | node\_exporter\_hash | SHA256 hash of Node Exporter binary | `string` | `"b2503fd932f85f4e5baf161268854bf5d22001869b84f00fd2d1f57b51b72424"` | no |
 | node\_exporter\_password | Password for node exporter | `string` | `"node_exporter_password"` | no |
