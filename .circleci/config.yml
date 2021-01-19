@@ -18,8 +18,9 @@ jobs:
       - run:
           name: Install Terraform 12
           command: |
-            wget --quiet https://releases.hashicorp.com/terraform/0.12.20/terraform_0.12.20_linux_amd64.zip
-            sudo unzip terraform_0.12.20_linux_amd64.zip -d /usr/local/bin
+            export TF_VERSION=0.12.29
+            wget --quiet https://releases.hashicorp.com/terraform/${TF_VERSION}/terraform_${TF_VERSION}_linux_amd64.zip
+            sudo unzip -o terraform_${TF_VERSION}_linux_amd64.zip -d /usr/local/bin
       - run:
           command: go test ~/project/test -v -timeout 45m
           no_output_timeout: 45m
@@ -28,8 +29,9 @@ jobs:
       - run:
           name: Install Terraform 13
           command: |
-            wget --quiet https://releases.hashicorp.com/terraform/0.13.6/terraform_0.13.6_linux_amd64.zip
-            sudo unzip terraform_0.13.6_linux_amd64.zip -d /usr/local/bin
+            export TF_VERSION=0.13.6
+            wget --quiet https://releases.hashicorp.com/terraform/${TF_VERSION}/terraform_${TF_VERSION}_linux_amd64.zip
+            sudo unzip -o terraform_${TF_VERSION}_linux_amd64.zip -d /usr/local/bin
       - run:
           name: TF 13 Integration test
           command: go test ~/project/test -v -timeout 45m
@@ -38,8 +40,9 @@ jobs:
       - run:
           name: Install Terraform 14
           command: |
-            wget --quiet https://releases.hashicorp.com/terraform/0.14.6/terraform_0.14.6_linux_amd64.zip
-            sudo unzip terraform_0.14.6_linux_amd64.zip -d /usr/local/bin
+            export TF_VERSION=0.14.4
+            wget --quiet https://releases.hashicorp.com/terraform/${TF_VERSION}/terraform_${TF_VERSION}_linux_amd64.zip
+            sudo unzip -o terraform_${TF_VERSION}_linux_amd64.zip -d /usr/local/bin
       - run:
           name: TF 14 Integration test
           command: go test ~/project/test -v -timeout 45m
