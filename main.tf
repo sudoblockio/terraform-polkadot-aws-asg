@@ -115,7 +115,7 @@ resource "aws_key_pair" "this" {
 
 module "asg" {
   source  = "terraform-aws-modules/autoscaling/aws"
-  version = "~> 3.7.0"
+  version = "~> 3.8.0"
 
   spot_price = "1"
 
