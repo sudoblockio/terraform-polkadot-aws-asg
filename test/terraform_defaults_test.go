@@ -85,7 +85,7 @@ func testLbEndpoints(t *testing.T, terraformOptions *terraform.Options) {
 	headers["Content-Type"] = "application/json"
 
 	description := fmt.Sprintf("curl to LB %s with error command", loadBalancerIp)
-	maxRetries := 60
+	maxRetries := 150 // 5 min
 	timeBetweenRetries := 2 * time.Second
 
 	retry.DoWithRetry(t, description, maxRetries, timeBetweenRetries, func() (string, error) {
