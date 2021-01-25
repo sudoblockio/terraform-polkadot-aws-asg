@@ -7,19 +7,46 @@ jobs:
       - go/mod-download
       - go/save-cache
       - run:
+          name: Install packer and ansible
           command: |
             curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
             python get-pip.py
             pip install -r requirements.txt
-            wget --quiet https://releases.hashicorp.com/terraform/0.12.20/terraform_0.12.20_linux_amd64.zip
-            sudo unzip terraform_0.12.20_linux_amd64.zip -d /usr/local/bin
             wget --quiet https://releases.hashicorp.com/packer/1.5.5/packer_1.5.5_linux_amd64.zip
             sudo unzip packer_1.5.5_linux_amd64.zip -d /usr/local/bin
-          name: Install Terraform
+
+      - run:
+          name: Install Terraform 12
+          command: |
+            export TF_VERSION=0.12.29
+            wget --quiet https://releases.hashicorp.com/terraform/${TF_VERSION}/terraform_${TF_VERSION}_linux_amd64.zip
+            sudo unzip -o terraform_${TF_VERSION}_linux_amd64.zip -d /usr/local/bin
       - run:
           command: go test ~/project/test -v -timeout 45m
           no_output_timeout: 45m
           name: "go test"
+
+      - run:
+          name: Install Terraform 13
+          command: |
+            export TF_VERSION=0.13.6
+            wget --quiet https://releases.hashicorp.com/terraform/${TF_VERSION}/terraform_${TF_VERSION}_linux_amd64.zip
+            sudo unzip -o terraform_${TF_VERSION}_linux_amd64.zip -d /usr/local/bin
+      - run:
+          name: TF 13 Integration test
+          command: go test ~/project/test -v -timeout 45m
+          no_output_timeout: 45m
+
+      - run:
+          name: Install Terraform 14
+          command: |
+            export TF_VERSION=0.14.4
+            wget --quiet https://releases.hashicorp.com/terraform/${TF_VERSION}/terraform_${TF_VERSION}_linux_amd64.zip
+            sudo unzip -o terraform_${TF_VERSION}_linux_amd64.zip -d /usr/local/bin
+      - run:
+          name: TF 14 Integration test
+          command: go test ~/project/test -v -timeout 45m
+          no_output_timeout: 45m
 
 orbs:
   go: circleci/go@0.2.0

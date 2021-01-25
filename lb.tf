@@ -24,7 +24,7 @@ resource "aws_lb" "this" {
 }
 
 resource "aws_lb_listener" "rpc" {
-  for_each = var.use_lb ? local.network_settings : {}
+  for_each          = var.use_lb ? local.network_settings : {}
   load_balancer_arn = aws_lb.this[0].arn
   protocol          = "TCP"
   port              = each.value["json_rpc"]
@@ -36,7 +36,7 @@ resource "aws_lb_listener" "rpc" {
 }
 
 resource "aws_lb_listener" "wss" {
-  for_each = var.use_lb ? local.network_settings : {}
+  for_each          = var.use_lb ? local.network_settings : {}
   load_balancer_arn = aws_lb.this[0].arn
   protocol          = "TCP"
   port              = each.value["ws_rpc"]
@@ -48,7 +48,7 @@ resource "aws_lb_listener" "wss" {
 }
 
 resource "aws_lb_target_group" "rpc" {
-  for_each = var.use_lb ? local.network_settings : {}
+  for_each    = var.use_lb ? local.network_settings : {}
   name        = "${local.id}-${each.value["name"]}-rpc"
   vpc_id      = var.vpc_id
   target_type = "instance"
@@ -70,7 +70,7 @@ resource "aws_lb_target_group" "rpc" {
 }
 
 resource "aws_lb_target_group" "wss" {
-  for_each = var.use_lb ? local.network_settings : {}
+  for_each    = var.use_lb ? local.network_settings : {}
   name        = "${local.id}-${each.value["name"]}-wss"
   vpc_id      = var.vpc_id
   target_type = "instance"
