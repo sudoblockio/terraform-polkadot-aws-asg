@@ -5,7 +5,7 @@
   tasks:
     - name: Include CloudHelper
       include_role:
-        name: insight_infra.cloud_helper
+        name: geometrylabs.cloud_helper
       vars:
         enable_cloud_wait: true
         enable_jq: true
@@ -38,7 +38,7 @@
       when: consul_enabled|bool
     - name: Install Polkadot Base
       include_role:
-        name: insight_w3f.polkadot_base
+        name: geometrylabs.polkadot_base
       vars:
         prometheus_port: "{{ item.value['polkadot_prometheus'] }}"
         api_rpc_port: "{{ item.value['json_rpc'] }}"
@@ -48,7 +48,7 @@
       loop: "{{ network_settings | from_json | dict2items }}"
     - name: Install Polkadot Library
       include_role:
-        name: insight_w3f.polkadot_library
+        name: geometrylabs.polkadot_library
       vars:
         prometheus_port: "{{ item.value['polkadot_prometheus'] }}"
         api_rpc_port: "{{ item.value['json_rpc'] }}"
