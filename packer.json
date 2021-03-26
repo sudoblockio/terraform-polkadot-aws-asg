@@ -4,7 +4,7 @@
       "ami_description": "Ubuntu 18.04 AMI configured for polkadot",
       "ami_name": "polkadot-ubuntu-{{isotime | clean_resource_name}}-{{uuid}}",
       "associate_public_ip_address": true,
-      "instance_type": "t2.micro",
+      "instance_type": "t3.small",
       "region": "{{user `aws_region`}}",
       "tags": {
         "Id": "{{user `id`}}",
@@ -13,11 +13,13 @@
         "Distro": "Ubuntu-18.04",
         "Release": "latest"
       },
+      "vpc_id": "{{user `vpc_id`}}",
+      "subnet_id": "{{user `subnet_id`}}",
       "source_ami_filter": {
         "filters": {
           "architecture": "x86_64",
           "block-device-mapping.volume-type": "gp2",
-          "name": "ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*",
+          "name": "ubuntu/images/*ubuntu-bionic-18.04-amd64-server-*",
           "root-device-type": "ebs",
           "virtualization-type": "hvm"
         },
