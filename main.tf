@@ -6,7 +6,7 @@ resource "null_resource" "requirements" {
   }
 
   provisioner "local-exec" {
-    command = "ansible-galaxy install -r ${path.module}/ansible/requirements.yml"
+    command = "ansible-galaxy install -r ${path.module}/ansible/requirements.yml -f"
   }
 }
 
@@ -31,19 +31,23 @@ locals {
 module "packer" {
   create = var.create
 
-  source = "github.com/insight-infrastructure/terraform-aws-packer-ami.git?ref=master"
+  source = "github.com/geometry-labs/terraform-packer-build.git?ref=main"
 
-  packer_config_path = "${path.module}/packer.json"
+  //  packer_config_path = "${path.module}/packer.json" # .pkr.hcl
+  packer_config_path = "${path.module}/packer.pkr.hcl"
   timestamp_ui       = true
   vars = {
-    id                            = local.id
-    skip_health_check             = var.skip_health_check
-    network_settings              = jsonencode(local.network_settings)
-    aws_region                    = data.aws_region.this.name
-    module_path                   = path.module
-    node_exporter_user            = var.node_exporter_user
-    node_exporter_password        = var.node_exporter_password
-    ssh_user                      = var.ssh_user
+    vpc_id    = var.build_vpc_id == "" ? var.vpc_id : var.build_vpc_id
+    subnet_id = var.build_subnet_id == "" ? var.subnet_ids[0] : var.build_subnet_id
+
+    id                     = local.id
+    skip_health_check      = var.skip_health_check
+    network_settings       = jsonencode(local.network_settings)
+    aws_region             = data.aws_region.this.name
+    module_path            = path.module
+    node_exporter_user     = var.node_exporter_user
+    node_exporter_password = var.node_exporter_password
+    //    ssh_user                      = var.ssh_user
     project                       = var.project
     instance_count                = "library"
     polkadot_binary_url           = var.polkadot_client_url
@@ -91,7 +95,7 @@ data "aws_ami" "packer" {
 }
 
 module "user_data" {
-  source              = "github.com/insight-w3f/terraform-polkadot-user-data.git?ref=master"
+  source              = "github.com/geometry-labs/terraform-polkadot-user-data.git?ref=main"
   cloud_provider      = "aws"
   type                = "library"
   consul_enabled      = var.consul_enabled
@@ -129,12 +133,12 @@ module "asg" {
   image_id = data.aws_ami.packer.id
 
   instance_type        = var.instance_type
-  security_groups      = var.security_groups
+  security_groups      = var.create_security_group ? concat(var.security_groups, aws_security_group.this.*.id) : var.security_groups
   iam_instance_profile = var.iam_instance_profile
 
   root_block_device = [
     {
-      volume_size = "256"
+      volume_size = var.root_volume_size
       volume_type = "gp2"
     }
   ]

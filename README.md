@@ -14,11 +14,11 @@ See the `examples` directory for usage.
 
 ```hcl-terraform
 module "network" {
-  source = "github.com/insight-w3f/terraform-polkadot-aws-network.git?ref=master"
+  source = "github.com/geometry-labs/terraform-polkadot-aws-network.git?ref=master"
 }
 
 module "lb" {
-  source     = "github.com/insight-w3f/terraform-polkadot-aws-api-lb.git?ref=master"
+  source     = "github.com/geometry-labs/terraform-polkadot-aws-api-lb.git?ref=master"
   subnet_ids = module.network.public_subnets
   vpc_id     = module.network.vpc_id
 }
@@ -47,14 +47,19 @@ module "defaults" {
 
 ## Dependencies 
 
-- [terraform-packer-build](https://github.com/insight-infrastructure/terraform-packer-build.git) ![](https://img.shields.io/github/v/release/insight-infrastructure/terraform-packer-build?style=svg)
-- [terraform-polkadot-user-data](https://github.com/insight-w3f/terraform-polkadot-user-data.git) ![](https://img.shields.io/github/v/release/insight-w3f/terraform-polkadot-user-data?style=svg)
-- [terraform-null-label](github.com/robc-io/terraform-null-label) ![](https://img.shields.io/github/v/release/robc-io/terraform-null-label?style=svg)
+- [terraform-packer-build](https://github.com/geometry-labs/terraform-packer-build.git) ![](https://img.shields.io/github/v/release/geometry-labs/terraform-packer-build?style=svg)
+- [terraform-polkadot-user-data](https://github.com/geometry-labs/terraform-polkadot-user-data.git) ![](https://img.shields.io/github/v/release/geometry-labs/terraform-polkadot-user-data?style=svg)
 
 ## Known  Issues
 No issue is creating limit on this module.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| terraform | >= 0.12 |
+
 ## Providers
 
 | Name | Version |
@@ -63,13 +68,46 @@ No issue is creating limit on this module.
 | null | n/a |
 | random | n/a |
 
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| asg | terraform-aws-modules/autoscaling/aws | ~> 3.8.0 |
+| packer | github.com/geometry-labs/terraform-packer-build.git?ref=main |  |
+| user_data | github.com/geometry-labs/terraform-polkadot-user-data.git?ref=main |  |
+
+## Resources
+
+| Name |
+|------|
+| [aws_ami](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) |
+| [aws_autoscaling_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_policy) |
+| [aws_eip](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eip) |
+| [aws_iam_instance_profile](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_instance_profile) |
+| [aws_iam_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) |
+| [aws_iam_policy_document](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) |
+| [aws_iam_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) |
+| [aws_iam_role_policy_attachment](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) |
+| [aws_key_pair](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair) |
+| [aws_lb](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb) |
+| [aws_lb_listener](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_listener) |
+| [aws_lb_target_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_target_group) |
+| [aws_region](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) |
+| [aws_security_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) |
+| [aws_security_group_rule](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) |
+| [null_resource](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) |
+| [random_pet](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/pet) |
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:-----:|
+|------|-------------|------|---------|:--------:|
+| build\_subnet\_id | The subnet to build the image in.  Must be public - Omit if running cluster deployed in in public subnets. | `string` | `""` | no |
+| build\_vpc\_id | VPC to build the image in. Must have public subnet - Omit if running cluster deployed in in public subnets. | `string` | `""` | no |
 | cluster\_name | The name of the k8s cluster | `string` | `""` | no |
 | consul\_enabled | Bool to use when Consul is enabled | `bool` | `false` | no |
 | create | Bool to create the resources | `bool` | `true` | no |
+| create\_security\_group | n/a | `bool` | `false` | no |
 | default\_telemetry\_enabled | n/a | `bool` | `true` | no |
 | desired\_capacity | The desired capacity of asg | `string` | `2` | no |
 | health\_check\_port | Port number for the health check | `string` | `"5500"` | no |
@@ -83,15 +121,15 @@ No issue is creating limit on this module.
 | min\_size | The min size of asg | `string` | `0` | no |
 | name | The name to give the ASG and associated resources | `string` | `""` | no |
 | network\_name | Which Polkadot chain to join | `string` | `"kusama"` | no |
-| network\_settings | Map of network settings to apply. Use either this or set individual variables. | `map(map(string))` | n/a | yes |
+| network\_settings | Map of network settings to apply. Use either this or set individual variables. | `map(map(string))` | `null` | no |
 | network\_stub | The stub name of the Polkadot chain (polkadot = polkadot, kusama = ksmcc3) | `string` | `"ksmcc3"` | no |
 | node\_exporter\_hash | SHA256 hash of Node Exporter binary | `string` | `"b2503fd932f85f4e5baf161268854bf5d22001869b84f00fd2d1f57b51b72424"` | no |
 | node\_exporter\_password | Password for node exporter | `string` | `"node_exporter_password"` | no |
 | node\_exporter\_url | URL to Node Exporter binary | `string` | `"https://github.com/prometheus/node_exporter/releases/download/v0.18.1/node_exporter-0.18.1.linux-amd64.tar.gz"` | no |
 | node\_exporter\_user | User for node exporter | `string` | `"node_exporter_user"` | no |
 | num\_instances | Number of instances for ASG | `number` | `1` | no |
-| polkadot\_client\_hash | SHA256 hash of Polkadot client binary | `string` | `"c34d63e5d80994b2123a3a0b7c5a81ce8dc0f257ee72064bf06654c2b93e31c9"` | no |
-| polkadot\_client\_url | URL to Polkadot client binary | `string` | `"https://github.com/w3f/polkadot/releases/download/v0.7.32/polkadot"` | no |
+| polkadot\_client\_hash | SHA256 hash of Polkadot client binary | `string` | `"0b27d0cb99ca60c08c78102a9d2f513d89dfec8dbd6fdeba8b952a420cdc9fd2"` | no |
+| polkadot\_client\_url | URL to Polkadot client binary | `string` | `"https://github.com/paritytech/polkadot/releases/download/v0.8.29/polkadot"` | no |
 | polkadot\_prometheus\_port | Port number for the Prometheus Metrics exporter built into the Polkadot client | `string` | `"9610"` | no |
 | project | Name of the project for node name | `string` | `"project"` | no |
 | prometheus\_enabled | Bool to use when Prometheus is enabled | `bool` | `false` | no |
@@ -99,8 +137,11 @@ No issue is creating limit on this module.
 | public\_key\_path | A path to the public key | `string` | `""` | no |
 | relay\_node\_ip | Internal IP of Polkadot relay node | `string` | `""` | no |
 | relay\_node\_p2p\_address | P2P address of Polkadot relay node | `string` | `""` | no |
+| root\_volume\_size | Size in GB for root volume | `string` | `"256"` | no |
 | rpc\_api\_port | Port number for the JSON RPC API | `string` | `"9933"` | no |
-| security\_groups | The ids of the security groups | `list(string)` | n/a | yes |
+| security\_group\_cidr\_blocks | If create\_security\_group enabled, incoming cidr blocks. | `list(string)` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
+| security\_group\_open\_ports | If create\_security\_group enabled, a list of ports to open. | `list(string)` | <pre>[<br>  "5500",<br>  "9933",<br>  "9944",<br>  "5501",<br>  "9934",<br>  "9945"<br>]</pre> | no |
+| security\_groups | The ids of the security groups | `list(string)` | `[]` | no |
 | skip\_health\_check | Bool to skip the health check and give requests while syncing | `bool` | `false` | no |
 | ssh\_user | Username for SSH | `string` | `"ubuntu"` | no |
 | subnet\_ids | The ids of the subnets to deploy into | `list(string)` | n/a | yes |
@@ -133,8 +174,8 @@ No issue is creating limit on this module.
 | name | n/a |
 | public\_ips | n/a |
 | tags | n/a |
+| this\_security\_group\_id | n/a |
 | user\_data | n/a |
-
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Testing
@@ -145,14 +186,6 @@ To run them:
 1. Install Go
 2. Run `make test-init` from the root of this repo
 3. Run `make test` again from root
-
-## Authors
-
-Module managed by [robc-io](github.com/robc-io)
-
-## Credits
-
-- [Anton Babenko](https://github.com/antonbabenko)
 
 ## License
 

@@ -104,6 +104,12 @@ variable "num_instances" {
   default     = 1
 }
 
+variable "root_volume_size" {
+  description = "Size in GB for root volume"
+  type        = string
+  default     = "256"
+}
+
 #########
 # Network
 #########
@@ -115,11 +121,24 @@ variable "subnet_ids" {
 variable "security_groups" {
   description = "The ids of the security groups"
   type        = list(string)
+  default     = []
 }
 
 variable "vpc_id" {
   description = "vpc id"
   type        = string
+}
+
+variable "build_vpc_id" {
+  description = "VPC to build the image in. Must have public subnet - Omit if running cluster deployed in in public subnets."
+  type        = string
+  default     = ""
+}
+
+variable "build_subnet_id" {
+  description = "The subnet to build the image in.  Must be public - Omit if running cluster deployed in in public subnets. "
+  type        = string
+  default     = ""
 }
 
 ##########
@@ -151,13 +170,13 @@ variable "network_settings" {
 variable "polkadot_client_url" {
   description = "URL to Polkadot client binary"
   type        = string
-  default     = "https://github.com/w3f/polkadot/releases/download/v0.7.32/polkadot"
+  default     = "https://github.com/paritytech/polkadot/releases/download/v0.8.29/polkadot"
 }
 
 variable "polkadot_client_hash" {
   description = "SHA256 hash of Polkadot client binary"
   type        = string
-  default     = "c34d63e5d80994b2123a3a0b7c5a81ce8dc0f257ee72064bf06654c2b93e31c9"
+  default     = "0b27d0cb99ca60c08c78102a9d2f513d89dfec8dbd6fdeba8b952a420cdc9fd2"
 }
 
 variable "node_exporter_url" {
