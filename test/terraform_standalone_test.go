@@ -10,10 +10,10 @@ import (
 	"testing"
 )
 
-func TestTerraformDefaults(t *testing.T) {
+func TestTerraformStandalone(t *testing.T) {
 	t.Parallel()
 
-	exampleFolder := test_structure.CopyTerraformFolderToTemp(t, "../", "examples/defaults")
+	exampleFolder := test_structure.CopyTerraformFolderToTemp(t, "../", "examples/standalone")
 
 	cwd, err := os.Getwd()
 	if err != nil {
@@ -44,3 +44,27 @@ func TestTerraformDefaults(t *testing.T) {
 		testLbEndpoints(t, terraformOptions)
 	})
 }
+
+
+// func configureTerraformOptions(t *testing.T, exampleFolder string, fixturesDir string) (*terraform.Options, *aws.Ec2Keypair) {
+//
+// 	uniqueID := random.UniqueId()
+// 	awsRegion := "us-east-2"
+//
+// 	keyPairName := fmt.Sprintf("terratest-ssh-example-%s", uniqueID)
+// 	keyPair := aws.CreateAndImportEC2KeyPair(t, awsRegion, keyPairName)
+//
+// 	terraformOptions := &terraform.Options{
+// 		TerraformDir: exampleFolder,
+//
+// 		// Variables to pass to our Terraform code using -var options
+// 		Vars: map[string]interface{}{
+// 			"aws_region":    awsRegion,
+// 			"public_key":    keyPair.PublicKey,
+// 		},
+// 	}
+//
+// 	return terraformOptions, keyPair
+// }
+
+
