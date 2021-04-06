@@ -110,6 +110,12 @@ variable "root_volume_size" {
   default     = "256"
 }
 
+variable "ami_id" {
+  description = "AMI ID to use in autoscaling group. Blank to build from packer."
+  type        = string
+  default     = ""
+}
+
 #########
 # Network
 #########
@@ -313,6 +319,12 @@ variable "sync_aws_secret_access_key" {
 
 variable "sync_bucket_uri" {
   description = "S3 bucket URI for SoT sync"
+  type        = string
+  default     = ""
+}
+
+variable "packer_build_role_arn" {
+  description = "The role arn the packer build should use to build the image."
   type        = string
   default     = ""
 }

@@ -102,6 +102,7 @@ No issue is creating limit on this module.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| ami\_id | AMI ID to use in autoscaling group. Blank to build from packer. | `string` | `""` | no |
 | build\_subnet\_id | The subnet to build the image in.  Must be public - Omit if running cluster deployed in in public subnets. | `string` | `""` | no |
 | build\_vpc\_id | VPC to build the image in. Must have public subnet - Omit if running cluster deployed in in public subnets. | `string` | `""` | no |
 | cluster\_name | The name of the k8s cluster | `string` | `""` | no |
@@ -128,6 +129,7 @@ No issue is creating limit on this module.
 | node\_exporter\_url | URL to Node Exporter binary | `string` | `"https://github.com/prometheus/node_exporter/releases/download/v0.18.1/node_exporter-0.18.1.linux-amd64.tar.gz"` | no |
 | node\_exporter\_user | User for node exporter | `string` | `"node_exporter_user"` | no |
 | num\_instances | Number of instances for ASG | `number` | `1` | no |
+| packer\_build\_role\_arn | The role arn the packer build should use to build the image. | `string` | `""` | no |
 | polkadot\_client\_hash | SHA256 hash of Polkadot client binary | `string` | `"0b27d0cb99ca60c08c78102a9d2f513d89dfec8dbd6fdeba8b952a420cdc9fd2"` | no |
 | polkadot\_client\_url | URL to Polkadot client binary | `string` | `"https://github.com/paritytech/polkadot/releases/download/v0.8.29/polkadot"` | no |
 | polkadot\_prometheus\_port | Port number for the Prometheus Metrics exporter built into the Polkadot client | `string` | `"9610"` | no |

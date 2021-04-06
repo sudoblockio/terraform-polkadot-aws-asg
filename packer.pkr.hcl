@@ -36,9 +36,10 @@ variable "aws_region" {
   default = ""
 }
 
-//locals {
-//  subnet_id = var.subnet_id == "" ? "" :
-//}
+variable "role_arn" {
+  type = string
+  default = ""
+}
 
 source "amazon-ebs" "ubuntu18-ami" {
   ami_description = "Ubuntu 18.04 AMI configured for polkadot"
@@ -64,6 +65,10 @@ source "amazon-ebs" "ubuntu18-ami" {
 
   vpc_id = var.vpc_id
   subnet_id = var.subnet_id
+
+  assume_role {
+    role_arn = var.role_arn
+  }
 
   tags = {
     Base_AMI_Name = "{{ .SourceAMIName }}"

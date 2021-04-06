@@ -29,10 +29,9 @@ locals {
 }
 
 module "packer" {
-  create = var.create
-
   source = "github.com/geometry-labs/terraform-packer-build.git?ref=main"
 
+  create = var.create && var.ami_id != ""
   //  packer_config_path = "${path.module}/packer.json" # .pkr.hcl
   packer_config_path = "${path.module}/packer.pkr.hcl"
   timestamp_ui       = true
@@ -47,6 +46,7 @@ module "packer" {
     module_path            = path.module
     node_exporter_user     = var.node_exporter_user
     node_exporter_password = var.node_exporter_password
+    role_arn               = var.packer_build_role_arn
     //    ssh_user                      = var.ssh_user
     project                       = var.project
     instance_count                = "library"
@@ -130,7 +130,7 @@ module "asg" {
 
   key_name = var.key_name == "" ? join("", aws_key_pair.this.*.key_name) : var.key_name
 
-  image_id = data.aws_ami.packer.id
+  image_id = var.ami_id == "" ? data.aws_ami.packer.id : var.ami_id
 
   instance_type        = var.instance_type
   security_groups      = var.create_security_group ? concat(var.security_groups, aws_security_group.this.*.id) : var.security_groups
