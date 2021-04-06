@@ -31,7 +31,7 @@ locals {
 module "packer" {
   source = "github.com/geometry-labs/terraform-packer-build.git?ref=main"
 
-  create = var.create && var.ami_id != ""
+  create = var.create && var.ami_id == ""
   //  packer_config_path = "${path.module}/packer.json" # .pkr.hcl
   packer_config_path = "${path.module}/packer.pkr.hcl"
   timestamp_ui       = true
