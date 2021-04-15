@@ -140,6 +140,16 @@ resource "aws_security_group_rule" "ingress" {
   type              = "ingress"
 }
 
+resource "aws_security_group_rule" "egress" {
+  count             = var.create && var.create_security_group ? 1 : 0
+  type              = "egress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = join("", aws_security_group.this.*.id)
+}
+
 output "this_security_group_id" {
   value = join("", aws_security_group.this.*.id)
 }
