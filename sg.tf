@@ -97,6 +97,10 @@
 //          cidr_blocks = "0.0.0.0/0"
 //      }],0
 
+locals {
+  security_group_open_ports = var.network_settings != null ? distinct(flatten([for net in var.network_settings : [net["api_health"], net["json_rpc"], net["ws_rpc"]]])) : var.security_group_open_ports
+}
+
 variable "create_security_group" {
   type    = bool
   default = false
@@ -112,7 +116,7 @@ resource "aws_security_group" "this" {
 }
 
 variable "security_group_open_ports" {
-  description = "If create_security_group enabled, a list of ports to open."
+  description = "If create_security_group enabled, and no network_settings blob is supplied, a list of ports to open."
   type        = list(string)
   default = [
     "5500", # Polkadot health check
@@ -131,9 +135,9 @@ variable "security_group_cidr_blocks" {
 }
 
 resource "aws_security_group_rule" "ingress" {
-  count             = var.create && var.create_security_group ? length(var.security_group_open_ports) : 0
-  from_port         = var.security_group_open_ports[count.index]
-  to_port           = var.security_group_open_ports[count.index]
+  count             = var.create && var.create_security_group ? length(local.security_group_open_ports) : 0
+  from_port         = local.security_group_open_ports[count.index]
+  to_port           = local.security_group_open_ports[count.index]
   protocol          = "tcp"
   security_group_id = join("", aws_security_group.this.*.id)
   cidr_blocks       = var.security_group_cidr_blocks

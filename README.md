@@ -146,7 +146,7 @@ No issue is creating limit on this module.
 | <a name="input_root_volume_size"></a> [root\_volume\_size](#input\_root\_volume\_size) | Size in GB for root volume | `string` | `"256"` | no |
 | <a name="input_rpc_api_port"></a> [rpc\_api\_port](#input\_rpc\_api\_port) | Port number for the JSON RPC API | `string` | `"9933"` | no |
 | <a name="input_security_group_cidr_blocks"></a> [security\_group\_cidr\_blocks](#input\_security\_group\_cidr\_blocks) | If create\_security\_group enabled, incoming cidr blocks. | `list(string)` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
-| <a name="input_security_group_open_ports"></a> [security\_group\_open\_ports](#input\_security\_group\_open\_ports) | If create\_security\_group enabled, a list of ports to open. | `list(string)` | <pre>[<br>  "5500",<br>  "9933",<br>  "9944",<br>  "5501",<br>  "9934",<br>  "9945"<br>]</pre> | no |
+| <a name="input_security_group_open_ports"></a> [security\_group\_open\_ports](#input\_security\_group\_open\_ports) | If create\_security\_group enabled, and no network\_settings blob is supplied, a list of ports to open. | `list(string)` | <pre>[<br>  "5500",<br>  "9933",<br>  "9944",<br>  "5501",<br>  "9934",<br>  "9945"<br>]</pre> | no |
 | <a name="input_security_groups"></a> [security\_groups](#input\_security\_groups) | The ids of the security groups | `list(string)` | `[]` | no |
 | <a name="input_skip_health_check"></a> [skip\_health\_check](#input\_skip\_health\_check) | Bool to skip the health check and give requests while syncing | `bool` | `false` | no |
 | <a name="input_ssh_user"></a> [ssh\_user](#input\_ssh\_user) | Username for SSH | `string` | `"ubuntu"` | no |
