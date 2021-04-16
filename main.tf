@@ -40,7 +40,7 @@ module "packer" {
     subnet_id = var.build_subnet_id == "" ? var.subnet_ids[0] : var.build_subnet_id
 
     id                     = local.id
-    skip_health_check      = var.skip_health_check
+    this_skip_health_check = var.skip_health_check
     network_settings       = jsonencode(local.network_settings)
     aws_region             = data.aws_region.this.name
     module_path            = path.module
