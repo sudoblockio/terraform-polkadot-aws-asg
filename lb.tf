@@ -58,7 +58,7 @@ resource "aws_lb_target_group" "rpc" {
 
   health_check {
     protocol = "TCP"
-    port     = 5500
+    port     = each.value["api_health"]
 
     # NLBs required to use same healthy and unhealthy thresholds
     healthy_threshold   = 3
@@ -80,7 +80,7 @@ resource "aws_lb_target_group" "wss" {
 
   health_check {
     protocol = "TCP"
-    port     = 5500
+    port     = each.value["api_health"]
 
     # NLBs required to use same healthy and unhealthy thresholds
     healthy_threshold   = 3

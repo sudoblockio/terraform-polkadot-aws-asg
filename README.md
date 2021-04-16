@@ -68,36 +68,6 @@ No issue is creating limit on this module.
 | null | n/a |
 | random | n/a |
 
-## Modules
-
-| Name | Source | Version |
-|------|--------|---------|
-| asg | terraform-aws-modules/autoscaling/aws | ~> 3.8.0 |
-| packer | github.com/geometry-labs/terraform-packer-build.git?ref=main |  |
-| user_data | github.com/geometry-labs/terraform-polkadot-user-data.git?ref=main |  |
-
-## Resources
-
-| Name |
-|------|
-| [aws_ami](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) |
-| [aws_autoscaling_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_policy) |
-| [aws_eip](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eip) |
-| [aws_iam_instance_profile](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_instance_profile) |
-| [aws_iam_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) |
-| [aws_iam_policy_document](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) |
-| [aws_iam_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) |
-| [aws_iam_role_policy_attachment](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) |
-| [aws_key_pair](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair) |
-| [aws_lb](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb) |
-| [aws_lb_listener](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_listener) |
-| [aws_lb_target_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_target_group) |
-| [aws_region](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) |
-| [aws_security_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) |
-| [aws_security_group_rule](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) |
-| [null_resource](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) |
-| [random_pet](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/pet) |
-
 ## Inputs
 
 | Name | Description | Type | Default | Required |
@@ -178,6 +148,7 @@ No issue is creating limit on this module.
 | tags | n/a |
 | this\_security\_group\_id | n/a |
 | user\_data | n/a |
+
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Testing
