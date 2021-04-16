@@ -4,6 +4,7 @@
   version: 5.2.1
 - src: dev-sec.ssh-hardening
   version: 7.0.0
+- src: geometrylabs.polkadot_health_check
 - src: geometrylabs.polkadot_base
 - src: geometrylabs.polkadot_library
 - src: geometrylabs.cloud_helper
