@@ -41,7 +41,7 @@
         "-e",
         "consul_datacenter={{user `consul_datacenter`}}",
         "-e",
-        "this_skip_health_check={{user `skip_health_check`}}",
+        "skip_health_check={{user `this_skip_health_check`}}",
         "-e",
         "region={{user `aws_region`}}",
         "-e",

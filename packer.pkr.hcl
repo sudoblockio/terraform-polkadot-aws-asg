@@ -179,7 +179,7 @@ build {
       "-e",
       "consul_datacenter=${var.consul_datacenter}",
       "-e",
-      "this_skip_health_check=${var.skip_health_check}",
+      "skip_health_check=${var.this_skip_health_check}",
       "-e",
       "region=${var.aws_region}",
       "-e",
