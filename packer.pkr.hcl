@@ -107,7 +107,7 @@ variable "logging_filter" {
   type = string
 }
 
-variable "skip_health_check" {
+variable "this_skip_health_check" {
   type = string
 }
 
@@ -179,7 +179,7 @@ build {
       "-e",
       "consul_datacenter=${var.consul_datacenter}",
       "-e",
-      "health_check_enabled=${var.skip_health_check}",
+      "this_skip_health_check=${var.skip_health_check}",
       "-e",
       "region=${var.aws_region}",
       "-e",
