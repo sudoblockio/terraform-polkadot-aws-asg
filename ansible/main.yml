@@ -45,6 +45,7 @@
         api_wss_port: "{{ item.value['ws_rpc'] }}"
         health_check_port: "{{ item.value['api_health'] }}"
         chain: "{{ item.value['name'] }}"
+        skip_health_check: "{{ skip_health_check }}"
       loop: "{{ network_settings | from_json | dict2items }}"
     - name: Install Polkadot Library
       include_role:
