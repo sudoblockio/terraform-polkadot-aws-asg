@@ -47,6 +47,18 @@ resource "aws_lb_listener" "wss" {
   }
 }
 
+resource "aws_lb_listener" "ext-health" {
+  for_each          = var.use_lb ? local.network_settings : {}
+  load_balancer_arn = aws_lb.this[0].arn
+  protocol          = "TCP"
+  port              = each.value["api_health"]
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.rpc[each.key].arn
+  }
+}
+
 resource "aws_lb_target_group" "rpc" {
   for_each    = var.use_lb ? local.network_settings : {}
   name        = "${local.id}-${each.value["name"]}-rpc"
@@ -89,4 +101,14 @@ resource "aws_lb_target_group" "wss" {
     # Interval between health checks required to be 10 or 30
     interval = 10
   }
+}
+
+resource "aws_lb_target_group" "ext-health" {
+  for_each    = var.use_lb ? local.network_settings : {}
+  name        = "${local.id}-${each.value["name"]}-ext-health"
+  vpc_id      = var.vpc_id
+  target_type = "instance"
+
+  protocol = "TCP"
+  port     = each.value["api_health"]
 }
