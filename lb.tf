@@ -55,7 +55,7 @@ resource "aws_lb_listener" "ext-health" {
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.rpc[each.key].arn
+    target_group_arn = aws_lb_target_group.ext-health[each.key].arn
   }
 }
 
