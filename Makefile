@@ -10,7 +10,7 @@ clear-cache:						## Clear the terragrunt and terraform caches
 	find . -type f -name "*.tfstate*" -prune -exec rm -rf {} \;
 
 test:								## Run tests
-	go test ./test -v -timeout 45m
+	go test ./test -v -timeout 75m
 
 test-init:							## Initialize the repo for tests
 	go mod init test && go mod tidy

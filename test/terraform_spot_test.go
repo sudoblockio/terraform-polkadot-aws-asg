@@ -10,10 +10,10 @@ import (
 	"testing"
 )
 
-func TestTerraformStandalone(t *testing.T) {
+func TestTerraformSpot(t *testing.T) {
 	t.Parallel()
 
-	exampleFolder := test_structure.CopyTerraformFolderToTemp(t, "../", "examples/standalone")
+	exampleFolder := test_structure.CopyTerraformFolderToTemp(t, "../", "examples/spot")
 
 	cwd, err := os.Getwd()
 	if err != nil {

@@ -1,13 +1,12 @@
 resource "aws_iam_instance_profile" "api_asg" {
-  count = var.iam_instance_profile == "" ? 1 : 0
-
-  name = "LibraryNodeDescribeInstanceProfile-${data.aws_region.this.name}"
-  role = join("", aws_iam_role.api_asg.*.name)
+  count       = var.iam_instance_profile == "" ? 1 : 0
+  name_prefix = title(local.name)
+  role        = join("", aws_iam_role.api_asg.*.name)
 }
 
 resource "aws_iam_role" "api_asg" {
   count              = var.iam_instance_profile == "" ? 1 : 0
-  name               = "LibraryNodeDescribeRole-${data.aws_region.this.name}"
+  name_prefix        = title(local.name)
   assume_role_policy = <<EOF
 {
     "Version": "2012-10-17",

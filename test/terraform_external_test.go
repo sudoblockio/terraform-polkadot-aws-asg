@@ -10,10 +10,10 @@ import (
 	"testing"
 )
 
-func TestTerraformStandalone(t *testing.T) {
+func TestTerraformExternal(t *testing.T) {
 	t.Parallel()
 
-	exampleFolder := test_structure.CopyTerraformFolderToTemp(t, "../", "examples/standalone")
+	exampleFolder := test_structure.CopyTerraformFolderToTemp(t, "../", "examples/external-network")
 
 	cwd, err := os.Getwd()
 	if err != nil {

@@ -4,24 +4,6 @@ provider "aws" {
   region = var.aws_region
 }
 
-resource "random_pet" "this" {}
-
-data "aws_region" "this" {}
-
-module "network" {
-  source = "terraform-aws-modules/vpc/aws"
-
-  name = random_pet.this.id
-  cidr = "10.0.0.0/16"
-
-  azs            = ["${data.aws_region.this.name}a", "${data.aws_region.this.name}b", "${data.aws_region.this.name}c"]
-  public_subnets = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"]
-
-  enable_nat_gateway = false
-}
-
-variable "public_key" {}
-
 locals {
   network_settings = {
     polkadot = {
@@ -43,14 +25,16 @@ locals {
   }
 }
 
+variable "public_key" {}
+
 module "defaults" {
   source = "../.."
 
-  name = random_pet.this.id
+  name = "test-spot"
 
   public_key = var.public_key
-  subnet_ids = module.network.public_subnets
-  vpc_id     = module.network.vpc_id
+
+  spot_price = "1"
 
   min_size         = 1
   max_size         = 1

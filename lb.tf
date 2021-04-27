@@ -1,5 +1,21 @@
+##########
+# Load Balancer
+##########
+
+variable "use_lb" {
+  description = "Bool to enable use of load balancer"
+  type        = bool
+  default     = true
+}
+
+variable "use_external_lb" {
+  description = "Bool to switch between public (true) or private (false)"
+  type        = bool
+  default     = true
+}
+
 resource "aws_eip" "this" {
-  count = var.use_lb ? length(var.subnet_ids) : 0
+  count = var.use_lb ? length(local.subnet_ids) : 0
 }
 
 # Network Load Balancer for apiservers and ingress
@@ -12,7 +28,7 @@ resource "aws_lb" "this" {
   internal = false
 
   dynamic "subnet_mapping" {
-    for_each = var.subnet_ids
+    for_each = local.subnet_ids
 
     content {
       subnet_id     = subnet_mapping.value
@@ -62,7 +78,7 @@ resource "aws_lb_listener" "ext-health" {
 resource "aws_lb_target_group" "rpc" {
   for_each    = var.use_lb ? local.network_settings : {}
   name        = "${local.id}-${each.value["name"]}-rpc"
-  vpc_id      = var.vpc_id
+  vpc_id      = local.vpc_id
   target_type = "instance"
 
   protocol = "TCP"
@@ -84,7 +100,7 @@ resource "aws_lb_target_group" "rpc" {
 resource "aws_lb_target_group" "wss" {
   for_each    = var.use_lb ? local.network_settings : {}
   name        = "${local.id}-${each.value["name"]}-wss"
-  vpc_id      = var.vpc_id
+  vpc_id      = local.vpc_id
   target_type = "instance"
 
   protocol = "TCP"
@@ -105,10 +121,12 @@ resource "aws_lb_target_group" "wss" {
 
 resource "aws_lb_target_group" "ext-health" {
   for_each    = var.use_lb ? local.network_settings : {}
-  name        = "${local.id}-${each.value["name"]}-ext-health"
-  vpc_id      = var.vpc_id
+  name        = "${local.id}-${each.value["name"]}-hc"
+  vpc_id      = local.vpc_id
   target_type = "instance"
 
   protocol = "TCP"
   port     = each.value["api_health"]
+
+  tags = {}
 }

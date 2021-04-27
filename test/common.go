@@ -46,7 +46,7 @@ func testLbEndpoints(t *testing.T, terraformOptions *terraform.Options) {
 func configureTerraformOptions(t *testing.T, exampleFolder string, fixturesDir string) (*terraform.Options, *aws.Ec2Keypair) {
 
 	uniqueID := random.UniqueId()
-	awsRegion := "us-west-2"
+	awsRegion := "us-east-2"
 
 	keyPairName := fmt.Sprintf("terratest-ssh-example-%s", uniqueID)
 	keyPair := aws.CreateAndImportEC2KeyPair(t, awsRegion, keyPairName)
