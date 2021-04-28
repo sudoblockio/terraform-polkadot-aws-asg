@@ -110,12 +110,12 @@ data "aws_vpc" "default" {
 }
 
 data "aws_subnet_ids" "this" {
-  vpc_id     = var.vpc_id == "" ? data.aws_vpc.default.id : var.vpc_id
+  vpc_id     = local.vpc_id
   depends_on = [data.aws_vpc.default]
 }
 
 locals {
-  vpc_id     = data.aws_subnet_ids.this.vpc_id
+  vpc_id     = var.vpc_id == "" ? data.aws_vpc.default.id : var.vpc_id
   subnet_ids = var.subnet_ids == null ? tolist(data.aws_subnet_ids.this.ids) : var.subnet_ids
 }
 

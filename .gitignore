@@ -7,6 +7,10 @@
 *.tfplan
 .terragrunt-cache/
 .terraform/
+.terraform.tfstate.lock.info
+.terraform.lock.hcl
+
+manifest.json
 
 terraform.tfvars
 
