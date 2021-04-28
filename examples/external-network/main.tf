@@ -26,10 +26,10 @@ locals {
 }
 
 module "network" {
-  source                    = "github.com/geometry-labs/terraform-polkadot-aws-network.git?ref=main"
-  api_enabled               = true
-  num_azs                   = 2
-  polkadot_network_settings = local.network_settings
+  source           = "github.com/geometry-labs/terraform-polkadot-aws-network.git?ref=main"
+  api_enabled      = true
+  num_azs          = 2
+  network_settings = local.network_settings
 }
 
 variable "public_key" {}
