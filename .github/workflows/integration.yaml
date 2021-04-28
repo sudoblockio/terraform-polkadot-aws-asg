@@ -4,6 +4,10 @@ on: push
 
 jobs:
   go-tests:
+    strategy:
+      matrix:
+        tf_tests: ["TestTerraformStandalone", "TestTerraformDefaults", "TestTerraformSpot", "TestTerraformExternal"]
+
     name: Run Terratest Integration Tests
     runs-on: ubuntu-latest
     steps:
@@ -20,7 +24,7 @@ jobs:
         with:
           terraform_version: 0.13.5
       - name: Run tests - TF13
-        run: make test
+        run: go test ./test -v --run ${{tf_tests}} -timeout 45m
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.CI_AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.CI_AWS_SECRET_ACCESS_KEY }}
@@ -29,7 +33,7 @@ jobs:
         with:
           terraform_version: 0.14.10
       - name: Run Go Tests
-        run: make test
+        run: go test ./test -v --run ${{tf_tests}} -timeout 45m
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.CI_AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.CI_AWS_SECRET_ACCESS_KEY }}
