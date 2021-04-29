@@ -24,7 +24,7 @@ jobs:
         with:
           terraform_version: 0.13.5
       - name: Run tests - TF13
-        run: go test ./test -v --run ${{tf_tests}} -timeout 45m
+        run: go test ./test -v --run ${{ matrix.tf_tests }} -timeout 45m
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.CI_AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.CI_AWS_SECRET_ACCESS_KEY }}
@@ -33,7 +33,7 @@ jobs:
         with:
           terraform_version: 0.14.10
       - name: Run Go Tests
-        run: go test ./test -v --run ${{tf_tests}} -timeout 45m
+        run: go test ./test -v --run ${{ matrix.tf_tests }} -timeout 45m
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.CI_AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.CI_AWS_SECRET_ACCESS_KEY }}
