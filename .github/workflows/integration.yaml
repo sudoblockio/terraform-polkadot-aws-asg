@@ -5,8 +5,13 @@ on: push
 jobs:
   go-tests:
     strategy:
+      fail-fast: false
       matrix:
-        tf_tests: ["TestTerraformStandalone", "TestTerraformDefaults", "TestTerraformSpot", "TestTerraformExternal"]
+        tf_tests:
+          - TestTerraformStandalone
+          - TestTerraformDefaults
+          - TestTerraformSpot
+          - TestTerraformExternal
 
     name: Run Terratest Integration Tests
     runs-on: ubuntu-latest

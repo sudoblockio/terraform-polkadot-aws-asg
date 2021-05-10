@@ -57,4 +57,6 @@ module "defaults" {
   desired_capacity = 1
 
   network_settings = local.network_settings
+
+  depends_on = [module.network] # Needed so VPC is created before the vpc data source in the module
 }
