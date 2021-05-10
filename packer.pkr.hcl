@@ -99,10 +99,6 @@ variable "instance_count" {
   type = string
 }
 
-variable "consul_datacenter" {
-  type = string
-}
-
 variable "logging_filter" {
   type = string
 }
@@ -125,6 +121,38 @@ variable "prometheus_enabled" {
 
 variable "consul_enabled" {
   type = bool
+}
+
+variable "consul_datacenter" {
+  type = string
+}
+
+variable "retry_join" {
+  type = string
+}
+
+variable "consul_gossip_key" {
+  type = string
+}
+
+variable "consul_auto_encrypt_enabled" {
+  type = string
+}
+
+variable "consul_connect_enabled" {
+  type = string
+}
+
+variable "consul_acl_enable" {
+  type = string
+}
+
+variable "consul_acl_datacenter" {
+  type = string
+}
+
+variable "consul_acl_token" {
+  type = string
 }
 
 variable "default_telemetry_enabled" {
@@ -159,10 +187,6 @@ variable "aws_access_key_id" {
   type = string
 }
 
-variable "retry_join" {
-  type = string
-}
-
 variable "module_path" {
   type = string
 }
@@ -176,8 +200,6 @@ build {
 
   provisioner "ansible" {
     extra_arguments = [
-      "-e",
-      "consul_datacenter=${var.consul_datacenter}",
       "-e",
       "skip_health_check=${var.this_skip_health_check}",
       "-e",
@@ -209,9 +231,23 @@ build {
       "-e",
       "consul_enabled=${var.consul_enabled}",
       "-e",
-      "prometheus_enabled=${var.prometheus_enabled}",
+      "consul_datacenter=${var.consul_datacenter}",
       "-e",
       "retry_join_string='${var.retry_join}'",
+      "-e",
+      "consul_gossip_key='${var.consul_gossip_key}'",
+      "-e",
+      "consul_auto_encrypt_enabled='${var.consul_auto_encrypt_enabled}'",
+      "-e",
+      "consul_connect_enabled='${var.consul_connect_enabled}'",
+      "-e",
+      "consul_acl_enable='${var.consul_acl_enable}'",
+      "-e",
+      "consul_acl_datacenter='${var.consul_acl_datacenter}'",
+      "-e",
+      "consul_acl_token='${var.consul_acl_token}'",
+      "-e",
+      "prometheus_enabled=${var.prometheus_enabled}",
       "-e",
       "network_settings=\"${var.network_settings}\"",
       "-e",

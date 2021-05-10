@@ -85,6 +85,42 @@ variable "consul_enabled" {
   default     = false
 }
 
+variable "consul_gossip_key" {
+  type        = string
+  description = "Consul gossip encryption key"
+  default     = ""
+}
+
+variable "consul_auto_encrypt_enabled" {
+  description = "Bool to enable Consul auto-encrypt"
+  type        = bool
+  default     = false
+}
+
+variable "consul_connect_enabled" {
+  description = "Bool to enable Consul Connect"
+  type        = bool
+  default     = false
+}
+
+variable "consul_acl_enable" {
+  description = "Bool to enable Consul ACLs"
+  type        = bool
+  default     = false
+}
+
+variable "consul_acl_datacenter" {
+  description = "Authoritative Consul ACL datacenter"
+  type        = string
+  default     = ""
+}
+
+variable "consul_acl_token" {
+  description = "Consul ACL token"
+  type        = string
+  default     = ""
+}
+
 variable "prometheus_enabled" {
   description = "Bool to use when Prometheus is enabled"
   type        = bool
@@ -154,15 +190,14 @@ module "packer" {
     vpc_id    = var.build_vpc_id == "" ? local.vpc_id : var.build_vpc_id
     subnet_id = var.build_subnet_id == "" ? local.subnet_ids[0] : var.build_subnet_id
 
-    id                     = local.id
-    this_skip_health_check = var.skip_health_check
-    network_settings       = jsonencode(local.network_settings)
-    aws_region             = data.aws_region.this.name
-    module_path            = path.module
-    node_exporter_user     = var.node_exporter_user
-    node_exporter_password = var.node_exporter_password
-    role_arn               = var.packer_build_role_arn
-    //    ssh_user                      = var.ssh_user
+    id                            = local.id
+    this_skip_health_check        = var.skip_health_check
+    network_settings              = jsonencode(local.network_settings)
+    aws_region                    = data.aws_region.this.name
+    module_path                   = path.module
+    node_exporter_user            = var.node_exporter_user
+    node_exporter_password        = var.node_exporter_password
+    role_arn                      = var.packer_build_role_arn
     project                       = var.project
     instance_count                = "library"
     polkadot_binary_url           = var.polkadot_client_url
@@ -173,10 +208,16 @@ module "packer" {
     default_telemetry_enabled     = var.default_telemetry_enabled
     telemetry_url                 = var.telemetry_url
     logging_filter                = var.logging_filter
-    consul_datacenter             = data.aws_region.this.name
     consul_enabled                = var.consul_enabled
-    prometheus_enabled            = var.prometheus_enabled
+    consul_datacenter             = data.aws_region.this.name
     retry_join                    = "provider=aws tag_key=\"k8s.io/cluster/${var.cluster_name}\" tag_value=owned"
+    consul_gossip_key             = var.consul_gossip_key
+    consul_auto_encrypt_enabled   = var.consul_auto_encrypt_enabled
+    consul_connect_enabled        = var.consul_connect_enabled
+    consul_acl_enable             = var.consul_acl_enable
+    consul_acl_datacenter         = var.consul_acl_datacenter
+    consul_acl_token              = var.consul_acl_token
+    prometheus_enabled            = var.prometheus_enabled
     aws_access_key_id             = var.sync_aws_access_key_id
     aws_secret_access_key         = var.sync_aws_secret_access_key
     sync_bucket_uri               = var.sync_bucket_uri

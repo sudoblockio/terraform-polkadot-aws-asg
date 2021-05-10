@@ -1,5 +1,4 @@
 ---
-
 - src: dev-sec.os-hardening
   version: 5.2.1
 - src: dev-sec.ssh-hardening
@@ -8,4 +7,7 @@
 - src: geometrylabs.polkadot_base
 - src: geometrylabs.polkadot_library
 - src: geometrylabs.cloud_helper
-- src: brianshumate.consul
+- src: https://github.com/ansible-community/ansible-consul.git
+  name: ansible-consul
+  scm: git
+  version: master
