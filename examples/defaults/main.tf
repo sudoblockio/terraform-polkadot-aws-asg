@@ -6,10 +6,10 @@ provider "aws" {
 
 variable "public_key" {}
 
-resource "random_pet" "this" {}
+resource "random_pet" "this" { length = 1 }
 
 module "defaults" {
   source     = "../.."
-  name       = random_pet.this.id
+  name       = "deaults-${random_pet.this.id}"
   public_key = var.public_key
 }

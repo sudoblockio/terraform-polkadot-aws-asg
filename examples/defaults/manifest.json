@@ -8,7 +8,16 @@
       "artifact_id": "us-east-2:ami-094dca2169d80ab61",
       "packer_run_uuid": "64a45610-dec4-9fb6-b899-42af6e5ad0b6",
       "custom_data": null
+    },
+    {
+      "name": "ubuntu18-ami",
+      "builder_type": "amazon-ebs",
+      "build_time": 1620674802,
+      "files": null,
+      "artifact_id": "us-east-2:ami-008f4c662eb60ba9d",
+      "packer_run_uuid": "fcdf177c-22c3-4f5d-b1c1-216ed0a21310",
+      "custom_data": null
     }
   ],
-  "last_run_uuid": "64a45610-dec4-9fb6-b899-42af6e5ad0b6"
+  "last_run_uuid": "fcdf177c-22c3-4f5d-b1c1-216ed0a21310"
 }

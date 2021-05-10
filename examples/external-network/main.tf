@@ -39,7 +39,7 @@ resource "random_pet" "this" {}
 module "defaults" {
   source = "../.."
 
-  name = random_pet.this.id
+  name = "external-${random_pet.this.id}"
 
   create_security_group = false
 
@@ -53,4 +53,6 @@ module "defaults" {
   desired_capacity = 1
 
   network_settings = local.network_settings
+
+  depends_on = [module.network]
 }

@@ -11,7 +11,7 @@ data "aws_region" "this" {}
 module "network" {
   source = "terraform-aws-modules/vpc/aws"
 
-  name = random_pet.this.id
+  name = "standalone-${random_pet.this.id}"
   cidr = "10.0.0.0/16"
 
   azs            = ["${data.aws_region.this.name}a", "${data.aws_region.this.name}b", "${data.aws_region.this.name}c"]
@@ -46,7 +46,7 @@ locals {
 module "defaults" {
   source = "../.."
 
-  name = random_pet.this.id
+  name = "standalone-${random_pet.this.id}"
 
   public_key = var.public_key
   subnet_ids = module.network.public_subnets

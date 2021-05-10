@@ -4,6 +4,10 @@ provider "aws" {
   region = var.aws_region
 }
 
+resource "random_pet" "this" {
+  length = 2
+}
+
 locals {
   network_settings = {
     polkadot = {
@@ -30,7 +34,7 @@ variable "public_key" {}
 module "defaults" {
   source = "../.."
 
-  name = "test-spot"
+  name = "spot-${random_pet.this.id}"
 
   public_key = var.public_key
 
