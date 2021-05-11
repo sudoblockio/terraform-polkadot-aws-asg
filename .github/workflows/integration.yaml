@@ -12,6 +12,7 @@ jobs:
           - TestTerraformDefaults
           - TestTerraformSpot
           - TestTerraformExternal
+          - TestTerraformStandaloneAllAnsible
 
     name: Run Terratest Integration Tests
     runs-on: ubuntu-latest
