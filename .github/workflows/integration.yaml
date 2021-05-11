@@ -6,6 +6,7 @@ jobs:
   go-tests:
     strategy:
       fail-fast: false
+      max-parallel: 1
       matrix:
         tf_tests:
           - TestTerraformStandalone
@@ -27,7 +28,7 @@ jobs:
 
       - uses: autero1/action-terraform@v1.0.0
         with:
-          terraform_version: 0.13.5
+          terraform_version: 0.14.11
       - name: Run tests - TF13
         run: go test ./test -v --run ${{ matrix.tf_tests }} -timeout 45m
         env:
@@ -36,7 +37,7 @@ jobs:
 
       - uses: autero1/action-terraform@v1.0.0
         with:
-          terraform_version: 0.14.10
+          terraform_version: 0.15.3
       - name: Run Go Tests
         run: go test ./test -v --run ${{ matrix.tf_tests }} -timeout 45m
         env:
