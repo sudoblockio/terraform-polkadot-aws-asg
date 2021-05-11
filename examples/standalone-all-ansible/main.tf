@@ -43,6 +43,12 @@ locals {
   }
 }
 
+resource "aws_security_group" "this" {
+  description = "Example SG"
+  vpc_id      = module.network.vpc_id
+  name        = "example-sg"
+}
+
 module "defaults" {
   source = "../.."
 
@@ -66,6 +72,7 @@ module "defaults" {
   consul_acl_token            = "00000000-0000-0000-0000-000000000002"
   prometheus_enabled          = true
   cluster_name                = "example"
+  consul_security_group       = aws_security_group.this.id
 
 
   depends_on = [module.network] # Needed so VPC is created before the vpc data source in the module
