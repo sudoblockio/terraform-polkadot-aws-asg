@@ -67,6 +67,7 @@ module "defaults" {
   consul_enabled              = true
   consul_gossip_key           = "BXs1MAyl+tTUIKEFZCzivhmY9a0dCUxXdgRZyzPJ6QA="
   consul_auto_encrypt_enabled = true
+  consul_connect_enabled      = true
   consul_acl_enable           = true
   consul_acl_datacenter       = "dc1"
   consul_acl_token            = "00000000-0000-0000-0000-000000000002"
