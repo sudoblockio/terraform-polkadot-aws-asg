@@ -11,3 +11,5 @@
   name: ansible-consul
   scm: git
   version: master
+- name: envoyproxy
+  src: fabiocruzcoelho.envoyproxy

@@ -39,6 +39,10 @@
           retry_join:
             - "{{ retry_join_string }}"
       when: consul_enabled|bool
+    - name: Install Envoy proxy
+      include_role:
+        name: envoyproxy
+      when: consul_connect_enabled | bool
     - name: Run Consul Cleanup playbook
       include_role:
         name: consul-cleanup
