@@ -90,7 +90,7 @@ resource "aws_lb_target_group" "rpc" {
     # Interval between health checks required to be 10 or 30
     interval = 10
   }
-  tags = merge(var.tags, { Name = var.tags })
+  tags = merge(var.tags, { Name = var.name })
 }
 
 resource "aws_lb_target_group" "wss" {
@@ -113,7 +113,7 @@ resource "aws_lb_target_group" "wss" {
     # Interval between health checks required to be 10 or 30
     interval = 10
   }
-  tags = merge(var.tags, { Name = var.tags })
+  tags = merge(var.tags, { Name = var.name })
 }
 
 resource "aws_lb_target_group" "ext-health" {
@@ -125,5 +125,5 @@ resource "aws_lb_target_group" "ext-health" {
   protocol = "TCP"
   port     = each.value["api_health"]
 
-  tags = merge(var.tags, { Name = var.tags })
+  tags = merge(var.tags, { Name = var.name })
 }
