@@ -88,7 +88,7 @@ variable "spot_price" {
 }
 
 module "user_data" {
-  source              = "github.com/geometry-labs/terraform-polkadot-user-data.git?ref=main"
+  source              = "github.com/geometry-labs/terraform-polkadot-user-data.git?ref=v0.1.0"
   cloud_provider      = "aws"
   type                = "library"
   consul_enabled      = var.consul_enabled
@@ -133,8 +133,7 @@ module "asg" {
 
   vpc_zone_identifier = local.subnet_ids
 
-  health_check_type = "EC2"
-  //  TODO Verify ^^
+  health_check_type         = "EC2"
   min_size                  = var.min_size
   max_size                  = var.max_size
   desired_capacity          = var.desired_capacity
@@ -143,8 +142,3 @@ module "asg" {
   target_group_arns = concat(values(aws_lb_target_group.rpc)[*].arn, values(aws_lb_target_group.wss)[*].arn, values(aws_lb_target_group.ext-health)[*].arn)
   tags_as_map       = merge(var.tags, { Name = var.tags })
 }
-
-//resource "aws_autoscaling_attachment" "this" {
-//  autoscaling_group_name = module.asg.this_autoscaling_group_id
-//  alb_target_group_arn   = var.lb_target_group_arn
-//}

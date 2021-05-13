@@ -134,8 +134,8 @@ module "defaults" {
 | Name | Source | Version |
 |------|--------|---------|
 | asg | terraform-aws-modules/autoscaling/aws | ~> 3.8.0 |
-| packer | github.com/geometry-labs/terraform-packer-build.git?ref=main |  |
-| user_data | github.com/geometry-labs/terraform-polkadot-user-data.git?ref=main |  |
+| packer | github.com/geometry-labs/terraform-packer-build.git?ref=v0.1.0 |  |
+| user_data | github.com/geometry-labs/terraform-polkadot-user-data.git?ref=v0.1.0 |  |
 
 ## Resources
 
