@@ -151,6 +151,18 @@ variable "sync_bucket_uri" {
   default     = ""
 }
 
+variable "sync_bucket_arn" {
+  description = "S3 bucket arn for SoT sync"
+  type        = string
+  default     = ""
+}
+
+variable "sync_bucket_kms_key_arn" {
+  description = "KMS key used to decrypt S3 bucket for SoT sync"
+  type        = string
+  default     = ""
+}
+
 variable "packer_build_role_arn" {
   description = "The role arn the packer build should use to build the image."
   type        = string
@@ -218,9 +230,9 @@ module "packer" {
     consul_acl_datacenter         = var.consul_acl_datacenter
     consul_acl_token              = var.consul_acl_token
     prometheus_enabled            = var.prometheus_enabled
-    aws_access_key_id             = var.sync_aws_access_key_id
-    aws_secret_access_key         = var.sync_aws_secret_access_key
     sync_bucket_uri               = var.sync_bucket_uri
+    //    aws_access_key_id             = var.sync_aws_access_key_id # Instance profile
+    //    aws_secret_access_key         = var.sync_aws_secret_access_key
   }
 }
 

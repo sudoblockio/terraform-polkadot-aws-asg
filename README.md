@@ -11,13 +11,10 @@ The module is intended to be flexible in its configuration parameters allowing u
 
 ## Requirements
 
-- Terraform v.14+ tested 
+- Terraform version 0.14+ tested - [Install](https://www.terraform.io/downloads.html)
+- Packer version 1.7+ - [Install](https://www.packer.io/downloads)
 - Ansible 2.9 - `pip install ansible`
 - SSH Keys - `ssh-keygen -b 4096` (Only public required)
-
-## Terraform Versions
-
-For Terraform v0.12.0+
 
 ## Usage
 
@@ -237,6 +234,8 @@ module "defaults" {
 | subnet\_ids | The ids of the subnets to deploy into | `list(string)` | `null` | no |
 | sync\_aws\_access\_key\_id | AWS access key ID for SoT sync | `string` | `""` | no |
 | sync\_aws\_secret\_access\_key | AWS access key for SoT sync | `string` | `""` | no |
+| sync\_bucket\_arn | S3 bucket arn for SoT sync | `string` | `""` | no |
+| sync\_bucket\_kms\_key\_arn | KMS key used to decrypt S3 bucket for SoT sync | `string` | `""` | no |
 | sync\_bucket\_uri | S3 bucket URI for SoT sync | `string` | `""` | no |
 | tags | Tags to give resource | `map(string)` | `{}` | no |
 | telemetry\_url | WSS URL for telemetry | `string` | `""` | no |
