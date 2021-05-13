@@ -90,7 +90,7 @@ resource "aws_iam_policy" "describe_policy" {
 }
 
 resource "aws_iam_role_policy_attachment" "describe_policy" {
-  count      = var.iam_instance_profile == "" ? 1 : 0
+  count      = var.consul_enabled == "" ? 1 : 0
   policy_arn = join("", aws_iam_policy.describe_policy.*.arn)
   role       = join("", aws_iam_role.this.*.id)
 }

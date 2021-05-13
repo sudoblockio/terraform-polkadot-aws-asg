@@ -231,10 +231,11 @@ module "packer" {
     consul_acl_token              = var.consul_acl_token
     prometheus_enabled            = var.prometheus_enabled
     sync_bucket_uri               = var.sync_bucket_uri
-    //    aws_access_key_id             = var.sync_aws_access_key_id # Instance profile
-    //    aws_secret_access_key         = var.sync_aws_secret_access_key
   }
 }
+# Instance profile for AWS, keys otherwise
+//    aws_access_key_id             = var.sync_aws_access_key_id
+//    aws_secret_access_key         = var.sync_aws_secret_access_key
 
 // Was having issues in some regions so put in a sleep to fix
 resource "null_resource" "wait" {
