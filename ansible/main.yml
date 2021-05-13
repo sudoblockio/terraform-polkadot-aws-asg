@@ -14,11 +14,11 @@
       when: instance_store_enabled | default(false) | bool
     - name: Run OS hardening playbook
       include_role:
-        name: dev-sec.os-hardening
+        name: dev-sec.hardening.os_hardening
       when: ansible_hardening | default(false) | bool
     - name: Run SSH hardening playbook
       include_role:
-        name: dev-sec.ssh-hardening
+        name: dev-sec.hardening.ssh_hardening
       when: ansible_hardening | default(false) | bool
     - name: Install Consul
       include_role:
