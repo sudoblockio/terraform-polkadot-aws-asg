@@ -21,7 +21,22 @@ For Terraform v0.12.0+
 
 ## Usage
 
-See the `examples` directory for further examples. Possible configurations are:
+Steps for running terraform:
+
+1. Install the above [requirements](#requirements)
+   
+2. Get AWS API keys into environment variables
+- AWS_ACCESS_KEY_ID
+- AWS_SECRET_ACCESS_KEY
+
+3. Create SSH keys and make note of the path (public_key_path variable) or copy the key material. 
+
+```shell
+ssh-keygen -b 4096 -f $HOME/.ssh/<your key name>
+cat $HOME/.ssh/<your key name>.pub # this is the `public_key` variable 
+```
+
+4. Use this module in your own terraform or modify one of the examples directory. Possible configurations are:
 
 #### Defaults
 
