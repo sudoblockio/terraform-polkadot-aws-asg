@@ -10,6 +10,6 @@ resource "random_pet" "this" { length = 1 }
 
 module "defaults" {
   source     = "../.."
-  name       = "deaults-${random_pet.this.id}"
+  name       = "defaults-${random_pet.this.id}"
   public_key = var.public_key
 }

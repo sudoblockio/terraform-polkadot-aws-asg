@@ -141,7 +141,7 @@ module "asg" {
   wait_for_capacity_timeout = var.wait_for_capacity_timeout
 
   target_group_arns = concat(values(aws_lb_target_group.rpc)[*].arn, values(aws_lb_target_group.wss)[*].arn, values(aws_lb_target_group.ext-health)[*].arn)
-  tags_as_map       = var.tags
+  tags_as_map       = merge(var.tags, { Name = var.tags })
 }
 
 //resource "aws_autoscaling_attachment" "this" {
