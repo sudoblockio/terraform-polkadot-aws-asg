@@ -127,6 +127,12 @@ variable "prometheus_enabled" {
   default     = false
 }
 
+variable "hardening_enabled" {
+  description = "Runs a series of linux hardening playbooks - ansible-collection-hardening"
+  type        = bool
+  default     = false
+}
+
 variable "cluster_name" {
   description = "The name of the k8s cluster"
   type        = string
@@ -230,6 +236,7 @@ module "packer" {
     consul_acl_datacenter         = var.consul_acl_datacenter
     consul_acl_token              = var.consul_acl_token
     prometheus_enabled            = var.prometheus_enabled
+    hardening_enabled             = var.hardening_enabled
     sync_bucket_uri               = var.sync_bucket_uri
   }
 }

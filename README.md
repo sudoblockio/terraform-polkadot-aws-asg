@@ -194,6 +194,7 @@ module "defaults" {
 | default\_telemetry\_enabled | n/a | `bool` | `true` | no |
 | desired\_capacity | The desired capacity of asg | `string` | `1` | no |
 | enable\_scaling | Bool to enable scaling policy | `bool` | `true` | no |
+| hardening\_enabled | Runs a series of linux hardening playbooks - ansible-collection-hardening | `bool` | `false` | no |
 | health\_check\_port | Port number for the health check | `string` | `"5500"` | no |
 | iam\_instance\_profile | The instance profile to associate with the asg - leasve blank to create one regionally scoped. | `string` | `""` | no |
 | id | The id to give the ami | `string` | `""` | no |

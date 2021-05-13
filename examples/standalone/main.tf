@@ -56,7 +56,8 @@ module "defaults" {
   max_size         = 1
   desired_capacity = 1
 
-  network_settings = local.network_settings
+  hardening_enabled = true
+  network_settings  = local.network_settings
 
   depends_on = [module.network] # Needed so VPC is created before the vpc data source in the module
 }
