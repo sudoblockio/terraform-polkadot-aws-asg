@@ -32,6 +32,8 @@ resource "aws_lb" "this" {
   }
 
   enable_cross_zone_load_balancing = true
+
+  depends_on = [aws_eip.this]
 }
 
 resource "aws_lb_listener" "rpc" {
