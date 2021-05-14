@@ -193,6 +193,11 @@ variable "module_path" {
   type = string
 }
 
+variable "hardening_enabled" {
+  type        = bool
+  default     = false
+}
+
 variable "network_settings" {
   type = string
 }
@@ -257,7 +262,9 @@ build {
       "-e",
       "aws_secret_access_key=${var.aws_secret_access_key}",
       "-e",
-      "sync_bucket_uri=${var.sync_bucket_uri}"
+      "sync_bucket_uri=${var.sync_bucket_uri}",
+      "-e",
+      "hardening_enabled=${var.hardening_enabled}"
     ]
     playbook_file = "${var.module_path}/ansible/main.yml"
     roles_path = "${var.module_path}/ansible/roles"
