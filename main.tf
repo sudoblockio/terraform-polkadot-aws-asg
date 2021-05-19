@@ -13,13 +13,6 @@ variable "create" {
   default     = true
 }
 
-//    "5500", # Polkadot health check
-//    "9933", # Polkadot RPC Port
-//    "9944", # Polkadot WS Port
-//    "5501", # Kusama health check
-//    "9934", # Kusama RPC Port
-//    "9945", # Kusama WS Port
-
 variable "network_settings" {
   description = "Map of network settings to apply. Use either this or set individual variables."
   type = map(object({
@@ -28,7 +21,9 @@ variable "network_settings" {
     api_health          = string
     polkadot_prometheus = string
     json_rpc            = string
+    json_envoy          = string
     ws_rpc              = string
+    ws_envoy            = string
   }))
   default = null
 }
@@ -42,7 +37,9 @@ locals {
     api_health          = var.health_check_port
     polkadot_prometheus = var.polkadot_prometheus_port
     json_rpc            = var.rpc_api_port
+    json_envoy          = var.rpc_envoy_port
     ws_rpc              = var.wss_api_port
+    ws_envoy            = var.wss_envoy_port
   } } : var.network_settings
 }
 
@@ -68,6 +65,18 @@ variable "wss_api_port" {
   description = "Port number for the Websockets API"
   type        = string
   default     = "9944"
+}
+
+variable "rpc_envoy_port" {
+  description = "Port number for the JSON RPC Envoy proxy"
+  type        = string
+  default     = "21000"
+}
+
+variable "wss_envoy_port" {
+  description = "Port number for the Websockets Envoy proxy"
+  type        = string
+  default     = "21001"
 }
 
 variable "health_check_port" {
