@@ -133,6 +133,12 @@ variable "hardening_enabled" {
   default     = false
 }
 
+variable "health_check_enabled" {
+  description = "Bool to enable client health check agent"
+  type        = bool
+  default     = false
+}
+
 variable "cluster_name" {
   description = "The name of the k8s cluster"
   type        = string
@@ -209,6 +215,7 @@ module "packer" {
     subnet_id = var.build_subnet_id == "" ? local.subnet_ids[0] : var.build_subnet_id
 
     id                            = local.id
+    health_check_enabled          = var.health_check_enabled
     this_skip_health_check        = var.skip_health_check
     deployed_networks             = join("\n", [for network in local.network_settings : network["shortname"]])
     instance_type                 = "asg"

@@ -107,6 +107,10 @@ variable "this_skip_health_check" {
   type = string
 }
 
+variable "health_check_enabled" {
+  type = string
+}
+
 variable "node_exporter_user" {
   type = string
 }
@@ -217,6 +221,8 @@ build {
     extra_arguments = [
       "-e",
       "skip_health_check=${var.this_skip_health_check}",
+      "-e",
+      "health_check_enabled=${var.health_check_enabled}",
       "-e",
       "region=${var.aws_region}",
       "-e",
