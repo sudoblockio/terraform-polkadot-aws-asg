@@ -202,6 +202,14 @@ variable "network_settings" {
   type = string
 }
 
+variable "instance_type" {
+  type = string
+}
+
+variable "deployed_networks" {
+  type = string
+}
+
 build {
   sources = ["source.amazon-ebs.ubuntu18-ami"]
 
@@ -211,6 +219,10 @@ build {
       "skip_health_check=${var.this_skip_health_check}",
       "-e",
       "region=${var.aws_region}",
+      "-e",
+      "instance_type=${var.instance_type}",
+      "-e",
+      "deployed_networks=${var.deployed_networks}",
       "-e",
       "node_exporter_user=${var.node_exporter_user}",
       "-e",

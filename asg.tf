@@ -40,6 +40,12 @@ variable "skip_health_check" {
   default     = false
 }
 
+variable "envoy_enabled" {
+  description = "Configure Envoy proxy for Consul Connect"
+  type        = bool
+  default     = false
+}
+
 variable "public_key" {
   description = "The public ssh key"
   type        = string
@@ -91,10 +97,10 @@ module "user_data" {
   source              = "github.com/geometry-labs/terraform-polkadot-user-data.git?ref=v0.1.0"
   cloud_provider      = "aws"
   type                = "library"
-  consul_enabled      = var.consul_enabled
   prometheus_enabled  = var.prometheus_enabled
   prometheus_user     = var.node_exporter_user
   prometheus_password = var.node_exporter_password
+  envoy_enabled       = var.envoy_enabled
 }
 
 locals {

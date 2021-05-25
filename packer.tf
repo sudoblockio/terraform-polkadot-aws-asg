@@ -210,6 +210,8 @@ module "packer" {
 
     id                            = local.id
     this_skip_health_check        = var.skip_health_check
+    deployed_networks             = join("\n", [for network in local.network_settings : network["shortname"]])
+    instance_type                 = "asg"
     network_settings              = jsonencode(local.network_settings)
     aws_region                    = data.aws_region.this.name
     module_path                   = path.module

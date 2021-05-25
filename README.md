@@ -213,6 +213,7 @@ module "defaults" {
 | <a name="input_default_telemetry_enabled"></a> [default\_telemetry\_enabled](#input\_default\_telemetry\_enabled) | n/a | `bool` | `true` | no |
 | <a name="input_desired_capacity"></a> [desired\_capacity](#input\_desired\_capacity) | The desired capacity of asg | `string` | `1` | no |
 | <a name="input_enable_scaling"></a> [enable\_scaling](#input\_enable\_scaling) | Bool to enable scaling policy | `bool` | `true` | no |
+| <a name="input_envoy_enabled"></a> [envoy\_enabled](#input\_envoy\_enabled) | Configure Envoy proxy for Consul Connect | `bool` | `false` | no |
 | <a name="input_hardening_enabled"></a> [hardening\_enabled](#input\_hardening\_enabled) | Runs a series of linux hardening playbooks - ansible-collection-hardening | `bool` | `false` | no |
 | <a name="input_health_check_port"></a> [health\_check\_port](#input\_health\_check\_port) | Port number for the health check | `string` | `"5500"` | no |
 | <a name="input_iam_instance_profile"></a> [iam\_instance\_profile](#input\_iam\_instance\_profile) | The instance profile to associate with the asg - leasve blank to create one regionally scoped. | `string` | `""` | no |
