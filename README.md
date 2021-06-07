@@ -196,7 +196,9 @@ module "defaults" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_additional_build_security_group_ids"></a> [additional\_build\_security\_group\_ids](#input\_additional\_build\_security\_group\_ids) | Additional security groups to use to build image. | `list(string)` | <pre>[<br>  ""<br>]</pre> | no |
 | <a name="input_ami_id"></a> [ami\_id](#input\_ami\_id) | AMI ID to use in autoscaling group. Blank to build from packer. | `string` | `""` | no |
+| <a name="input_build_security_group_id"></a> [build\_security\_group\_id](#input\_build\_security\_group\_id) | The security group to use to build image. | `string` | `""` | no |
 | <a name="input_build_subnet_id"></a> [build\_subnet\_id](#input\_build\_subnet\_id) | The subnet to build the image in.  Must be public - Omit if running cluster deployed in in public subnets. | `string` | `""` | no |
 | <a name="input_build_vpc_id"></a> [build\_vpc\_id](#input\_build\_vpc\_id) | VPC to build the image in. Must have public subnet - Omit if running cluster deployed in in public subnets. | `string` | `""` | no |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | The name of the k8s cluster | `string` | `""` | no |

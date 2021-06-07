@@ -193,6 +193,18 @@ variable "build_subnet_id" {
   default     = ""
 }
 
+variable "build_security_group_id" {
+  description = "The security group to use to build image."
+  type        = string
+  default     = ""
+}
+
+variable "additional_build_security_group_ids" {
+  description = "Additional security groups to use to build image."
+  type        = list(string)
+  default     = [""]
+}
+
 resource "null_resource" "requirements" {
   triggers = {
     time = timestamp()
@@ -211,8 +223,9 @@ module "packer" {
   packer_config_path = "${path.module}/packer.pkr.hcl"
   timestamp_ui       = true
   vars = {
-    vpc_id    = var.build_vpc_id == "" ? local.vpc_id : var.build_vpc_id
-    subnet_id = var.build_subnet_id == "" ? local.subnet_ids[0] : var.build_subnet_id
+    vpc_id             = var.build_vpc_id == "" ? local.vpc_id : var.build_vpc_id
+    subnet_id          = var.build_subnet_id == "" ? local.subnet_ids[0] : var.build_subnet_id
+    security_group_ids = var.build_security_group_id != "" && var.additional_build_security_group_ids != [""] ? distinct(compact(concat([var.build_security_group_id], var.additional_build_security_group_ids))) : null
 
     id                            = local.id
     health_check_enabled          = var.health_check_enabled
