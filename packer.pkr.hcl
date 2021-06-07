@@ -32,8 +32,8 @@ variable "vpc_id" {
 }
 
 variable "security_group_ids" {
-  type = list(string)
-  default = [""]
+  type = string
+  default = ""
 }
 
 variable "aws_region" {
