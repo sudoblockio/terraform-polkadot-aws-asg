@@ -31,6 +31,11 @@ variable "vpc_id" {
   default = ""
 }
 
+variable "security_group_ids" {
+  type = list(string)
+  default = [""]
+}
+
 variable "aws_region" {
   type = string
   default = ""
@@ -65,6 +70,7 @@ source "amazon-ebs" "ubuntu18-ami" {
 
   vpc_id = var.vpc_id
   subnet_id = var.subnet_id
+  security_group_ids = var.security_group_ids
 
   assume_role {
     role_arn = var.role_arn
