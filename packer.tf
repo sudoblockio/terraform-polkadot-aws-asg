@@ -225,7 +225,7 @@ module "packer" {
   vars = {
     vpc_id             = var.build_vpc_id == "" ? local.vpc_id : var.build_vpc_id
     subnet_id          = var.build_subnet_id == "" ? local.subnet_ids[0] : var.build_subnet_id
-    security_group_ids = var.build_security_group_id != "" && var.additional_build_security_group_ids != [""] ? join(",", distinct(compact(concat([var.build_security_group_id], var.additional_build_security_group_ids)))) : null
+    security_group_ids = var.build_security_group_id != "" && var.additional_build_security_group_ids != [""] ? join(",", distinct(compact(concat([var.build_security_group_id], var.additional_build_security_group_ids)))) : ""
 
     id                            = local.id
     health_check_enabled          = var.health_check_enabled
