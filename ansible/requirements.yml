@@ -10,8 +10,8 @@ roles:
   - src: geometrylabs.polkadot_base
   - src: geometrylabs.polkadot_library
   - src: geometrylabs.substrate_connect_envoy_config
-  - src: https://github.com/ansible-community/ansible-consul.git
-    name: ansible-consul
+  - name: ansible-consul
+    src: https://github.com/geometry-labs/ansible-consul.git
     scm: git
     version: master
   - name: envoyproxy
