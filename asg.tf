@@ -128,7 +128,7 @@ module "asg" {
   image_id             = var.ami_id == "" ? data.aws_ami.packer.id : var.ami_id
   instance_type        = var.instance_type
   security_groups      = var.create_security_group ? concat(var.security_groups, aws_security_group.this.*.id) : var.security_groups
-  iam_instance_profile = var.iam_instance_profile
+  iam_instance_profile = var.iam_instance_profile == "" ? join("", aws_iam_instance_profile.this.*.name) : var.iam_instance_profile
 
   root_block_device = [
     {
