@@ -70,7 +70,7 @@ source "amazon-ebs" "ubuntu18-ami" {
 
   vpc_id = var.vpc_id
   subnet_id = var.subnet_id
-  security_group_ids = join(",", var.security_group_ids)
+  security_group_ids = split(",", var.security_group_ids)
 
   assume_role {
     role_arn = var.role_arn
