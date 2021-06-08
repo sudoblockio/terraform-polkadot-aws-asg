@@ -142,6 +142,10 @@ variable "consul_enabled" {
   type = bool
 }
 
+variable "consul_version" {
+  type = string
+}
+
 variable "consul_datacenter" {
   type = string
 }
@@ -270,6 +274,8 @@ build {
       "loggingFilter=${var.logging_filter}",
       "-e",
       "consul_enabled=${var.consul_enabled}",
+      "-e",
+      "consul_version=${var.consul_version}",
       "-e",
       "consul_datacenter=${var.consul_datacenter}",
       "-e",

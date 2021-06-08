@@ -85,6 +85,12 @@ variable "consul_enabled" {
   default     = false
 }
 
+variable "consul_version" {
+  type        = string
+  description = "Consul version number to install"
+  default     = "1.9.4"
+}
+
 variable "consul_gossip_key" {
   type        = string
   description = "Consul gossip encryption key"
@@ -222,8 +228,8 @@ module "packer" {
   //  packer_config_path = "${path.module}/packer.json" # .pkr.hcl
   packer_config_path = "${path.module}/packer.pkr.hcl"
   timestamp_ui       = true
-  on_error = "ask"
-  debug = true
+  on_error           = "ask"
+  debug              = true
   vars = {
     vpc_id             = var.build_vpc_id == "" ? local.vpc_id : var.build_vpc_id
     subnet_id          = var.build_subnet_id == "" ? local.subnet_ids[0] : var.build_subnet_id
@@ -251,6 +257,7 @@ module "packer" {
     telemetry_url                 = var.telemetry_url
     logging_filter                = var.logging_filter
     consul_enabled                = var.consul_enabled
+    consul_version                = var.consul_version
     consul_datacenter             = data.aws_region.this.name
     retry_join                    = "provider=aws tag_key=\"k8s.io/cluster/${var.cluster_name}\" tag_value=owned"
     consul_gossip_key             = var.consul_gossip_key
