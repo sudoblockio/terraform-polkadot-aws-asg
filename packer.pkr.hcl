@@ -287,7 +287,7 @@ build {
   provisioner "ansible" {
     extra_arguments = [
       "-e",
-      "deployed_networks=${var.deployed_networks}",
+      "deployed_networks='${var.deployed_networks}'",
       "-e",
       "instance_type=${var.instance_type}",
       "-e",
