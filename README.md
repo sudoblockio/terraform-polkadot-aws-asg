@@ -198,6 +198,7 @@ module "defaults" {
 |------|-------------|------|---------|:--------:|
 | <a name="input_additional_build_security_group_ids"></a> [additional\_build\_security\_group\_ids](#input\_additional\_build\_security\_group\_ids) | Additional security groups to use to build image. | `list(string)` | <pre>[<br>  ""<br>]</pre> | no |
 | <a name="input_ami_id"></a> [ami\_id](#input\_ami\_id) | AMI ID to use in autoscaling group. Blank to build from packer. | `string` | `""` | no |
+| <a name="input_base_path"></a> [base\_path](#input\_base\_path) | Base path for Substrate | `string` | `""` | no |
 | <a name="input_build_security_group_id"></a> [build\_security\_group\_id](#input\_build\_security\_group\_id) | The security group to use to build image. | `string` | `""` | no |
 | <a name="input_build_subnet_id"></a> [build\_subnet\_id](#input\_build\_subnet\_id) | The subnet to build the image in.  Must be public - Omit if running cluster deployed in in public subnets. | `string` | `""` | no |
 | <a name="input_build_vpc_id"></a> [build\_vpc\_id](#input\_build\_vpc\_id) | VPC to build the image in. Must have public subnet - Omit if running cluster deployed in in public subnets. | `string` | `""` | no |
@@ -232,12 +233,15 @@ module "defaults" {
 | <a name="input_network_name"></a> [network\_name](#input\_network\_name) | Which Polkadot chain to join | `string` | `"kusama"` | no |
 | <a name="input_network_settings"></a> [network\_settings](#input\_network\_settings) | Map of network settings to apply. Use either this or set individual variables. | <pre>map(object({<br>    name                = string<br>    shortname           = string<br>    api_health          = string<br>    polkadot_prometheus = string<br>    json_rpc            = string<br>    json_envoy          = string<br>    ws_rpc              = string<br>    ws_envoy            = string<br>  }))</pre> | `null` | no |
 | <a name="input_network_stub"></a> [network\_stub](#input\_network\_stub) | The stub name of the Polkadot chain (polkadot = polkadot, kusama = ksmcc3) | `string` | `"ksmcc3"` | no |
+| <a name="input_node_exporter_enabled"></a> [node\_exporter\_enabled](#input\_node\_exporter\_enabled) | Bool to use when node exporter is enabled | `bool` | `false` | no |
 | <a name="input_node_exporter_hash"></a> [node\_exporter\_hash](#input\_node\_exporter\_hash) | SHA256 hash of Node Exporter binary | `string` | `"b2503fd932f85f4e5baf161268854bf5d22001869b84f00fd2d1f57b51b72424"` | no |
 | <a name="input_node_exporter_password"></a> [node\_exporter\_password](#input\_node\_exporter\_password) | Password for node exporter | `string` | `"node_exporter_password"` | no |
 | <a name="input_node_exporter_url"></a> [node\_exporter\_url](#input\_node\_exporter\_url) | URL to Node Exporter binary | `string` | `"https://github.com/prometheus/node_exporter/releases/download/v0.18.1/node_exporter-0.18.1.linux-amd64.tar.gz"` | no |
 | <a name="input_node_exporter_user"></a> [node\_exporter\_user](#input\_node\_exporter\_user) | User for node exporter | `string` | `"node_exporter_user"` | no |
 | <a name="input_num_instances"></a> [num\_instances](#input\_num\_instances) | Number of instances for ASG | `number` | `1` | no |
 | <a name="input_packer_build_role_arn"></a> [packer\_build\_role\_arn](#input\_packer\_build\_role\_arn) | The role arn the packer build should use to build the image. | `string` | `""` | no |
+| <a name="input_polkadot_additional_common_flags"></a> [polkadot\_additional\_common\_flags](#input\_polkadot\_additional\_common\_flags) | Additonal common flags for substrate | `string` | `""` | no |
+| <a name="input_polkadot_additional_validator_flags"></a> [polkadot\_additional\_validator\_flags](#input\_polkadot\_additional\_validator\_flags) | Additonal common flags for validator | `string` | `""` | no |
 | <a name="input_polkadot_client_hash"></a> [polkadot\_client\_hash](#input\_polkadot\_client\_hash) | SHA256 hash of Polkadot client binary | `string` | `"0b27d0cb99ca60c08c78102a9d2f513d89dfec8dbd6fdeba8b952a420cdc9fd2"` | no |
 | <a name="input_polkadot_client_url"></a> [polkadot\_client\_url](#input\_polkadot\_client\_url) | URL to Polkadot client binary | `string` | `"https://github.com/paritytech/polkadot/releases/download/v0.8.29/polkadot"` | no |
 | <a name="input_polkadot_prometheus_port"></a> [polkadot\_prometheus\_port](#input\_polkadot\_prometheus\_port) | Port number for the Prometheus Metrics exporter built into the Polkadot client | `string` | `"9610"` | no |
@@ -246,8 +250,6 @@ module "defaults" {
 | <a name="input_public_key"></a> [public\_key](#input\_public\_key) | The public ssh key | `string` | `""` | no |
 | <a name="input_public_key_path"></a> [public\_key\_path](#input\_public\_key\_path) | A path to the public key | `string` | `""` | no |
 | <a name="input_public_security_group_ports"></a> [public\_security\_group\_ports](#input\_public\_security\_group\_ports) | If create\_security\_group enabled, and no network\_settings blob is supplied, a list of ports to open. | `list(string)` | <pre>[<br>  "30333",<br>  "51820"<br>]</pre> | no |
-| <a name="input_relay_node_ip"></a> [relay\_node\_ip](#input\_relay\_node\_ip) | Internal IP of Polkadot relay node | `string` | `""` | no |
-| <a name="input_relay_node_p2p_address"></a> [relay\_node\_p2p\_address](#input\_relay\_node\_p2p\_address) | P2P address of Polkadot relay node | `string` | `""` | no |
 | <a name="input_root_volume_size"></a> [root\_volume\_size](#input\_root\_volume\_size) | Size in GB for root volume | `string` | `"256"` | no |
 | <a name="input_rpc_api_port"></a> [rpc\_api\_port](#input\_rpc\_api\_port) | Port number for the JSON RPC API | `string` | `"9933"` | no |
 | <a name="input_rpc_envoy_port"></a> [rpc\_envoy\_port](#input\_rpc\_envoy\_port) | Port number for the JSON RPC Envoy proxy | `string` | `"21000"` | no |
@@ -255,6 +257,7 @@ module "defaults" {
 | <a name="input_security_group_cidr_blocks"></a> [security\_group\_cidr\_blocks](#input\_security\_group\_cidr\_blocks) | If create\_security\_group enabled, incoming cidr blocks. | `list(string)` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
 | <a name="input_security_groups"></a> [security\_groups](#input\_security\_groups) | The ids of the security groups. Blank to create SG. | `list(string)` | `[]` | no |
 | <a name="input_skip_health_check"></a> [skip\_health\_check](#input\_skip\_health\_check) | Bool to skip the health check and give requests while syncing | `bool` | `false` | no |
+| <a name="input_source_of_truth_enabled"></a> [source\_of\_truth\_enabled](#input\_source\_of\_truth\_enabled) | Bool to use when SOT is enabled | `bool` | `false` | no |
 | <a name="input_spot_price"></a> [spot\_price](#input\_spot\_price) | n/a | `string` | `null` | no |
 | <a name="input_ssh_user"></a> [ssh\_user](#input\_ssh\_user) | Username for SSH | `string` | `"ubuntu"` | no |
 | <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | The ids of the subnets to deploy into | `list(string)` | `null` | no |
