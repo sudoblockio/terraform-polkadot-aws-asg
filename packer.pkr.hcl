@@ -72,6 +72,15 @@ source "amazon-ebs" "ubuntu18-ami" {
   subnet_id = var.subnet_id
   security_group_ids = split(",", var.security_group_ids)
 
+  temporary_iam_instance_profile_policy_document {
+    Statement {
+      Action   = ["ec2:DescribeInstances"]
+      Effect   = "Allow"
+      Resource = "*"
+    }
+    Version = "2012-10-17"
+  }
+
   assume_role {
     role_arn = var.role_arn
   }
