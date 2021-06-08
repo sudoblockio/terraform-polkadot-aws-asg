@@ -261,8 +261,7 @@ module "packer" {
   //  packer_config_path = "${path.module}/packer.json" # .pkr.hcl
   packer_config_path = "${path.module}/packer.pkr.hcl"
   timestamp_ui       = true
-  on_error           = "ask"
-  debug              = true
+
   vars = {
     vpc_id             = var.build_vpc_id == "" ? local.vpc_id : var.build_vpc_id
     subnet_id          = var.build_subnet_id == "" ? local.subnet_ids[0] : var.build_subnet_id
