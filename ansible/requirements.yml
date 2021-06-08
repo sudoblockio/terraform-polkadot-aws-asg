@@ -5,11 +5,11 @@ collections:
     version: 7.6.0
 
 roles:
+  - src: geometrylabs.cloud_helper
   - src: geometrylabs.polkadot_health_check
   - src: geometrylabs.polkadot_base
   - src: geometrylabs.polkadot_library
   - src: geometrylabs.substrate_connect_envoy_config
-  - src: geometrylabs.cloud_helper
   - src: https://github.com/ansible-community/ansible-consul.git
     name: ansible-consul
     scm: git
