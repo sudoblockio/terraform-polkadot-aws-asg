@@ -76,7 +76,7 @@ source "amazon-ebs" "ubuntu18-ami" {
     Statement {
       Action   = ["ec2:DescribeInstances"]
       Effect   = "Allow"
-      Resource = "*"
+      Resource = ["*"]
     }
     Version = "2012-10-17"
   }
