@@ -196,6 +196,18 @@ variable "consul_acl_token" {
   default     = ""
 }
 
+variable "consul_tls_source_dir" {
+  description = "Path to TLS files"
+  type        = string
+  default     = ""
+}
+
+variable "consul_tls_ca_filename" {
+  description = "Filename of Consul CA"
+  type        = string
+  default     = ""
+}
+
 variable "cluster_name" {
   description = "The name of the k8s cluster"
   type        = string
