@@ -104,6 +104,11 @@ source "amazon-ebs" "ubuntu18-ami" {
   }
 }
 
+variable "instance_type" {
+  type = string
+  default = ""
+}
+
 variable "node_exporter_enabled" {
   type = string
   default = ""
