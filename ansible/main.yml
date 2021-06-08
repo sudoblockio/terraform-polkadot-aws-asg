@@ -24,15 +24,19 @@
       include_role:
         name: ansible-consul
       vars:
+        consul_version: "{{ consul_version }}"
         consul_group_name: "all"
         consul_raw_key: "{{ consul_gossip_key }}"
         auto_encrypt:
-          enabled: consul_auto_encrypt_enabled | bool
-        consul_connect_enabled: consul_connect_enabled | bool
+          enabled: "{{ consul_auto_encrypt_enabled }}"
+        consul_tls_enable: "{{ consul_auto_encrypt_enabled }}"
+        consul_tls_src_files: "{{ consul_tls_src_files }}"
+        consul_tls_ca_crt: "{{ consul_tls_ca_crt }}"
+        consul_connect_enabled: "{{ consul_connect_enabled }}"
         consul_datacenter: "{{ consul_datacenter }}"
         consul_ports_https: 8501
         consul_ports_grpc: 8502
-        consul_acl_enable: consul_acl_enable | bool
+        consul_acl_enable: "{{ consul_acl_enable }}"
         consul_acl_datacenter: "{{ consul_acl_datacenter}}"
         consul_acl_token: "{{ consul_acl_token }}"
         consul_config_custom:
