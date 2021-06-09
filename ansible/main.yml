@@ -47,7 +47,7 @@
       include_role:
         name: envoyproxy
       vars:
-        envoy_version: "1.16.3*"
+        envoy_package: "getenvoy-envoy=1.16.3*"
       when: consul_connect_enabled | bool
     - name: Configure Envoy proxy
       include_role:
