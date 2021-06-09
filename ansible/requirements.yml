@@ -15,4 +15,6 @@ roles:
     scm: git
     version: master
   - name: envoyproxy
-    src: fabiocruzcoelho.envoyproxy
+    src: https://github.com/geometry-labs/ansible-role-envoyproxy
+    scm: git
+    version: master
