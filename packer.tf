@@ -226,7 +226,7 @@ variable "sync_aws_secret_access_key" {
   default     = ""
 }
 
-variable "sync_bucket_uri" {
+variable "sync_bucket_name" {
   description = "S3 bucket URI for SoT sync"
   type        = string
   default     = ""
@@ -309,7 +309,7 @@ module "packer" {
     polkadot_additional_validator_flags = var.polkadot_additional_validator_flags
 
     # SOT
-    sync_bucket_uri = var.sync_bucket_uri
+    sync_bucket_name = var.sync_bucket_name
 
     # Consul
     consul_datacenter           = data.aws_region.this.name

@@ -88,7 +88,7 @@
         "-e",
         "aws_secret_access_key={{user `aws_secret_access_key`}}",
         "-e",
-        "sync_bucket_uri={{user `sync_bucket_uri`}}"
+        "sync_bucket_name={{user `sync_bucket_name`}}"
       ]
     }
   ],
