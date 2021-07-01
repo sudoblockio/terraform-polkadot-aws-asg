@@ -141,17 +141,17 @@ module "defaults" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
-| <a name="provider_null"></a> [null](#provider\_null) | n/a |
-| <a name="provider_random"></a> [random](#provider\_random) | n/a |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 3.37.0 |
+| <a name="provider_null"></a> [null](#provider\_null) | 3.1.0 |
+| <a name="provider_random"></a> [random](#provider\_random) | 3.1.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_asg"></a> [asg](#module\_asg) | terraform-aws-modules/autoscaling/aws | ~> 3.8.0 |
-| <a name="module_packer"></a> [packer](#module\_packer) | github.com/geometry-labs/terraform-packer-build.git?ref=v0.1.0 |  |
-| <a name="module_user_data"></a> [user\_data](#module\_user\_data) | github.com/geometry-labs/terraform-polkadot-user-data.git |  |
+| <a name="module_packer"></a> [packer](#module\_packer) | github.com/geometry-labs/terraform-packer-build.git | v0.1.0 |
+| <a name="module_user_data"></a> [user\_data](#module\_user\_data) | github.com/geometry-labs/terraform-polkadot-user-data.git | n/a |
 
 ## Resources
 
@@ -267,7 +267,7 @@ module "defaults" {
 | <a name="input_sync_aws_secret_access_key"></a> [sync\_aws\_secret\_access\_key](#input\_sync\_aws\_secret\_access\_key) | AWS access key for SoT sync | `string` | `""` | no |
 | <a name="input_sync_bucket_arn"></a> [sync\_bucket\_arn](#input\_sync\_bucket\_arn) | S3 bucket arn for SoT sync | `string` | `""` | no |
 | <a name="input_sync_bucket_kms_key_arn"></a> [sync\_bucket\_kms\_key\_arn](#input\_sync\_bucket\_kms\_key\_arn) | KMS key used to decrypt S3 bucket for SoT sync | `string` | `""` | no |
-| <a name="input_sync_bucket_uri"></a> [sync\_bucket\_uri](#input\_sync\_bucket\_uri) | S3 bucket URI for SoT sync | `string` | `""` | no |
+| <a name="input_sync_bucket_name"></a> [sync\_bucket\_name](#input\_sync\_bucket\_name) | S3 bucket URI for SoT sync | `string` | `""` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Tags to give resource | `map(string)` | `{}` | no |
 | <a name="input_telemetry_url"></a> [telemetry\_url](#input\_telemetry\_url) | WSS URL for telemetry | `string` | `""` | no |
 | <a name="input_use_lb"></a> [use\_lb](#input\_use\_lb) | Bool to enable use of load balancer | `bool` | `true` | no |

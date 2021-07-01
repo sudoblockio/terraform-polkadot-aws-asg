@@ -221,7 +221,7 @@ variable "polkadot_additional_validator_flags" {
   default = ""
 }
 
-variable "sync_bucket_uri" {
+variable "sync_bucket_name" {
   type = string
   default = ""
 }
@@ -341,7 +341,7 @@ build {
       "-e",
       "polkadot_additional_validator_flags=${var.polkadot_additional_validator_flags}",
       "-e",
-      "sync_bucket_uri=${var.sync_bucket_uri}",
+      "sync_bucket_name=${var.sync_bucket_name}",
       "-e",
       "consul_datacenter=${var.consul_datacenter}",
       "-e",
