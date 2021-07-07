@@ -27,8 +27,6 @@ data "aws_iam_policy_document" "sot_bucket_read" {
 
   statement {
     actions = [
-      "s3:PutObject",
-      "s3:PutObjectAcl",
       "s3:GetObject"
     ]
     resources = ["${var.sync_bucket_arn}/*"]
