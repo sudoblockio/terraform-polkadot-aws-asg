@@ -57,6 +57,7 @@ data "aws_iam_policy_document" "sot_kms_key_read" {
     actions = [
       "kms:Decrypt"
     ]
+    effect = "Allow"
     resources = [var.sync_bucket_kms_key_arn]
   }
 }
