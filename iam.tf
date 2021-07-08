@@ -52,7 +52,7 @@ resource "aws_iam_role_policy_attachment" "sot_read" {
 }
 
 data "aws_iam_policy_document" "sot_kms_key_read" {
-  count = var.sync_bucket_arn != "" ? 1 : 0
+  count = var.sync_bucket_arn != "" && var.sync_bucket_kms_key_arn != "" ? 1 : 0
   statement {
     actions = [
       "kms:Decrypt"
@@ -63,12 +63,12 @@ data "aws_iam_policy_document" "sot_kms_key_read" {
 }
 
 resource "aws_iam_policy" "sot_kms_decrypt" {
-  count  = var.sync_bucket_kms_key_arn != "" ? 1 : 0
+  count  = var.sync_bucket_arn != "" && var.sync_bucket_kms_key_arn != "" ? 1 : 0
   policy = join("", data.aws_iam_policy_document.sot_kms_key_read.*.json)
 }
 
 resource "aws_iam_role_policy_attachment" "sot_kms_decrypt" {
-  count      = var.sync_bucket_kms_key_arn != "" ? 1 : 0
+  count      = var.sync_bucket_arn != "" && var.sync_bucket_kms_key_arn != "" ? 1 : 0
   policy_arn = join("", aws_iam_policy.sot_kms_decrypt.*.arn)
   role       = join("", aws_iam_role.this.*.name)
 }
