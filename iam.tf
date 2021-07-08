@@ -55,7 +55,6 @@ data "aws_iam_policy_document" "sot_kms_key_read" {
   count = var.sync_bucket_arn != "" ? 1 : 0
   statement {
     actions = [
-      "kms:Encrypt",
       "kms:Decrypt"
     ]
     resources = [var.sync_bucket_kms_key_arn]
