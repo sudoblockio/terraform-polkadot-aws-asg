@@ -75,7 +75,10 @@ resource "aws_iam_role_policy_attachment" "sot_kms_decrypt" {
 data "aws_iam_policy_document" "describe_policy" {
   count = var.consul_enabled ? 1 : 0
   statement {
-    actions   = ["ec2:DescribeInstances"]
+    actions   = [
+      "ec2:DescribeInstances",
+      "ec2:DescribeTags"
+    ]
     effect    = "Allow"
     resources = ["*"]
   }
