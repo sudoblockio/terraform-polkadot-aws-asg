@@ -27,8 +27,6 @@ data "aws_iam_policy_document" "sot_bucket_read" {
 
   statement {
     actions = [
-      "s3:PutObject",
-      "s3:PutObjectAcl",
       "s3:GetObject"
     ]
     resources = ["${var.sync_bucket_arn}/*"]
@@ -57,7 +55,6 @@ data "aws_iam_policy_document" "sot_kms_key_read" {
   count = var.sync_bucket_arn != "" ? 1 : 0
   statement {
     actions = [
-      "kms:Encrypt",
       "kms:Decrypt"
     ]
     resources = [var.sync_bucket_kms_key_arn]
@@ -78,7 +75,10 @@ resource "aws_iam_role_policy_attachment" "sot_kms_decrypt" {
 data "aws_iam_policy_document" "describe_policy" {
   count = var.consul_enabled ? 1 : 0
   statement {
-    actions   = ["ec2:DescribeInstances"]
+    actions   = [
+      "ec2:DescribeInstances",
+      "ec2:DescribeTags"
+    ]
     effect    = "Allow"
     resources = ["*"]
   }
