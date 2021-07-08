@@ -63,7 +63,7 @@ data "aws_iam_policy_document" "sot_kms_key_read" {
 
 resource "aws_iam_policy" "sot_kms_decrypt" {
   count  = var.sync_bucket_kms_key_arn != "" ? 1 : 0
-  policy = join("", data.aws_iam_policy_document.sot_bucket_read.*.json)
+  policy = join("", data.aws_iam_policy_document.sot_kms_key_read.*.json)
 }
 
 resource "aws_iam_role_policy_attachment" "sot_kms_decrypt" {
@@ -75,7 +75,7 @@ resource "aws_iam_role_policy_attachment" "sot_kms_decrypt" {
 data "aws_iam_policy_document" "describe_policy" {
   count = var.consul_enabled ? 1 : 0
   statement {
-    actions   = [
+    actions = [
       "ec2:DescribeInstances",
       "ec2:DescribeTags"
     ]
