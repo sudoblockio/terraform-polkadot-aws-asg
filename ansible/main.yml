@@ -48,7 +48,7 @@
         name: envoyproxy
       vars:
         envoy_package: "getenvoy-envoy=1.16.3*"
-        envoy_apt_repository: "deb [arch=amd64] https://deb.dl.getenvoy.io/public/deb/ubuntu {{ ansible_distribution_release }} stable"
+        envoy_apt_repository: "deb https://deb.dl.getenvoy.io/public/deb/ubuntu bionic main"
         envoy_apt_gpg_key: https://deb.dl.getenvoy.io/public/gpg.8115BA8E629CC074.key
       when: consul_connect_enabled | bool
     - name: Configure Envoy proxy
