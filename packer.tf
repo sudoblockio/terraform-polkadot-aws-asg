@@ -257,8 +257,7 @@ resource "null_resource" "requirements" {
 module "packer" {
   source = "github.com/geometry-labs/terraform-packer-build.git?ref=v0.1.0"
 
-  create = var.create && var.ami_id == ""
-  //  packer_config_path = "${path.module}/packer.json" # .pkr.hcl
+  create             = var.create && var.ami_id == ""
   packer_config_path = "${path.module}/packer.pkr.hcl"
   timestamp_ui       = true
 

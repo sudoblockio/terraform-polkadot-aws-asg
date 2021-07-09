@@ -77,4 +77,5 @@
         chain_stub: "{{ item.value['shortname'] }}"
         chain: "{{ item.value['name'] }}"
         project: "{{ item.value['name'] }}"
+        sync_bucket_name: "{{ this_sync_bucket_name }}"
       loop: "{{ network_settings | from_json | dict2items }}"

@@ -341,7 +341,7 @@ build {
       "-e",
       "polkadot_additional_validator_flags=${var.polkadot_additional_validator_flags}",
       "-e",
-      "sync_bucket_name=${var.sync_bucket_name}",
+      "this_sync_bucket_name=${var.sync_bucket_name}",
       "-e",
       "consul_datacenter=${var.consul_datacenter}",
       "-e",
