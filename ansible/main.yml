@@ -8,10 +8,7 @@
       vars:
         enable_cloud_wait: true
         enable_jq: true
-    - name: Run volumes playbook
-      include_role:
-        name: volumes
-      when: instance_store_enabled | default(false) | bool
+        mount_volumes: true
     - name: Run OS hardening playbook
       include_role:
         name: devsec.hardening.os_hardening
