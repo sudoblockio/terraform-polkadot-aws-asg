@@ -8,7 +8,7 @@
       vars:
         enable_cloud_wait: true
         enable_jq: true
-        mount_volumes: true
+        mount_volumes: false
     - name: Run OS hardening playbook
       include_role:
         name: devsec.hardening.os_hardening
