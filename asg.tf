@@ -96,7 +96,7 @@ variable "spot_price" {
 module "user_data" {
   source         = "github.com/geometry-labs/terraform-polkadot-user-data.git"
   cloud_provider = "aws"
-  #type                = "library"
+  type           = "library"
   #prometheus_enabled  = var.prometheus_enabled
   #prometheus_user     = var.node_exporter_user
   #prometheus_password = var.node_exporter_password
