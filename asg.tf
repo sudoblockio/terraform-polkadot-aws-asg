@@ -102,6 +102,7 @@ module "user_data" {
   prometheus_password = var.node_exporter_password
   envoy_enabled       = var.envoy_enabled
   driver_type         = "nitro"
+  disable_ipv6        = false
 }
 
 locals {
