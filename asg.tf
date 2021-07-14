@@ -100,7 +100,6 @@ module "user_data" {
   #prometheus_enabled  = var.prometheus_enabled
   #prometheus_user     = var.node_exporter_user
   #prometheus_password = var.node_exporter_password
-  #envoy_enabled       = var.envoy_enabled
   driver_type  = "nitro"
   disable_ipv6 = false
 }
