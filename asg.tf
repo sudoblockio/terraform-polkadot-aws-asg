@@ -93,6 +93,12 @@ variable "spot_price" {
   default = null
 }
 
+variable "health_check_grace_period" {
+  type        = number
+  default     = 60
+  description = "Time (in seconds) after instance comes into service before checking health"
+}
+
 module "user_data" {
   source         = "github.com/geometry-labs/terraform-polkadot-user-data.git"
   cloud_provider = "aws"
@@ -141,6 +147,7 @@ module "asg" {
   vpc_zone_identifier = local.subnet_ids
 
   health_check_type         = "EC2"
+  health_check_grace_period = var.health_check_grace_period
   min_size                  = var.min_size
   max_size                  = var.max_size
   desired_capacity          = var.desired_capacity

@@ -222,6 +222,7 @@ module "defaults" {
 | <a name="input_envoy_enabled"></a> [envoy\_enabled](#input\_envoy\_enabled) | Configure Envoy proxy for Consul Connect | `bool` | `false` | no |
 | <a name="input_hardening_enabled"></a> [hardening\_enabled](#input\_hardening\_enabled) | Runs a series of linux hardening playbooks - ansible-collection-hardening | `bool` | `false` | no |
 | <a name="input_health_check_enabled"></a> [health\_check\_enabled](#input\_health\_check\_enabled) | Bool to enable client health check agent | `bool` | `false` | no |
+| <a name="input_health_check_grace_period"></a> [health\_check\_grace\_period](#input\_health\_check\_grace\_period) | Time (in seconds) after instance comes into service before checking health | `number` | `60` | no |
 | <a name="input_health_check_port"></a> [health\_check\_port](#input\_health\_check\_port) | Port number for the health check | `string` | `"5500"` | no |
 | <a name="input_iam_instance_profile"></a> [iam\_instance\_profile](#input\_iam\_instance\_profile) | The instance profile to associate with the asg - leasve blank to create one regionally scoped. | `string` | `""` | no |
 | <a name="input_id"></a> [id](#input\_id) | The id to give the ami | `string` | `""` | no |
