@@ -57,3 +57,7 @@ output "lb_wss_target_group_arn" {
 output "lb_wss_target_group_id" {
   value = join("", values(aws_lb_target_group.wss)[*].id)
 }
+
+output "endpoints_map" {
+  value = zipmap([for network in local.network_settings : network["shortname"]], [for i in length(local.network_settings) : join("", aws_lb.this.*.dns_name)])
+}

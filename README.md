@@ -285,6 +285,7 @@ module "defaults" {
 | <a name="output_autoscaling_group_id"></a> [autoscaling\_group\_id](#output\_autoscaling\_group\_id) | n/a |
 | <a name="output_autoscaling_group_name"></a> [autoscaling\_group\_name](#output\_autoscaling\_group\_name) | n/a |
 | <a name="output_dns_name"></a> [dns\_name](#output\_dns\_name) | n/a |
+| <a name="output_endpoints_map"></a> [endpoints\_map](#output\_endpoints\_map) | n/a |
 | <a name="output_id"></a> [id](#output\_id) | n/a |
 | <a name="output_lb_arn"></a> [lb\_arn](#output\_lb\_arn) | n/a |
 | <a name="output_lb_id"></a> [lb\_id](#output\_lb\_id) | n/a |
