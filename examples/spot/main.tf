@@ -17,6 +17,8 @@ locals {
       polkadot_prometheus = "9610"
       json_rpc            = "9933"
       ws_rpc              = "9944"
+      json_envoy          = "21000"
+      ws_envoy            = "21001"
     }
     kusama = {
       name                = "kusama"
@@ -25,6 +27,8 @@ locals {
       polkadot_prometheus = "9611"
       json_rpc            = "9934"
       ws_rpc              = "9945"
+      json_envoy          = "21000"
+      ws_envoy            = "21001"
     }
   }
 }
