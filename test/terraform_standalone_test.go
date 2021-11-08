@@ -10,7 +10,7 @@ import (
 	"testing"
 )
 
-func TestTerraformStandalone(t *testing.T) {
+func TestStandalone(t *testing.T) {
 	t.Parallel()
 
 	exampleFolder := test_structure.CopyTerraformFolderToTemp(t, "../", "examples/standalone")

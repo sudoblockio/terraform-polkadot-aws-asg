@@ -10,7 +10,7 @@ import (
 	"testing"
 )
 
-func TestTerraformSpot(t *testing.T) {
+func TestSpot(t *testing.T) {
 	t.Parallel()
 
 	exampleFolder := test_structure.CopyTerraformFolderToTemp(t, "../", "examples/spot")
@@ -20,7 +20,6 @@ func TestTerraformSpot(t *testing.T) {
 		log.Println(err)
 	}
 	fixturesDir := path.Join(cwd, "fixtures")
-
 
 	defer test_structure.RunTestStage(t, "teardown", func() {
 		terraformOptions := test_structure.LoadTerraformOptions(t, exampleFolder)
@@ -37,3 +36,4 @@ func TestTerraformSpot(t *testing.T) {
 
 		terraform.InitAndApply(t, terraformOptions)
 	})
+}

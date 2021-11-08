@@ -9,10 +9,10 @@ jobs:
       max-parallel: 1
       matrix:
         tf_tests:
-          - TestTerraformStandalone
-          - TestTerraformDefaults
-          - TestTerraformSpot
-          - TestTerraformExternal
+          - TestStandalone
+          - TestDefaults
+          - TestSpot
+          - TestExternal
 
     name: Run Terratest Integration Tests
     runs-on: ubuntu-latest

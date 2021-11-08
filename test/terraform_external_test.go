@@ -10,7 +10,7 @@ import (
 	"testing"
 )
 
-func TestTerraformExternal(t *testing.T) {
+func TestExternal(t *testing.T) {
 	t.Parallel()
 
 	exampleFolder := test_structure.CopyTerraformFolderToTemp(t, "../", "examples/external-network")
@@ -20,7 +20,6 @@ func TestTerraformExternal(t *testing.T) {
 		log.Println(err)
 	}
 	fixturesDir := path.Join(cwd, "fixtures")
-
 
 	defer test_structure.RunTestStage(t, "teardown", func() {
 		terraformOptions := test_structure.LoadTerraformOptions(t, exampleFolder)
@@ -37,3 +36,4 @@ func TestTerraformExternal(t *testing.T) {
 
 		terraform.InitAndApply(t, terraformOptions)
 	})
+}

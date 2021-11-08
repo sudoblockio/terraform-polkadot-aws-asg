@@ -10,7 +10,7 @@ import (
 	"testing"
 )
 
-func TestTerraformAllAnsible(t *testing.T) {
+func TestAllAnsible(t *testing.T) {
 	t.Parallel()
 
 	exampleFolder := test_structure.CopyTerraformFolderToTemp(t, "../", "examples/standalone-all-ansible")
