@@ -26,8 +26,13 @@ jobs:
       - name: Download Go Modules
         run: go mod download
 
-      - name: Install jmsepath
-        run: pip install jmespath
+      - name: Set up Python 3.
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install test dependencies.
+        run: pip3 install ansible jmespath
 
       - uses: autero1/action-terraform@v1.0.0
         with:
