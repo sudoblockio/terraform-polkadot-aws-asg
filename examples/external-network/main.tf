@@ -36,6 +36,22 @@ module "network" {
   network_settings = local.network_settings
 }
 
+module "sg" {
+  source = "terraform-aws-modules/security-group/aws"
+  name   = "builder"
+  vpc_id = module.network.vpc_id
+  ingress_with_cidr_blocks = [
+    {
+      rule        = "all-all"
+      cidr_blocks = "0.0.0.0/0"
+  }]
+  egress_with_cidr_blocks = [
+    {
+      rule        = "all-all"
+      cidr_blocks = "0.0.0.0/0"
+  }]
+}
+
 variable "public_key" {}
 
 resource "random_pet" "this" {}
@@ -47,10 +63,13 @@ module "defaults" {
 
   create_security_group = false
 
-  public_key      = var.public_key
-  security_groups = [module.network.api_security_group_id]
-  subnet_ids      = module.network.public_subnets
-  vpc_id          = module.network.vpc_id
+  public_key              = var.public_key
+  subnet_ids              = module.network.public_subnets
+  vpc_id                  = module.network.vpc_id
+  build_security_group_id = module.sg.security_group_id
+  build_subnet_id         = module.network.public_subnets[0]
+  build_vpc_id            = module.sg.security_group_vpc_id
+  security_groups         = [module.network.api_security_group_id]
 
   min_size         = 1
   max_size         = 1
@@ -58,5 +77,5 @@ module "defaults" {
 
   network_settings = local.network_settings
 
-  depends_on = [module.network]
+  depends_on = [module.network, module.sg]
 }

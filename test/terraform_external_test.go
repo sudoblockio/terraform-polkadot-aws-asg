@@ -37,10 +37,3 @@ func TestTerraformExternal(t *testing.T) {
 
 		terraform.InitAndApply(t, terraformOptions)
 	})
-
-	test_structure.RunTestStage(t, "validate", func() {
-		terraformOptions := test_structure.LoadTerraformOptions(t, exampleFolder)
-
-		testLbEndpoints(t, terraformOptions)
-	})
-}

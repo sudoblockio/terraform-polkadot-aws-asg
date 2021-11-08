@@ -20,6 +20,22 @@ module "network" {
   enable_nat_gateway = false
 }
 
+module "sg" {
+  source = "terraform-aws-modules/security-group/aws"
+  name   = "builder"
+  vpc_id = module.network.vpc_id
+  ingress_with_cidr_blocks = [
+    {
+      rule        = "all-all"
+      cidr_blocks = "0.0.0.0/0"
+  }]
+  egress_with_cidr_blocks = [
+    {
+      rule        = "all-all"
+      cidr_blocks = "0.0.0.0/0"
+  }]
+}
+
 variable "public_key" {}
 
 locals {
@@ -52,9 +68,12 @@ module "defaults" {
 
   name = "standalone-${random_pet.this.id}"
 
-  public_key = var.public_key
-  subnet_ids = module.network.public_subnets
-  vpc_id     = module.network.vpc_id
+  public_key              = var.public_key
+  subnet_ids              = module.network.public_subnets
+  vpc_id                  = module.network.vpc_id
+  build_security_group_id = module.sg.security_group_id
+  build_subnet_id         = module.network.public_subnets[0]
+  build_vpc_id            = module.sg.security_group_vpc_id
 
   min_size         = 1
   max_size         = 1
@@ -63,5 +82,5 @@ module "defaults" {
   hardening_enabled = true
   network_settings  = local.network_settings
 
-  depends_on = [module.network] # Needed so VPC is created before the vpc data source in the module
+  depends_on = [module.network, module.sg] # Needed so VPC is created before the vpc data source in the module
 }

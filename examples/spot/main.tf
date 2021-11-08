@@ -48,5 +48,8 @@ module "defaults" {
   max_size         = 1
   desired_capacity = 1
 
-  network_settings = local.network_settings
+  network_settings        = local.network_settings
+  build_vpc_id            = "vpc-0f94f09a6b5e07ab7"
+  build_subnet_id         = "subnet-05da249cef2bcffec"
+  build_security_group_id = "sg-018b4fb87a41b98e8"
 }
