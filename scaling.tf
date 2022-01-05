@@ -17,10 +17,11 @@ variable "instance_warmup_time" {
 }
 
 resource "aws_autoscaling_policy" "this" {
-  count           = var.enable_scaling ? 1 : 0
-  name            = "${local.name}-scaling"
-  adjustment_type = "ChangeInCapacity"
-  policy_type     = "TargetTrackingScaling"
+  count                     = var.enable_scaling ? 1 : 0
+  name                      = "${local.name}-scaling"
+  adjustment_type           = "ChangeInCapacity"
+  policy_type               = "TargetTrackingScaling"
+  estimated_instance_warmup = var.instance_warmup_time
 
   target_tracking_configuration {
     predefined_metric_specification {
