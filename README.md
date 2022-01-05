@@ -198,6 +198,7 @@ module "defaults" {
 |------|-------------|------|---------|:--------:|
 | <a name="input_additional_build_security_group_ids"></a> [additional\_build\_security\_group\_ids](#input\_additional\_build\_security\_group\_ids) | Additional security groups to use to build image. | `list(string)` | <pre>[<br>  ""<br>]</pre> | no |
 | <a name="input_ami_id"></a> [ami\_id](#input\_ami\_id) | AMI ID to use in autoscaling group. Blank to build from packer. | `string` | `""` | no |
+| <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | n/a | `string` | `""` | no |
 | <a name="input_base_path"></a> [base\_path](#input\_base\_path) | Base path for Substrate | `string` | `""` | no |
 | <a name="input_build_security_group_id"></a> [build\_security\_group\_id](#input\_build\_security\_group\_id) | The security group to use to build image. | `string` | `""` | no |
 | <a name="input_build_subnet_id"></a> [build\_subnet\_id](#input\_build\_subnet\_id) | The subnet to build the image in.  Must be public - Omit if running cluster deployed in in public subnets. | `string` | `""` | no |
@@ -208,15 +209,19 @@ module "defaults" {
 | <a name="input_consul_acl_token"></a> [consul\_acl\_token](#input\_consul\_acl\_token) | Consul ACL token | `string` | `""` | no |
 | <a name="input_consul_auto_encrypt_enabled"></a> [consul\_auto\_encrypt\_enabled](#input\_consul\_auto\_encrypt\_enabled) | Bool to enable Consul auto-encrypt | `bool` | `false` | no |
 | <a name="input_consul_connect_enabled"></a> [consul\_connect\_enabled](#input\_consul\_connect\_enabled) | Bool to enable Consul Connect | `bool` | `false` | no |
+| <a name="input_consul_datacenter"></a> [consul\_datacenter](#input\_consul\_datacenter) | n/a | `string` | `""` | no |
 | <a name="input_consul_enabled"></a> [consul\_enabled](#input\_consul\_enabled) | Bool to use when Consul is enabled | `bool` | `false` | no |
 | <a name="input_consul_gossip_key"></a> [consul\_gossip\_key](#input\_consul\_gossip\_key) | Consul gossip encryption key | `string` | `""` | no |
 | <a name="input_consul_security_group"></a> [consul\_security\_group](#input\_consul\_security\_group) | ID of security group to containing Consul | `string` | `null` | no |
+| <a name="input_consul_tls_ca_crt"></a> [consul\_tls\_ca\_crt](#input\_consul\_tls\_ca\_crt) | n/a | `string` | `""` | no |
 | <a name="input_consul_tls_ca_filename"></a> [consul\_tls\_ca\_filename](#input\_consul\_tls\_ca\_filename) | Filename of Consul CA | `string` | `""` | no |
 | <a name="input_consul_tls_source_dir"></a> [consul\_tls\_source\_dir](#input\_consul\_tls\_source\_dir) | Path to TLS files | `string` | `""` | no |
+| <a name="input_consul_tls_src_files"></a> [consul\_tls\_src\_files](#input\_consul\_tls\_src\_files) | n/a | `string` | `""` | no |
 | <a name="input_consul_version"></a> [consul\_version](#input\_consul\_version) | Consul version number to install | `string` | `"1.9.4"` | no |
 | <a name="input_create"></a> [create](#input\_create) | Boolean to make module or not | `bool` | `true` | no |
 | <a name="input_create_security_group"></a> [create\_security\_group](#input\_create\_security\_group) | n/a | `bool` | `true` | no |
 | <a name="input_default_telemetry_enabled"></a> [default\_telemetry\_enabled](#input\_default\_telemetry\_enabled) | n/a | `bool` | `true` | no |
+| <a name="input_deployed_networks"></a> [deployed\_networks](#input\_deployed\_networks) | n/a | `string` | `""` | no |
 | <a name="input_desired_capacity"></a> [desired\_capacity](#input\_desired\_capacity) | The desired capacity of asg | `string` | `1` | no |
 | <a name="input_enable_scaling"></a> [enable\_scaling](#input\_enable\_scaling) | Bool to enable scaling policy | `bool` | `true` | no |
 | <a name="input_envoy_enabled"></a> [envoy\_enabled](#input\_envoy\_enabled) | Configure Envoy proxy for Consul Connect | `bool` | `false` | no |
@@ -226,16 +231,21 @@ module "defaults" {
 | <a name="input_health_check_port"></a> [health\_check\_port](#input\_health\_check\_port) | Port number for the health check | `string` | `"5500"` | no |
 | <a name="input_iam_instance_profile"></a> [iam\_instance\_profile](#input\_iam\_instance\_profile) | The instance profile to associate with the asg - leasve blank to create one regionally scoped. | `string` | `""` | no |
 | <a name="input_id"></a> [id](#input\_id) | The id to give the ami | `string` | `""` | no |
-| <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | Instance type | `string` | `"i3.large"` | no |
+| <a name="input_instance_count"></a> [instance\_count](#input\_instance\_count) | n/a | `string` | `""` | no |
+| <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | n/a | `string` | `""` | no |
+| <a name="input_instance_warmup_time"></a> [instance\_warmup\_time](#input\_instance\_warmup\_time) | The time in seconds the instance is estimated to require to warm up | `number` | `9000` | no |
 | <a name="input_key_name"></a> [key\_name](#input\_key\_name) | The name of the preexisting key to be used instead of the local public\_key\_path | `string` | `""` | no |
 | <a name="input_lc_name"></a> [lc\_name](#input\_lc\_name) | The name to give the launch configuration - defaults to 'name' | `string` | `""` | no |
 | <a name="input_logging_filter"></a> [logging\_filter](#input\_logging\_filter) | String for polkadot logging filter | `string` | `"sync=trace,afg=trace,babe=debug"` | no |
 | <a name="input_max_size"></a> [max\_size](#input\_max\_size) | The max size of asg | `string` | `1` | no |
 | <a name="input_min_size"></a> [min\_size](#input\_min\_size) | The min size of asg | `string` | `1` | no |
+| <a name="input_module_path"></a> [module\_path](#input\_module\_path) | n/a | `string` | `""` | no |
 | <a name="input_name"></a> [name](#input\_name) | The name to give the ASG and associated resources | `string` | `""` | no |
 | <a name="input_network_name"></a> [network\_name](#input\_network\_name) | Which Polkadot chain to join | `string` | `"kusama"` | no |
-| <a name="input_network_settings"></a> [network\_settings](#input\_network\_settings) | Map of network settings to apply. Use either this or set individual variables. | <pre>map(object({<br>    name                = string<br>    shortname           = string<br>    api_health          = string<br>    polkadot_prometheus = string<br>    json_rpc            = string<br>    json_envoy          = string<br>    ws_rpc              = string<br>    ws_envoy            = string<br>  }))</pre> | `null` | no |
+| <a name="input_network_settings"></a> [network\_settings](#input\_network\_settings) | n/a | `string` | `""` | no |
 | <a name="input_network_stub"></a> [network\_stub](#input\_network\_stub) | The stub name of the Polkadot chain (polkadot = polkadot, kusama = ksmcc3) | `string` | `"ksmcc3"` | no |
+| <a name="input_node_exporter_binary_checksum"></a> [node\_exporter\_binary\_checksum](#input\_node\_exporter\_binary\_checksum) | n/a | `string` | `""` | no |
+| <a name="input_node_exporter_binary_url"></a> [node\_exporter\_binary\_url](#input\_node\_exporter\_binary\_url) | n/a | `string` | `""` | no |
 | <a name="input_node_exporter_enabled"></a> [node\_exporter\_enabled](#input\_node\_exporter\_enabled) | Bool to use when node exporter is enabled | `bool` | `false` | no |
 | <a name="input_node_exporter_hash"></a> [node\_exporter\_hash](#input\_node\_exporter\_hash) | SHA256 hash of Node Exporter binary | `string` | `"b2503fd932f85f4e5baf161268854bf5d22001869b84f00fd2d1f57b51b72424"` | no |
 | <a name="input_node_exporter_password"></a> [node\_exporter\_password](#input\_node\_exporter\_password) | Password for node exporter | `string` | `"node_exporter_password"` | no |
@@ -245,24 +255,31 @@ module "defaults" {
 | <a name="input_packer_build_role_arn"></a> [packer\_build\_role\_arn](#input\_packer\_build\_role\_arn) | The role arn the packer build should use to build the image. | `string` | `""` | no |
 | <a name="input_polkadot_additional_common_flags"></a> [polkadot\_additional\_common\_flags](#input\_polkadot\_additional\_common\_flags) | Additonal common flags for substrate | `string` | `""` | no |
 | <a name="input_polkadot_additional_validator_flags"></a> [polkadot\_additional\_validator\_flags](#input\_polkadot\_additional\_validator\_flags) | Additonal common flags for validator | `string` | `""` | no |
+| <a name="input_polkadot_binary_checksum"></a> [polkadot\_binary\_checksum](#input\_polkadot\_binary\_checksum) | n/a | `string` | `""` | no |
+| <a name="input_polkadot_binary_url"></a> [polkadot\_binary\_url](#input\_polkadot\_binary\_url) | n/a | `string` | `""` | no |
 | <a name="input_polkadot_client_hash"></a> [polkadot\_client\_hash](#input\_polkadot\_client\_hash) | SHA256 hash of Polkadot client binary | `string` | `"0b27d0cb99ca60c08c78102a9d2f513d89dfec8dbd6fdeba8b952a420cdc9fd2"` | no |
 | <a name="input_polkadot_client_url"></a> [polkadot\_client\_url](#input\_polkadot\_client\_url) | URL to Polkadot client binary | `string` | `"https://github.com/paritytech/polkadot/releases/download/v0.8.29/polkadot"` | no |
 | <a name="input_polkadot_prometheus_port"></a> [polkadot\_prometheus\_port](#input\_polkadot\_prometheus\_port) | Port number for the Prometheus Metrics exporter built into the Polkadot client | `string` | `"9610"` | no |
+| <a name="input_polkadot_restart_enabled"></a> [polkadot\_restart\_enabled](#input\_polkadot\_restart\_enabled) | n/a | `string` | `""` | no |
 | <a name="input_project"></a> [project](#input\_project) | Name of the project for node name | `string` | `"project"` | no |
 | <a name="input_prometheus_enabled"></a> [prometheus\_enabled](#input\_prometheus\_enabled) | Bool to use when Prometheus is enabled | `bool` | `false` | no |
 | <a name="input_public_key"></a> [public\_key](#input\_public\_key) | The public ssh key | `string` | `""` | no |
 | <a name="input_public_key_path"></a> [public\_key\_path](#input\_public\_key\_path) | A path to the public key | `string` | `""` | no |
 | <a name="input_public_security_group_ports"></a> [public\_security\_group\_ports](#input\_public\_security\_group\_ports) | If create\_security\_group enabled, and no network\_settings blob is supplied, a list of ports to open. | `list(string)` | <pre>[<br>  "30333",<br>  "51820"<br>]</pre> | no |
+| <a name="input_retry_join"></a> [retry\_join](#input\_retry\_join) | n/a | `string` | `""` | no |
+| <a name="input_role_arn"></a> [role\_arn](#input\_role\_arn) | n/a | `string` | `""` | no |
 | <a name="input_root_volume_size"></a> [root\_volume\_size](#input\_root\_volume\_size) | Size in GB for root volume | `string` | `"256"` | no |
 | <a name="input_rpc_api_port"></a> [rpc\_api\_port](#input\_rpc\_api\_port) | Port number for the JSON RPC API | `string` | `"9933"` | no |
 | <a name="input_rpc_envoy_port"></a> [rpc\_envoy\_port](#input\_rpc\_envoy\_port) | Port number for the JSON RPC Envoy proxy | `string` | `"21000"` | no |
 | <a name="input_scaling_cpu_utilization"></a> [scaling\_cpu\_utilization](#input\_scaling\_cpu\_utilization) | The percent CPU utilization for scaling. | `number` | `80` | no |
 | <a name="input_security_group_cidr_blocks"></a> [security\_group\_cidr\_blocks](#input\_security\_group\_cidr\_blocks) | If create\_security\_group enabled, incoming cidr blocks. | `list(string)` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
+| <a name="input_security_group_ids"></a> [security\_group\_ids](#input\_security\_group\_ids) | n/a | `string` | `""` | no |
 | <a name="input_security_groups"></a> [security\_groups](#input\_security\_groups) | The ids of the security groups. Blank to create SG. | `list(string)` | `[]` | no |
 | <a name="input_skip_health_check"></a> [skip\_health\_check](#input\_skip\_health\_check) | Bool to skip the health check and give requests while syncing | `bool` | `false` | no |
 | <a name="input_source_of_truth_enabled"></a> [source\_of\_truth\_enabled](#input\_source\_of\_truth\_enabled) | Bool to use when SOT is enabled | `bool` | `false` | no |
 | <a name="input_spot_price"></a> [spot\_price](#input\_spot\_price) | n/a | `string` | `null` | no |
 | <a name="input_ssh_user"></a> [ssh\_user](#input\_ssh\_user) | Username for SSH | `string` | `"ubuntu"` | no |
+| <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | n/a | `string` | `""` | no |
 | <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | The ids of the subnets to deploy into | `list(string)` | `null` | no |
 | <a name="input_sync_aws_access_key_id"></a> [sync\_aws\_access\_key\_id](#input\_sync\_aws\_access\_key\_id) | AWS access key ID for SoT sync | `string` | `""` | no |
 | <a name="input_sync_aws_secret_access_key"></a> [sync\_aws\_secret\_access\_key](#input\_sync\_aws\_secret\_access\_key) | AWS access key for SoT sync | `string` | `""` | no |
@@ -271,8 +288,10 @@ module "defaults" {
 | <a name="input_sync_bucket_name"></a> [sync\_bucket\_name](#input\_sync\_bucket\_name) | S3 bucket URI for SoT sync | `string` | `""` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Tags to give resource | `map(string)` | `{}` | no |
 | <a name="input_telemetry_url"></a> [telemetry\_url](#input\_telemetry\_url) | WSS URL for telemetry | `string` | `""` | no |
+| <a name="input_this_skip_health_check"></a> [this\_skip\_health\_check](#input\_this\_skip\_health\_check) | n/a | `string` | `""` | no |
 | <a name="input_use_lb"></a> [use\_lb](#input\_use\_lb) | Bool to enable use of load balancer | `bool` | `true` | no |
-| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | vpc id | `string` | `""` | no |
+| <a name="input_use_source_of_truth"></a> [use\_source\_of\_truth](#input\_use\_source\_of\_truth) | n/a | `string` | `""` | no |
+| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | n/a | `string` | `""` | no |
 | <a name="input_wait_for_capacity_timeout"></a> [wait\_for\_capacity\_timeout](#input\_wait\_for\_capacity\_timeout) | A maximum duration that Terraform should wait for ASG instances to be healthy before timing out. (See also Waiting for Capacity below.) Setting this to '0' causes Terraform to skip all Capacity Waiting behavior. | `string` | `"10m"` | no |
 | <a name="input_wss_api_port"></a> [wss\_api\_port](#input\_wss\_api\_port) | Port number for the Websockets API | `string` | `"9944"` | no |
 | <a name="input_wss_envoy_port"></a> [wss\_envoy\_port](#input\_wss\_envoy\_port) | Port number for the Websockets Envoy proxy | `string` | `"21001"` | no |

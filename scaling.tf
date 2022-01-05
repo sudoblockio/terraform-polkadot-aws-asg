@@ -10,6 +10,12 @@ variable "scaling_cpu_utilization" {
   default     = 80
 }
 
+variable "instance_warmup_time" {
+  description = "The time in seconds the instance is estimated to require to warm up"
+  type        = number
+  default     = 9000
+}
+
 resource "aws_autoscaling_policy" "this" {
   count           = var.enable_scaling ? 1 : 0
   name            = "${local.name}-scaling"
