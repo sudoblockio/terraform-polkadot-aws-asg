@@ -99,6 +99,12 @@ variable "health_check_grace_period" {
   description = "Time (in seconds) after instance comes into service before checking health"
 }
 
+variable "boot_drive_nvme" {
+  description = "Boolean to set if instance boot drive is also nvme"
+  type        = bool
+  default     = false
+}
+
 module "user_data" {
   source         = "github.com/geometry-labs/terraform-polkadot-user-data.git"
   cloud_provider = "aws"
@@ -106,8 +112,9 @@ module "user_data" {
   #prometheus_enabled  = var.prometheus_enabled
   #prometheus_user     = var.node_exporter_user
   #prometheus_password = var.node_exporter_password
-  driver_type  = "nitro"
-  disable_ipv6 = false
+  driver_type     = "nitro"
+  disable_ipv6    = false
+  boot_drive_nvme = var.boot_drive_nvme
 }
 
 locals {

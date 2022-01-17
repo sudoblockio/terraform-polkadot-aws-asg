@@ -200,6 +200,7 @@ module "defaults" {
 | <a name="input_ami_id"></a> [ami\_id](#input\_ami\_id) | AMI ID to use in autoscaling group. Blank to build from packer. | `string` | `""` | no |
 | <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | n/a | `string` | `""` | no |
 | <a name="input_base_path"></a> [base\_path](#input\_base\_path) | Base path for Substrate | `string` | `""` | no |
+| <a name="input_boot_drive_nvme"></a> [boot\_drive\_nvme](#input\_boot\_drive\_nvme) | Boolean to set if instance boot drive is also nvme | `bool` | `false` | no |
 | <a name="input_build_security_group_id"></a> [build\_security\_group\_id](#input\_build\_security\_group\_id) | The security group to use to build image. | `string` | `""` | no |
 | <a name="input_build_subnet_id"></a> [build\_subnet\_id](#input\_build\_subnet\_id) | The subnet to build the image in.  Must be public - Omit if running cluster deployed in in public subnets. | `string` | `""` | no |
 | <a name="input_build_vpc_id"></a> [build\_vpc\_id](#input\_build\_vpc\_id) | VPC to build the image in. Must have public subnet - Omit if running cluster deployed in in public subnets. | `string` | `""` | no |
