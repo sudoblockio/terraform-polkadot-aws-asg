@@ -150,7 +150,7 @@ resource "aws_key_pair" "this" {
 
 module "asg" {
   source  = "terraform-aws-modules/autoscaling/aws"
-  version = "~> 3.8.0"
+  version = "~> 4.11.0"
 
   spot_price           = var.spot_price
   name                 = local.name

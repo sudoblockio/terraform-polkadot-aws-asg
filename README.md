@@ -149,7 +149,7 @@ module "defaults" {
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_asg"></a> [asg](#module\_asg) | terraform-aws-modules/autoscaling/aws | ~> 3.8.0 |
+| <a name="module_asg"></a> [asg](#module\_asg) | terraform-aws-modules/autoscaling/aws | ~> 4.11.0 |
 | <a name="module_packer"></a> [packer](#module\_packer) | github.com/geometry-labs/terraform-packer-build.git | v0.1.0 |
 | <a name="module_user_data"></a> [user\_data](#module\_user\_data) | github.com/geometry-labs/terraform-polkadot-user-data.git | n/a |
 
