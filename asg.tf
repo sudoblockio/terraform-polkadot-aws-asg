@@ -158,7 +158,7 @@ module "asg" {
   create_lt                 = true
   lt_name                   = var.lt_name == "" ? var.name : var.lt_name
   update_default_version    = true
-  user_data                 = module.user_data.user_data
+  user_data_base64          = base64encode(module.user_data.user_data)
   key_name                  = var.key_name == "" ? join("", aws_key_pair.this.*.key_name) : var.key_name
   image_id                  = var.ami_id == "" ? data.aws_ami.packer.id : var.ami_id
   instance_type             = var.instance_type
