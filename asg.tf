@@ -31,6 +31,29 @@ variable "iam_instance_profile" {
   default     = ""
 }
 
+variable "use_mixed_instances_policy" {
+  description = "Boolean to set if using mixed instance policy"
+  type        = bool
+  default     = false
+}
+
+variable "mixed_instances_on_demand_base_capacity" {
+  description = "Number of on demand instances to reserve for base capacity"
+  type        = number
+  default     = 0
+}
+
+variable "mixed_instances_on_demand_percentage_above_base_capacity" {
+  description = "Percentage of on demand instances allowable above base capacity"
+  type        = number
+  default     = 0
+}
+
+variable "spot_price" {
+  type    = string
+  default = null
+}
+
 ##########
 # Instance
 ##########
@@ -88,11 +111,6 @@ variable "ami_id" {
   default     = ""
 }
 
-variable "spot_price" {
-  type    = string
-  default = null
-}
-
 variable "health_check_grace_period" {
   type        = number
   default     = 60
@@ -103,24 +121,6 @@ variable "boot_drive_nvme" {
   description = "Boolean to set if instance boot drive is also nvme"
   type        = bool
   default     = false
-}
-
-variable "use_mixed_instances_policy" {
-  description = "Boolean to set if using mixed instance policy"
-  type        = bool
-  default     = false
-}
-
-variable "mixed_instances_on_demand_base_capacity" {
-  description = "Number of on demand instances to reserve for base capacity"
-  type        = number
-  default     = 0
-}
-
-variable "mixed_instances_on_demand_percentage_above_base_capacity" {
-  description = "Percentage of on demand instances allowable above base capacity"
-  type        = number
-  default     = 0
 }
 
 module "user_data" {
@@ -152,15 +152,15 @@ module "asg" {
   source  = "terraform-aws-modules/autoscaling/aws"
   version = "~> 4.11.0"
 
-  spot_price           = var.spot_price
-  name                 = local.name
-  lc_name              = var.lc_name == "" ? local.name : var.lc_name
-  user_data            = module.user_data.user_data
-  key_name             = var.key_name == "" ? join("", aws_key_pair.this.*.key_name) : var.key_name
-  image_id             = var.ami_id == "" ? data.aws_ami.packer.id : var.ami_id
-  instance_type        = var.instance_type
-  security_groups      = var.create_security_group ? concat(var.security_groups, aws_security_group.this.*.id) : var.security_groups
-  iam_instance_profile = var.iam_instance_profile == "" ? join("", aws_iam_instance_profile.this.*.name) : var.iam_instance_profile
+  spot_price                = var.spot_price
+  name                      = local.name
+  lc_name                   = var.lc_name == "" ? local.name : var.lc_name
+  user_data                 = module.user_data.user_data
+  key_name                  = var.key_name == "" ? join("", aws_key_pair.this.*.key_name) : var.key_name
+  image_id                  = var.ami_id == "" ? data.aws_ami.packer.id : var.ami_id
+  instance_type             = var.instance_type
+  security_groups           = var.create_security_group ? concat(var.security_groups, aws_security_group.this.*.id) : var.security_groups
+  iam_instance_profile_name = var.iam_instance_profile == "" ? join("", aws_iam_instance_profile.this.*.name) : var.iam_instance_profile
 
   root_block_device = [
     {
