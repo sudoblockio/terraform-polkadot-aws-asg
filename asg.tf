@@ -154,10 +154,10 @@ module "asg" {
 
   spot_price                = var.spot_price
   name                      = local.name
-  launch_configuration      = var.lc_name == "" ? null : var.lc_name
-  lc_name                   = var.lc_name == "" ? var.name : null
-  create_lc                 = var.lc_name == ""
-  use_lc                    = true
+  use_lt                    = true
+  create_lt                 = true
+  lt_name                   = var.lt_name == "" ? var.name : var.lt_name
+  update_default_version    = true
   user_data                 = module.user_data.user_data
   key_name                  = var.key_name == "" ? join("", aws_key_pair.this.*.key_name) : var.key_name
   image_id                  = var.ami_id == "" ? data.aws_ami.packer.id : var.ami_id
@@ -189,11 +189,6 @@ module "asg" {
       spot_allocation_strategy                 = "capacity-optimized"
     }
   }
-
-  create_lt              = true
-  use_lt                 = true
-  lt_name                = var.name
-  update_default_version = true
 
   target_group_arns = concat(values(aws_lb_target_group.rpc)[*].arn, values(aws_lb_target_group.wss)[*].arn, values(aws_lb_target_group.ext-health)[*].arn)
   tags_as_map       = merge(var.tags, { Name = var.name })

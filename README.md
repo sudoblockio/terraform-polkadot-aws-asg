@@ -236,8 +236,8 @@ module "defaults" {
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | n/a | `string` | `""` | no |
 | <a name="input_instance_warmup_time"></a> [instance\_warmup\_time](#input\_instance\_warmup\_time) | The time in seconds the instance is estimated to require to warm up | `number` | `9000` | no |
 | <a name="input_key_name"></a> [key\_name](#input\_key\_name) | The name of the preexisting key to be used instead of the local public\_key\_path | `string` | `""` | no |
-| <a name="input_lc_name"></a> [lc\_name](#input\_lc\_name) | The name to give the launch configuration - defaults to 'name' | `string` | `""` | no |
 | <a name="input_logging_filter"></a> [logging\_filter](#input\_logging\_filter) | String for polkadot logging filter | `string` | `"sync=trace,afg=trace,babe=debug"` | no |
+| <a name="input_lt_name"></a> [lt\_name](#input\_lt\_name) | The name to give the launch template - defaults to 'name' | `string` | `""` | no |
 | <a name="input_max_size"></a> [max\_size](#input\_max\_size) | The max size of asg | `string` | `1` | no |
 | <a name="input_min_size"></a> [min\_size](#input\_min\_size) | The min size of asg | `string` | `1` | no |
 | <a name="input_mixed_instances_on_demand_base_capacity"></a> [mixed\_instances\_on\_demand\_base\_capacity](#input\_mixed\_instances\_on\_demand\_base\_capacity) | Number of on demand instances to reserve for base capacity | `number` | `0` | no |

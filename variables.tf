@@ -8,8 +8,8 @@ variable "name" {
   default     = ""
 }
 
-variable "lc_name" {
-  description = "The name to give the launch configuration - defaults to 'name'"
+variable "lt_name" {
+  description = "The name to give the launch template - defaults to 'name'"
   type        = string
   default     = ""
 }
