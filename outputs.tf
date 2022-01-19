@@ -15,15 +15,15 @@ output "user_data" {
 }
 
 output "autoscaling_group_arn" {
-  value = module.asg.this_autoscaling_group_arn
+  value = module.asg.autoscaling_group_arn
 }
 
 output "autoscaling_group_id" {
-  value = module.asg.this_autoscaling_group_id
+  value = module.asg.autoscaling_group_id
 }
 
 output "autoscaling_group_name" {
-  value = module.asg.this_autoscaling_group_name
+  value = module.asg.autoscaling_group_name
 }
 
 output "public_ips" {

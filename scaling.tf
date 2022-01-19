@@ -30,5 +30,5 @@ resource "aws_autoscaling_policy" "this" {
     target_value = var.scaling_cpu_utilization
   }
 
-  autoscaling_group_name = module.asg.this_autoscaling_group_name
+  autoscaling_group_name = module.asg.autoscaling_group_name
 }
