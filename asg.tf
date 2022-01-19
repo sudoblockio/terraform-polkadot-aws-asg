@@ -154,7 +154,8 @@ module "asg" {
 
   spot_price                = var.spot_price
   name                      = local.name
-  launch_configuration      = var.lc_name == "" ? local.name : var.lc_name
+  launch_configuration      = var.lc_name == "" ? null : var.lc_name
+  lc_name                   = var.lc_name == "" ? var.name : null
   create_lc                 = var.lc_name == ""
   use_lc                    = true
   user_data                 = module.user_data.user_data
@@ -191,6 +192,7 @@ module "asg" {
 
   create_lt              = true
   use_lt                 = true
+  lt_name                = var.name
   update_default_version = true
 
   target_group_arns = concat(values(aws_lb_target_group.rpc)[*].arn, values(aws_lb_target_group.wss)[*].arn, values(aws_lb_target_group.ext-health)[*].arn)
