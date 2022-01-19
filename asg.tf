@@ -152,9 +152,9 @@ module "asg" {
   source  = "terraform-aws-modules/autoscaling/aws"
   version = "~> 4.11.0"
 
-  spot_price                = var.spot_price
-  name                      = local.name
-  use_lt                    = true
+  spot_price = var.spot_price
+  name       = local.name
+  //  use_lt                    = true
   create_lt                 = true
   lt_name                   = var.lt_name == "" ? var.name : var.lt_name
   update_default_version    = true
