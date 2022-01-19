@@ -187,6 +187,9 @@ module "asg" {
     }
   }
 
+  create_lt              = true
+  update_default_version = true
+
   target_group_arns = concat(values(aws_lb_target_group.rpc)[*].arn, values(aws_lb_target_group.wss)[*].arn, values(aws_lb_target_group.ext-health)[*].arn)
   tags_as_map       = merge(var.tags, { Name = var.name })
 }
