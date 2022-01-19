@@ -105,6 +105,24 @@ variable "boot_drive_nvme" {
   default     = false
 }
 
+variable "use_mixed_instances_policy" {
+  description = "Boolean to set if using mixed instance policy"
+  type        = bool
+  default     = false
+}
+
+variable "mixed_instances_on_demand_base_capacity" {
+  description = "Number of on demand instances to reserve for base capacity"
+  type        = number
+  default     = 0
+}
+
+variable "mixed_instances_on_demand_percentage_above_base_capacity" {
+  description = "Percentage of on demand instances allowable above base capacity"
+  type        = number
+  default     = 0
+}
+
 module "user_data" {
   source         = "github.com/geometry-labs/terraform-polkadot-user-data.git"
   cloud_provider = "aws"
@@ -159,6 +177,15 @@ module "asg" {
   max_size                  = var.max_size
   desired_capacity          = var.desired_capacity
   wait_for_capacity_timeout = var.wait_for_capacity_timeout
+
+  use_mixed_instances_policy = var.use_mixed_instances_policy
+  mixed_instances_policy = {
+    instances_distribution = {
+      on_demand_base_capacity                  = var.mixed_instances_on_demand_base_capacity
+      on_demand_percentage_above_base_capacity = var.mixed_instances_on_demand_percentage_above_base_capacity
+      spot_allocation_strategy                 = "capacity-optimized"
+    }
+  }
 
   target_group_arns = concat(values(aws_lb_target_group.rpc)[*].arn, values(aws_lb_target_group.wss)[*].arn, values(aws_lb_target_group.ext-health)[*].arn)
   tags_as_map       = merge(var.tags, { Name = var.name })

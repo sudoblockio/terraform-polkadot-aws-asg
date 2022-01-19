@@ -240,6 +240,8 @@ module "defaults" {
 | <a name="input_logging_filter"></a> [logging\_filter](#input\_logging\_filter) | String for polkadot logging filter | `string` | `"sync=trace,afg=trace,babe=debug"` | no |
 | <a name="input_max_size"></a> [max\_size](#input\_max\_size) | The max size of asg | `string` | `1` | no |
 | <a name="input_min_size"></a> [min\_size](#input\_min\_size) | The min size of asg | `string` | `1` | no |
+| <a name="input_mixed_instances_on_demand_base_capacity"></a> [mixed\_instances\_on\_demand\_base\_capacity](#input\_mixed\_instances\_on\_demand\_base\_capacity) | Number of on demand instances to reserve for base capacity | `number` | `0` | no |
+| <a name="input_mixed_instances_on_demand_percentage_above_base_capacity"></a> [mixed\_instances\_on\_demand\_percentage\_above\_base\_capacity](#input\_mixed\_instances\_on\_demand\_percentage\_above\_base\_capacity) | Percentage of on demand instances allowable above base capacity | `number` | `0` | no |
 | <a name="input_module_path"></a> [module\_path](#input\_module\_path) | n/a | `string` | `""` | no |
 | <a name="input_name"></a> [name](#input\_name) | The name to give the ASG and associated resources | `string` | `""` | no |
 | <a name="input_network_name"></a> [network\_name](#input\_network\_name) | Which Polkadot chain to join | `string` | `"kusama"` | no |
@@ -291,6 +293,7 @@ module "defaults" {
 | <a name="input_telemetry_url"></a> [telemetry\_url](#input\_telemetry\_url) | WSS URL for telemetry | `string` | `""` | no |
 | <a name="input_this_skip_health_check"></a> [this\_skip\_health\_check](#input\_this\_skip\_health\_check) | n/a | `string` | `""` | no |
 | <a name="input_use_lb"></a> [use\_lb](#input\_use\_lb) | Bool to enable use of load balancer | `bool` | `true` | no |
+| <a name="input_use_mixed_instances_policy"></a> [use\_mixed\_instances\_policy](#input\_use\_mixed\_instances\_policy) | Boolean to set if using mixed instance policy | `bool` | `false` | no |
 | <a name="input_use_source_of_truth"></a> [use\_source\_of\_truth](#input\_use\_source\_of\_truth) | n/a | `string` | `""` | no |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | n/a | `string` | `""` | no |
 | <a name="input_wait_for_capacity_timeout"></a> [wait\_for\_capacity\_timeout](#input\_wait\_for\_capacity\_timeout) | A maximum duration that Terraform should wait for ASG instances to be healthy before timing out. (See also Waiting for Capacity below.) Setting this to '0' causes Terraform to skip all Capacity Waiting behavior. | `string` | `"10m"` | no |
