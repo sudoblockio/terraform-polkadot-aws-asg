@@ -155,7 +155,7 @@ module "asg" {
   spot_price                = var.spot_price
   name                      = local.name
   use_lt                    = true
-  create_lt                 = true
+  create_lt                 = var.use_mixed_instances_policy
   lt_name                   = var.lt_name == "" ? var.name : var.lt_name
   update_default_version    = true
   user_data_base64          = base64encode(module.user_data.user_data)
@@ -182,13 +182,13 @@ module "asg" {
   wait_for_capacity_timeout = var.wait_for_capacity_timeout
 
   use_mixed_instances_policy = var.use_mixed_instances_policy
-  mixed_instances_policy = {
+  mixed_instances_policy = var.use_mixed_instances_policy ? {
     instances_distribution = {
       on_demand_base_capacity                  = var.mixed_instances_on_demand_base_capacity
       on_demand_percentage_above_base_capacity = var.mixed_instances_on_demand_percentage_above_base_capacity
       spot_allocation_strategy                 = "capacity-optimized"
     }
-  }
+  } : null
 
   target_group_arns = concat(values(aws_lb_target_group.rpc)[*].arn, values(aws_lb_target_group.wss)[*].arn, values(aws_lb_target_group.ext-health)[*].arn)
   tags_as_map       = merge(var.tags, { Name = var.name })
