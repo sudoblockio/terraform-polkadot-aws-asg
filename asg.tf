@@ -154,7 +154,7 @@ module "asg" {
 
   spot_price = var.spot_price
   name       = local.name
-  //  use_lt                    = true
+  use_lt                    = var.use_mixed_instances_policy ? false : true
   create_lt                 = true
   lt_name                   = var.lt_name == "" ? var.name : var.lt_name
   update_default_version    = true
