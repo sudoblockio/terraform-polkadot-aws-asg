@@ -95,13 +95,13 @@ variable "node_exporter_hash" {
 variable "polkadot_client_url" {
   description = "URL to Polkadot client binary"
   type        = string
-  default     = "https://github.com/paritytech/polkadot/releases/download/v0.8.29/polkadot"
+  default     = "https://github.com/paritytech/polkadot/releases/download/v0.9.16/polkadot"
 }
 
 variable "polkadot_client_hash" {
   description = "SHA256 hash of Polkadot client binary"
   type        = string
-  default     = "0b27d0cb99ca60c08c78102a9d2f513d89dfec8dbd6fdeba8b952a420cdc9fd2"
+  default     = "cc3bb44e3edc482111fc04b1426b7e2428e8c4b65cf1423c9d892ba97b6f7915"
 }
 
 variable "project" {

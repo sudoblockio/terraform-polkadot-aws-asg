@@ -152,8 +152,8 @@ module "asg" {
   source  = "terraform-aws-modules/autoscaling/aws"
   version = "~> 4.11.0"
 
-  spot_price = var.spot_price
-  name       = local.name
+  spot_price                = var.spot_price
+  name                      = local.name
   use_lt                    = var.use_mixed_instances_policy ? false : true
   create_lt                 = true
   lt_name                   = var.lt_name == "" ? var.name : var.lt_name

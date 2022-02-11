@@ -260,8 +260,8 @@ module "defaults" {
 | <a name="input_polkadot_additional_validator_flags"></a> [polkadot\_additional\_validator\_flags](#input\_polkadot\_additional\_validator\_flags) | Additonal common flags for validator | `string` | `""` | no |
 | <a name="input_polkadot_binary_checksum"></a> [polkadot\_binary\_checksum](#input\_polkadot\_binary\_checksum) | n/a | `string` | `""` | no |
 | <a name="input_polkadot_binary_url"></a> [polkadot\_binary\_url](#input\_polkadot\_binary\_url) | n/a | `string` | `""` | no |
-| <a name="input_polkadot_client_hash"></a> [polkadot\_client\_hash](#input\_polkadot\_client\_hash) | SHA256 hash of Polkadot client binary | `string` | `"0b27d0cb99ca60c08c78102a9d2f513d89dfec8dbd6fdeba8b952a420cdc9fd2"` | no |
-| <a name="input_polkadot_client_url"></a> [polkadot\_client\_url](#input\_polkadot\_client\_url) | URL to Polkadot client binary | `string` | `"https://github.com/paritytech/polkadot/releases/download/v0.8.29/polkadot"` | no |
+| <a name="input_polkadot_client_hash"></a> [polkadot\_client\_hash](#input\_polkadot\_client\_hash) | SHA256 hash of Polkadot client binary | `string` | `"cc3bb44e3edc482111fc04b1426b7e2428e8c4b65cf1423c9d892ba97b6f7915"` | no |
+| <a name="input_polkadot_client_url"></a> [polkadot\_client\_url](#input\_polkadot\_client\_url) | URL to Polkadot client binary | `string` | `"https://github.com/paritytech/polkadot/releases/download/v0.9.16/polkadot"` | no |
 | <a name="input_polkadot_prometheus_port"></a> [polkadot\_prometheus\_port](#input\_polkadot\_prometheus\_port) | Port number for the Prometheus Metrics exporter built into the Polkadot client | `string` | `"9610"` | no |
 | <a name="input_polkadot_restart_enabled"></a> [polkadot\_restart\_enabled](#input\_polkadot\_restart\_enabled) | n/a | `string` | `""` | no |
 | <a name="input_project"></a> [project](#input\_project) | Name of the project for node name | `string` | `"project"` | no |
