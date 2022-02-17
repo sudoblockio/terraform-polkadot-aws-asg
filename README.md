@@ -233,6 +233,7 @@ module "defaults" {
 | <a name="input_iam_instance_profile"></a> [iam\_instance\_profile](#input\_iam\_instance\_profile) | The instance profile to associate with the asg - leasve blank to create one regionally scoped. | `string` | `""` | no |
 | <a name="input_id"></a> [id](#input\_id) | The id to give the ami | `string` | `""` | no |
 | <a name="input_instance_count"></a> [instance\_count](#input\_instance\_count) | n/a | `string` | `""` | no |
+| <a name="input_instance_storage_driver_type"></a> [instance\_storage\_driver\_type](#input\_instance\_storage\_driver\_type) | Type of instance storage (i.e. standard, nitro, raid). | `string` | `"nitro"` | no |
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | n/a | `string` | `""` | no |
 | <a name="input_instance_warmup_time"></a> [instance\_warmup\_time](#input\_instance\_warmup\_time) | The time in seconds the instance is estimated to require to warm up | `number` | `9000` | no |
 | <a name="input_key_name"></a> [key\_name](#input\_key\_name) | The name of the preexisting key to be used instead of the local public\_key\_path | `string` | `""` | no |

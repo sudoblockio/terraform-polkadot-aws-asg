@@ -123,6 +123,12 @@ variable "boot_drive_nvme" {
   default     = false
 }
 
+variable "instance_storage_driver_type" {
+  description = "Type of instance storage (i.e. standard, nitro, raid)."
+  type        = string
+  default     = "nitro"
+}
+
 module "user_data" {
   source         = "github.com/geometry-labs/terraform-polkadot-user-data.git"
   cloud_provider = "aws"
@@ -130,7 +136,7 @@ module "user_data" {
   #prometheus_enabled  = var.prometheus_enabled
   #prometheus_user     = var.node_exporter_user
   #prometheus_password = var.node_exporter_password
-  driver_type     = "nitro"
+  driver_type     = var.instance_storage_driver_type
   disable_ipv6    = false
   boot_drive_nvme = var.boot_drive_nvme
 }
